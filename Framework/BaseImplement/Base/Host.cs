@@ -51,9 +51,11 @@ namespace HakeQuick.Implementation.Base
             try
             {
                 OnRun();
+                // 右下角系统通知
                 tray.SendNotification(2000, "HakeQuick", "HakeQuick正在运行", ToolTipIcon.Info);
                 terminationNotifier.TerminationNotified += OnTerminationNotified;
                 hotkey.KeyPressed += OnHotKeyPressed;
+                // 将热键绑定到应用程序
                 hotkey.BindKey();
                 Application.Run();
             }
@@ -68,6 +70,11 @@ namespace HakeQuick.Implementation.Base
             OnExit();
         }
 
+        /// <summary>
+        /// 全局热键事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="hotkeyid"></param>
         private void OnHotKeyPressed(IHotKey sender, int hotkeyid)
         {
             if (window.IsVisible)
@@ -86,15 +93,37 @@ namespace HakeQuick.Implementation.Base
             OnExit();
         }
 
+        /// <summary>
+        /// 初始化时来这运行一下
+        /// </summary>
         private void OnRun()
         {
             window.SetActions(actions);
+            // 注册事件
             window.VisibleChanged += OnWindowVisibleChanged;
             window.TextChanged += OnWindowTextChanged;
             window.ExecutionRequested += OnWindowExecutionRequested;
+            window.SetKeyDown(new System.Windows.Input.KeyEventHandler(MyWindow_KeyDown));
             window.HideWindow();
         }
-
+        /// <summary>
+        /// 添加窗口键盘事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MyWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Escape)
+            {
+                // 处理 Esc 快捷键的逻辑代码
+                window.HideWindow();
+            }
+        }
+        /// <summary>
+        /// 当窗口的可见状态发生变化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnWindowVisibleChanged(object sender, EventArgs e)
         {
             if (window.IsVisible)
@@ -110,7 +139,11 @@ namespace HakeQuick.Implementation.Base
                 pool.LeaveScope();
             }
         }
-
+        /// <summary>
+        /// 开始执行item项
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnWindowExecutionRequested(object sender, ExecutionRequestedEventArgs e)
         {
             ActionBase action = e.Action;
@@ -139,6 +172,11 @@ namespace HakeQuick.Implementation.Base
             }
         }
 
+        /// <summary>
+        /// 当编辑框 文本更改时
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnWindowTextChanged(object sender, TextUpdatedEventArgs e)
         {
             SynchronizationContext syncContext = SynchronizationContext.Current;

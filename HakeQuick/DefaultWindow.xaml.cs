@@ -132,31 +132,55 @@ namespace HakeQuick
             m_actions = actions;
         }
 
+        /// <summary>
+        /// 弹出主窗口，并调整布局、位置
+        /// </summary>
+        /// <param name="context"></param>
         public void ShowWindow(IProgramContext context)
         {
             if (IsVisible == true)
                 return;
+            // 获取所有屏幕信息
             System.Windows.Forms.Screen[] screens = System.Windows.Forms.Screen.AllScreens;
-            List<uint> dpis = ScreenHelpers.GetScreenDpis(screens);
-            RECT position = context.WindowPosition;
-            double ttop = position.Top + 50;
-            double windowWidth = ActualWidth;
-            if (windowWidth <= 0)
-                windowWidth = Width;
-            uint scale = dpis[0] / 96;
-            windowWidth *= scale;
-            double halfwidthdiff = ((position.Right - position.Left) - windowWidth) / 2;
-            double tleft = position.Left + halfwidthdiff;
-            if (tleft < 0 && tleft + windowWidth > 0)
-                tleft = -(windowWidth + 50);
-
-            if (ttop < 50)
-                ttop = 50;
-            Left = tleft / scale;
-            Top = ttop / scale;
+            
+            if (true)
+            {
+                // 固定屏幕中间
+                Left = (screens[0].Bounds.Width / 2 - Width /2);
+                Top = (screens[0].Bounds.Height * 0.25);
+            }
+            else
+            {
+                // 获取每个屏幕的DPI 值
+                List<uint> dpis = ScreenHelpers.GetScreenDpis(screens);
+                // 传入对象的窗口位置信息
+                RECT position = context.WindowPosition;
+                //double ttop = position.Top + 50;
+                // 根据窗口位置，再往下100
+                double ttop = position.Top + 200;
+                double windowWidth = ActualWidth;
+                if (windowWidth <= 0)
+                    windowWidth = Width;
+                // 计算缩放比例 
+                uint scale = dpis[0] / 96;
+                windowWidth *= scale;
+                double halfwidthdiff = ((position.Right - position.Left) - windowWidth) / 2;
+                double tleft = position.Left + halfwidthdiff;
+                if (tleft < 0 && tleft + windowWidth > 0)
+                    tleft = -(windowWidth + 50);
+                if (ttop < 200)
+                    ttop = 200;
+                // 得到缩放后的位置
+                Left = tleft / scale;
+                Top = ttop / scale;
+            }
+            // 显示窗口
             Show();
+            // 激活窗口
             Activate();
+            // 使聚焦输入框
             textbox_input.Focus();
+            // 置顶显示
             SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, 3);
         }
 
@@ -239,6 +263,13 @@ namespace HakeQuick
         {
             list_actions.SelectedIndex = -1;
             MoveToNextAction();
+        }
+
+
+        public void SetKeyDown(System.Windows.Input.KeyEventHandler keyEventHandler)
+        {
+            this.KeyDown += keyEventHandler;
+            //throw new NotImplementedException();
         }
     }
 }

@@ -4,6 +4,7 @@ using HakeQuick.Abstraction.Plugin;
 using HakeQuick.Abstraction.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -11,11 +12,13 @@ using System.Threading.Tasks;
 
 namespace RunnerPlugin
 {
+    /*
     internal static class WinAPI
     {
     }
     public sealed class RunnerPlugin : QuickPlugin
     {
+        private int runnerTimes = 0;
         private RunnerAction runner = new RunnerAction();
 
         public RunnerPlugin(ILoggerFactory loggerFactory)
@@ -48,5 +51,6 @@ namespace RunnerPlugin
             }
             return new ActionUpdateResult(runner, ActionPriority.High);
         }
-    }
+}
+    */
 }
