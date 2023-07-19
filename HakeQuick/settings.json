@@ -1,0 +1,13 @@
+﻿{
+  // path to config directory
+  "config": "D:\\Program Files\\HakeQuick\\configs",
+  "log": "D:\\Program Files\\HakeQuick\\logs",
+  "hotkey": {
+    "key": "Q",
+
+    // Value: Alt, Control, Shift, Win
+    // KeyFlags can be combined using char '+'
+    // Alt+Control, for example
+    "flags": "Control"
+  }
+}

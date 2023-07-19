@@ -1,0 +1,21 @@
+; visual studio configuration files
+\.vs
+
+; vscode configuration files
+\.vscode
+
+; build files
+*\bin
+*\obj
+
+; test results
+\TestResults
+TestResults/
+
+
+; dotnet core packages
+\packages
+
+; build result
+\build
+

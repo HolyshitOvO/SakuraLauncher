@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{00835387-4F09-43B9-BFE0-68823A15F29B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HakeQuick.Implementation</RootNamespace>
+    <AssemblyName>BaseImplement</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\build\x64\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>..\..\build\x64\release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Hake.Extension.DependencyInjection, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Hake.Extension.DependencyInjection.1.0.0\lib\net452\Hake.Extension.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Hake.Extension.Pipeline, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Hake.Extension.Pipeline.1.0.0\lib\net452\Hake.Extension.Pipeline.dll</HintPath>
+    </Reference>
+    <Reference Include="Hake.Extension.ValueRecord, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Hake.Extension.ValueRecord.1.0.0\lib\net452\Hake.Extension.ValueRecord.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\AppBuilder.cs" />
+    <Compile Include="Base\Command.cs" />
+    <Compile Include="Base\Host.cs" />
+    <Compile Include="Base\HostBuilder.cs" />
+    <Compile Include="Base\InternalInterfaces\IInternalCancellationProvider.cs" />
+    <Compile Include="Base\InternalInterfaces\IInternalContext.cs" />
+    <Compile Include="Base\LoggerMatchService.cs" />
+    <Compile Include="Base\QuickContext.cs" />
+    <Compile Include="Components\ErrorBlocker\ErrorBlocker.cs" />
+    <Compile Include="Components\ErrorBlocker\ErrorBlockerExtensions.cs" />
+    <Compile Include="Components\PluginLoader\IPluginProvider.cs" />
+    <Compile Include="Components\PluginLoader\PluginLoader.cs" />
+    <Compile Include="Components\PluginLoader\PluginLoaderExtensions.cs" />
+    <Compile Include="Components\PluginLoader\PluginProvider.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\ConfigurationBuilder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CancellationProvider\CancellationProvider.cs" />
+    <Compile Include="Services\CurrentEnvironment\CurrentEnvironment.cs" />
+    <Compile Include="Services\CurrentEnvironment\CurrentEnvironmentExtensions.cs" />
+    <Compile Include="Services\HotKey\HotKey.cs" />
+    <Compile Include="Services\HotKey\HotKeyBuilder.cs" />
+    <Compile Include="Services\HotKey\HotKeyExtensions.cs" />
+    <Compile Include="Services\HotKey\IHotKey.cs" />
+    <Compile Include="Services\HotKey\IHotKeyBuilder.cs" />
+    <Compile Include="Services\Logger\FileLogger.cs" />
+    <Compile Include="Services\Logger\Logger.cs" />
+    <Compile Include="Services\Logger\LoggerFactory.cs" />
+    <Compile Include="Services\ProgramContext\IProgramContextFactory.cs" />
+    <Compile Include="Services\ProgramContext\ProgramContext.cs" />
+    <Compile Include="Services\TerminationNotifier\ITerminationNotifier.cs" />
+    <Compile Include="Services\TerminationNotifier\TerminationNotifier.cs" />
+    <Compile Include="Services\Tray\ITray.cs" />
+    <Compile Include="Services\Tray\ITrayBuilder.cs" />
+    <Compile Include="Services\Tray\Tray.cs" />
+    <Compile Include="Services\Window\IQuickWindow.cs" />
+    <Compile Include="Services\Window\QuickWindowExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Abstraction\Abstraction.csproj">
+      <Project>{74f1b85e-0d29-4642-999e-187930f177de}</Project>
+      <Name>Abstraction</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Helpers\Helpers.csproj">
+      <Project>{a763570a-c121-4b9e-b240-490300a03244}</Project>
+      <Name>Helpers</Name>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\run.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
