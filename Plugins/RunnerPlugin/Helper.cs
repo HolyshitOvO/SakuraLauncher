@@ -11,6 +11,13 @@ namespace RunnerPlugin
 {
     internal static class Helper
     {
+        /// <summary>
+        /// 获取当前程序的工作目录
+        /// 或者如果程序不是资源管理器（Windows Explorer）进程，则返回默认目录。
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="defaultDirectory"></param>
+        /// <returns></returns>
         public static string CurrentWorkingDirectoryOrDefault(IProgramContext context, string defaultDirectory = "C:\\Windows\\System32")
         {
             if (context.CurrentProcess.ProcessName != "explorer")

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace HakeQuick.Abstraction.Base
 {
+    /// <summary>
+    /// Use 允许函数方式编写中间件。
+    /// UseComponent 允许类方式编写中间件组件。
+    /// </summary>
     public static class AppBuilderExtensions
     {
         public static IAppBuilder Use(this IAppBuilder app, Func<IQuickContext, Func<Task>, Task> component)

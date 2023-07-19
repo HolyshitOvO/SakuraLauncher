@@ -3,5 +3,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <StartWorkingDirectory>
     </StartWorkingDirectory>
+    <StartAction>Project</StartAction>
+    <StartProgram>D:\GitHub\HakeQuick\build\x64\debug\HakeQuick.exe</StartProgram>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ProjectView>ShowAllFiles</ProjectView>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <StartProgram>D:\GitHub\HakeQuick\build\x64\debug\HakeQuick.exe</StartProgram>
   </PropertyGroup>
 </Project>

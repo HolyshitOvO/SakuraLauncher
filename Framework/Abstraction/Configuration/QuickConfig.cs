@@ -5,6 +5,12 @@ using System.Windows.Input;
 
 namespace HakeQuick.Abstraction.Base
 {
+    /// <summary>
+    /// 加载快捷键配置
+    /// 从配置文件中按照key加载属性的值
+    /// 如果没有找到key,根据MissingAction采取默认值或创建实例
+    /// 这样可以非常方便的从配置中初始化一个对象
+    /// </summary>
     public sealed class HotkeyConfig
     {
         [MapProperty("key", MissingAction.GivenValue, "Q")]

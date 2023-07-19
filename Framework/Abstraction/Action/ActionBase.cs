@@ -18,13 +18,18 @@ namespace HakeQuick.Abstraction.Action
 
     public abstract class ActionBase : ViewModelBase
     {
+        /// <summary>
+        /// 图标
+        /// </summary>
         private BitmapImage _icon;
         public BitmapImage Icon
         {
             get { return _icon; }
             protected set { _icon = value; NotifyPropertyChanged(nameof(Icon)); }
         }
-
+        /// <summary>
+        /// 标题
+        /// </summary>
         private string _title;
         public string Title
         {
@@ -32,6 +37,9 @@ namespace HakeQuick.Abstraction.Action
             protected set { _title = value; NotifyPropertyChanged(nameof(Title)); }
         }
 
+        /// <summary>
+        /// 副标题
+        /// </summary>
         private string _subtitle;
         public string Subtitle
         {
@@ -39,6 +47,9 @@ namespace HakeQuick.Abstraction.Action
             protected set { _subtitle = value; NotifyPropertyChanged(nameof(Subtitle)); }
         }
 
+        /// <summary>
+        /// 可执行文件
+        /// </summary>
         private bool _executable;
         public bool IsExecutable
         {
