@@ -1,45 +1,44 @@
-# Hake Quick
+# Sakura 启动器
 
-## What's new:
-2017/7/3.1
-- now log file is not always occupied and is able to be read.
-- log buffer is changed from 5 to 1, log to file IMMEDIATELY!
-- arguments are supported in runner configuration file.
-```JSON
-{
-    "command": "network and sharing center",
-    "path": "control.exe",
-    "icon": "network.png",
-    "args": ["/name", "Microsoft.NetworkAndSharingCenter"],
-    "workingdir": "C:\\Windows\\System32"
-}
-```
+## 更新内容：
 
-2017/6/27.1
-- `ILoggerFactory` and `ILogger` are added to built-in services, plugins can output logs.
+<br>
 
-2017/6/26.1
-- now you can set default working directory to shortcuts.
-- you can set option `admin` to `true` in runner configuration file to run programs in administrator privilege.
+2023-07-19
 
-## Introduction
-A tool adding context menu to program window.
+- 
+- 去掉书签插件
+- 修改查找条目逻辑
+- 添加小鹤双拼支持
+- 添加索引文件夹
+- 添加显示文件图标
+- 微调界面
 
-Currently supported feature:
-- Shortcuts
-- chrome bookmarks search
+
+2023-07-15
+
+- 复刻 [HakeQuick](https://github.com/lzl1918/HakeQuick) 项目
+
+## 介绍
+Windows 启动类工具
+
+只做一个功能，启动快捷方式
+
+目标：使用便捷、简单美观、轻便小巧
+
+感谢作者[lzl1918](https://github.com/lzl1918)，基于项目[HakeQuick](https://github.com/lzl1918/HakeQuick)
 
 ![demo](https://raw.githubusercontent.com/lzl1918/HakeQuick/master/docs/sample.gif)
 
 ## How to build
-1. Clone current repository, as well as submodules.
-```
-git clone https://github.com/lzl1918/HakeQuick
-git submodule update --init --recursive
-```
-2. Open solution in visual studio, and select `Build`
+1. 克隆当前存储库
 
-3. Build results can be located in directory `build`
+2. 在 Visual Studio 中打开解决方案，然后选择 Build
+> 需要 .net 4.8
 
-## How to contribute/build your own
+> Visual Studio 2022
+
+3. 构建结果可以位于目录 build 中
+
+## 如何贡献/构建自己的
 [Program Guides](https://github.com/lzl1918/HakeQuick/tree/master/docs/index.md)

@@ -25,6 +25,10 @@ namespace HakeQuick.Implementation.Base
         }
     }
 
+    /// <summary>
+    /// 解析命令行输入字符串的函数，将输入的字符串解析为命令标识符、命令动作、命令参数等信息
+    /// 并将这些信息存储在对象的属性中。
+    /// </summary>
 #if TEST
     public
 #else

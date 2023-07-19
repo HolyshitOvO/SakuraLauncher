@@ -92,5 +92,14 @@ namespace UnitTest
             Assert.AreEqual("action act", command.UnnamedArguments[0]);
             Assert.AreEqual("act", command.UnnamedArguments[1]);
         }
+
+        [TestMethod]
+        public void YourTestMethod()
+        {
+            // 打印的方法
+            //Console.WriteLine("23");
+            //Debug.WriteLine("123");
+            //MessageBox.Show("123", "警告");
+        }
     }
 }

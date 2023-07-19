@@ -174,6 +174,8 @@ namespace HakeQuick.Implementation.Base
 
         /// <summary>
         /// 当编辑框 文本更改时
+        /// 涉及一系列的异步操作和线程间的同步控制
+        /// 执行一个新的命令并等待执行完成，然后将结果通知到主线程
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -182,7 +184,9 @@ namespace HakeQuick.Implementation.Base
             SynchronizationContext syncContext = SynchronizationContext.Current;
             Task.Run(async () =>
             {
+                // 等待互斥锁
                 mutex.WaitOne();
+                // 检查是否存在上一个上下文，任务是否完成
                 if (lastContext != null && waitTask.IsCompleted == false)
                 {
                     if (waitTask.IsCompleted == false)
@@ -190,6 +194,7 @@ namespace HakeQuick.Implementation.Base
                         lastContext.InternalCancellationProvider.Cancel();
                         waitTask.Wait();
                     }
+                    // 释放上一个资源
                     lastContext.Dispose();
                 }
                 Command command = new Command(e.Value);
@@ -203,6 +208,7 @@ namespace HakeQuick.Implementation.Base
                         if (tsk.Status == TaskStatus.RanToCompletion)
                             syncContext.Send(st => window.OnActionUpdateCompleted(), null);
                     }), null);
+                // 释放互斥锁
                 mutex.Set();
             });
         }

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         AllowsTransparency="True"
         Background="{x:Null}"
-        Width="500" MinHeight="240" MaxHeight="500"
+        Width="500" MinHeight="240" MaxHeight="600"
         SizeToContent="Height"
         ShowInTaskbar="False"
         ResizeMode="NoResize"
@@ -57,16 +57,16 @@
                         <DataTemplate>
                             <Grid Margin="4" Opacity="{Binding Converter={StaticResource ActionOpacityConverter}}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="56" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{Binding Icon}" Margin="4, 4"/>
+                                <Image Source="{Binding Icon}" Width="48" Height="48" Margin="0,4"/>
                                 <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <TextBlock FontSize="18" FontWeight="SemiBold" Text="{Binding Title}" Margin="8, 2"/>
+                                    <TextBlock FontSize="19" FontWeight="SemiBold" Text="{Binding Title}" Margin="8, 3"/>
                                     <TextBlock FontSize="14" Grid.Row="1" Foreground="Gray" Text="{Binding Subtitle}" Margin="8, 2"/>
                                 </Grid>
                             </Grid>

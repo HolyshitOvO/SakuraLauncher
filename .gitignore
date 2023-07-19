@@ -1,5 +1,7 @@
 ; visual studio configuration files
 \.vs
+ZTestConsole1/
+ZTestConsole2/
 
 ; vscode configuration files
 \.vscode
