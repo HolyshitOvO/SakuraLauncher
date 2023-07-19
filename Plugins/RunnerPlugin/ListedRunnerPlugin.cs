@@ -182,9 +182,15 @@ namespace RunnerPlugin
             string[] fileArr = {};
             if (exts.Count == 0)
                 exts = Constants.DEF_EXT_VALUES;
-            if (excludes.Count == 0)
+            if (excludes.Count == 1 && excludes[0] == "unset_excludes")
+            {
+                excludes = new List<string> { };
+            }
+            else
+            {
                 excludes = Constants.DEF_EXCLUDE_VALUES;
-            
+            }
+
 
             foreach (string ext in exts)
             {
