@@ -17,7 +17,7 @@ namespace RunnerPlugin
         /// <summary>
         /// EXE 运行路径
         /// </summary>
-        [MapProperty("path", MissingAction.Throw)]
+        [MapProperty("path", MissingAction.GivenValue, null)]
         public string ExePath { get; set; }
 
         /// <summary>

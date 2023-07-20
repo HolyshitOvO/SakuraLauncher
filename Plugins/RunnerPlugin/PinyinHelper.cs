@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 /// <summary>
@@ -15,7 +14,7 @@ public static class PinyinHelper
     /// </summary>
     /// <param name="str">要转换的汉字</param>
     /// <param name="polyphone">是否支持多音字</param>
-    /// <returns></returns>
+    /// <returns>长大 => {"changeda", "zhangda"}</returns>
     public static string[] GetPinyin(string str, bool polyphone)
     {
         string[] temp = new string[] { };
@@ -37,22 +36,62 @@ public static class PinyinHelper
             }
             temp = ArrayAdd(temp, pinyin);
         }
-        return handlePolyphone(temp);
+        return temp;
+        //return handlePolyphone(temp);
     }
     /// <summary>
-    /// 中文转拼音，把多音字组合放一起
+    /// 返回匹配字符串，匹配拼音，首拼，英文首字，英文4字符简写
     /// </summary>
     /// <param name="str">中文字符串</param>
-    /// <returns>长xxxx 转成 changexxxx zhangxxxx</returns>
+    /// <returns>"devmgmt 设备管理器" => "devmgmt uebwgrliqi ubglq devt"</returns>
     public static string GetPinyinLongStr(string str)
     {
-        string[] temp = GetPinyin(str, true);
-        StringBuilder pinyin = new StringBuilder();
-        foreach (string item in temp)
-        {
-            pinyin.Append(item);
-        }
-        return pinyin.ToString();
+        string enStr = Regex.Replace(str, "[\\u4e00-\\u9fbb]+", "");
+        string chStr = Regex.Replace(str, "[^\\u4e00-\\u9fbb]+", "");
+        string[] arr = GetPinyin(chStr, true);
+
+        string result = enStr + " " + // 英文字符串
+            string.Join(" ", HandlePolyphone(arr)) + " " + // 中文转拼音字符串，包含多音字组合
+            string.Join(" ", HandlePolyphone2(arr)) + " " + // 中文首拼字符串，包含多因字组合
+            ConvertEnWordsToAbbrWords(enStr) + " " + // 英文首字组合
+            Regex.Replace(ConvertEnWordsToFourChar(enStr).Trim(), "\\s+", " "); // 英文单词阉割成4字符
+        return Regex.Replace(result.Trim(), "\\s+", " ");
+    }
+
+    /// <summary>
+    /// 把超过4字符的英文单词，阉割转成4个字符的单词
+    /// </summary>
+    /// <returns>"Android Studio" => "Andd Stuo"</returns>
+    public static string ConvertEnWordsToFourChar(string input)
+    {
+        // 把所有非字母字符都替换成空格，以及小于5的单词也替换
+        string result = Regex.Replace(input, "[^a-zA-Z]+|(?<=[^a-zA-Z]|^)[a-zA-Z]{1,4}(?=[^a-zA-Z]|$)", " ");
+        // 把单词阉割成4字符单词
+        return Regex.Replace(result, "(?<=\\s\\w{3}|^\\w{3}).+?(?=\\w\\s|\\w$)", "");
+    }
+
+    /// <summary>
+    /// 转换英文字符串，仅保留首字母
+    /// </summary>
+    /// <returns>"Android Studio" => "AS"</returns>
+    public static string ConvertEnWordsToAbbrWords(string input)
+    {
+        // 把所有非字母数字都替换成空格
+        string result = Regex.Replace(input, "[^a-zA-Z\\d]+", " ");
+        return ConvertEnWordsToFirstChar(result);
+    }
+
+    /// <summary>
+    /// 把单词阉割剩下首字母
+    /// </summary>
+    /// <param name="input">必须全英文或数字</param>
+    /// <returns></returns>
+    private static string ConvertEnWordsToFirstChar(string input)
+    {
+        // 不转换只有一个单词的字符串
+        if (!input.Trim().Contains(" ")) return "";
+        string result = Regex.Replace(input, "(?<=[[^\\w\\d]|^][\\s\\d])[\\w\\d]+", "");
+        return Regex.Replace(result, "\\s", "");
     }
 
     /// <summary>
@@ -81,11 +120,11 @@ public static class PinyinHelper
     }
 
     /// <summary>
-    /// 处理多音字，将类似['chang zhang', 'cheng'] 转换成 ['changcheng', 'zhangcheng']
+    /// 处理多音字
     /// </summary>
     /// <param name="array">转换前数组</param>
-    /// <returns>转换后数组</returns>
-    public static string[] handlePolyphone(string[] array)
+    /// <returns>['chang zhang', 'cheng'] 转换成 ['changcheng', 'zhangcheng']</returns>
+    public static string[] HandlePolyphone(string[] array)
     {
         string[] result = new string[] { };
         string[] temp;
@@ -107,6 +146,41 @@ public static class PinyinHelper
                 else
                 {
                     string newpy = t[j];
+                    temp = ArrayAdd(temp, newpy);
+                }
+            }
+            result = temp;
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// 处理多音字，只保留首拼
+    /// </summary>
+    /// <param name="array">转换前数组</param>
+    /// <returns>['chang zhang', 'cheng', 'cheng'] 转换成 ['ccc', 'zcc']</returns>
+    public static string[] HandlePolyphone2(string[] array)
+    {
+        string[] result = new string[] { };
+        string[] temp;
+
+        for (var i = 0; i < array.Count(); i++)
+        {
+            temp = new string[] { };
+            var t = array[i].Split(new char[] { ' ' });
+            for (var j = 0; j < t.Count(); j++)
+            {
+                if (result.Count() > 0)
+                {
+                    for (var k = 0; k < result.Count(); k++)
+                    {
+                        string newpy = result[k] + t[j][0];
+                        temp = ArrayAdd(temp, newpy);
+                    }
+                }
+                else
+                {
+                    string newpy = t[j][0].ToString();
                     temp = ArrayAdd(temp, newpy);
                 }
             }

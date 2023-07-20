@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HakeQuick.Implementation.Base;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+
 
 namespace UnitTest
 {
@@ -101,5 +104,17 @@ namespace UnitTest
             //Debug.WriteLine("123");
             //MessageBox.Show("123", "警告");
         }
+
+        [TestMethod]
+        public void YourTestMethod2()
+        {
+        }
+
+        [TestMethod]
+        public void YourTestMethod3()
+        {
+            
+        }
+
     }
 }

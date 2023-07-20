@@ -46,13 +46,24 @@ namespace HakeQuick.Implementation.Base
 
         public List<object> UnnamedArguments { get; }
 
-
+        /// <summary>
+        /// 这里会提前处理输入框变动的字符，先处理才会传给查找主方法
+        /// 这里好像是匹配什么cmd运行命令的
+        /// </summary>
+        /// <param name="input"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="Exception"></exception>
         public Command(string input)
         {
             if (input == null)
                 throw new ArgumentNullException(nameof(input));
-
-            input = input.ToLower();
+            //input = input.ToLower();
+            NamedArguments = new Dictionary<string, object>();
+            UnnamedArguments = new List<object>();
+            Identity = input.ToLower();
+            Action = "";
+            ContainsError = false;
+            return;
 
             string identity = "";
             string action = "";

@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.IO;
 using IWshRuntimeLibrary;
 using System.Linq;
+using static System.Collections.Specialized.BitVector32;
+using System.Security.Principal;
+using System.Diagnostics;
 
 namespace RunnerPlugin
 {
@@ -29,8 +32,11 @@ namespace RunnerPlugin
         /// <summary>
         /// 默认条目
         /// </summary>
-        private static string[] PREDEFINED_COMMANDS = {
-            "regedit", "winword", "excel", "powerpnt", "code", "explorer"
+        private static readonly string[] PREDEFINED_COMMANDS = { "ProgramData开始菜单", "Users开始菜单", "Default开始菜单"};
+        private static readonly string[] PREDEFINED_FOLDERS = {
+            "C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs",
+            "C:\\\\Users\\\\Administrator\\\\AppData\\\\Roaming\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs",
+            "C:\\\\Users\\\\Default\\\\AppData\\\\Roaming\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs"
         };
 
         public ListedRunnerPlugin(ICurrentEnvironment env, ILoggerFactory loggerFactory)
@@ -48,6 +54,8 @@ namespace RunnerPlugin
         [Action("update")]
         public ActionUpdateResult UpdateList() => new ActionUpdateResult(updateAction, ActionPriority.Low);
 
+        static readonly char[] CHAR_SPACE = { ' ' };
+
         /// <summary>
         /// 输入框，查找条目的逻辑
         /// 当输入文本时,根据文本的去匹配 actions 列表中的命令,返回匹配的 ActionUpdateResult
@@ -58,18 +66,28 @@ namespace RunnerPlugin
         public IEnumerable<ActionUpdateResult> OnUpdate(ICommand command)
         {
             List<ActionUpdateResult> updateResult = new List<ActionUpdateResult>();
-
-            string identity = command.Identity;
+            // 为空则直接跳过
+            if(command.Identity.Length == 0) return updateResult;
             int i = 0;
+            //Debug.WriteLine(command.Identity);
+            string[] wordsArray = command.Identity.Split(CHAR_SPACE, StringSplitOptions.RemoveEmptyEntries);
+            // 遍历每个启动条目
+            
             foreach (RunCommandAction action in actions)
             {
-                if (action.RunCommand.Contains(identity))
+                // 遍历 空格分隔的搜索词
+                foreach (string word in wordsArray)
                 {
-                    updateResult.Add(new ActionUpdateResult(action, ActionPriority.Normal));
-                    i++;
+                    if (!action.RunCommand.Contains(word))
+                    {
+                        goto outerLoop; // 直接跳过该条目，因为搜索词中没有匹配成功
+                    }
                 }
-                // 限制展示的条目，最多展示 5+1 条
-                if (i > 5) break;
+                updateResult.Add(new ActionUpdateResult(action, ActionPriority.Normal));
+                i++;
+                // 限制展示的条目，最多展示 7 条
+                if (i >= 7) break;
+                outerLoop:;
             }
 
             return updateResult;
@@ -134,14 +152,18 @@ namespace RunnerPlugin
             }
             else
             {
+                // 不存在配置文件，则创建配置
                 List<CommandData> data = new List<CommandData>();
-                foreach (string command in PREDEFINED_COMMANDS)
+                for (int i = 0; i < PREDEFINED_COMMANDS.Length; i++)
                 {
+                    string command = PREDEFINED_COMMANDS[i];
                     data.Add(new CommandData()
                     {
                         Command = command,
                         ExePath = null,
-                        IconPath = null
+                        IconPath = null,
+                        IsSearchSubFolder = true,
+                        FolderPath = PREDEFINED_FOLDERS[i]
                     });
                     actions.Add(new RunCommandAction(command, null, null, false, null, null));
                 }
@@ -171,36 +193,29 @@ namespace RunnerPlugin
         }
 
         /// <summary>
-        /// 遍历文件夹里的内容，并添加到列表
+        /// 遍历文件夹里的内容，并添加到启动条目列表
         /// </summary>
         /// <param name="folderPath">文件夹全路径</param>
         /// <param name="isSearchSubFolder">是否搜索子文件夹</param>
         public void TraverseFiles(string folderPath,bool isSearchSubFolder, List<string> exts, List<string> excludes)
         {
-            // 获取当前文件夹中的所有.lnk和 文件
-            // TODO: 当前只支持lnk
-            string[] fileArr = {};
-            if (exts.Count == 0)
-                exts = Constants.DEF_EXT_VALUES;
-            if (excludes.Count == 1 && excludes[0] == "unset_excludes")
-            {
-                excludes = new List<string> { };
-            }
-            else
-            {
-                excludes = Constants.DEF_EXCLUDE_VALUES;
-            }
-
-
+            // 初始化 exts excludes
+            if (exts == null || exts.Count == 0) exts = Constants.DEF_EXT_VALUES;
+            if (excludes != null && excludes.Count == 1 && excludes[0] == "unset_excludes") excludes = new List<string> { };
+            else excludes = Constants.DEF_EXCLUDE_VALUES;
+            // 获取当前文件夹中的所有 给定 exts 的文件数组
+            string[] fileArr = { };
             foreach (string ext in exts)
             {
-                fileArr = fileArr.Concat(Directory.GetFiles(folderPath, ext, isSearchSubFolder? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)).ToArray();
+                fileArr = fileArr.Concat(Directory.GetFiles(folderPath, ext,
+                    isSearchSubFolder? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)).ToArray();
             }
 
-            // 遍历当前文件夹中的.lnk文件
+            // 遍历数组
             foreach (string file in fileArr)
             {
                 string justName = Path.GetFileNameWithoutExtension(file);
+                // 是否需要排除
                 bool isNeedContinue = false;
                 foreach (string exclude in excludes)
                 {
@@ -211,7 +226,7 @@ namespace RunnerPlugin
                     }
                 }
                 if (isNeedContinue) continue;
-
+                // 添加到启动条目列表
                 actions.Add(new RunCommandAction(
                     justName,
                     file,

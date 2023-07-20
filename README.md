@@ -6,13 +6,13 @@
 
 2023-07-19
 
-- 
-- 去掉书签插件
-- 修改查找条目逻辑
-- 添加小鹤双拼支持
-- 添加索引文件夹
-- 添加显示文件图标
-- 微调界面
+- 【添加】小鹤双拼支持
+- 【添加】索引文件夹
+- 【添加】显示文件图标
+- 【修改】查找逻辑，空格可精确范围
+- 【修改】微调界面
+- 【去掉】书签插件
+- 【去掉】运行命令行
 
 
 2023-07-15
@@ -24,9 +24,9 @@ Windows 启动类工具
 
 只做一个功能，启动快捷方式
 
-目标：使用便捷、简单美观、轻便小巧
+目标：使用便捷、简单美观、轻便小巧、无延迟响应
 
-感谢作者[lzl1918](https://github.com/lzl1918)，基于项目[HakeQuick](https://github.com/lzl1918/HakeQuick)
+感谢作者[lzl1918](https://github.com/lzl1918)，基于项目[HakeQuick](https://github.com/lzl1918/HakeQuick)二次开发
 
 ![demo](https://raw.githubusercontent.com/lzl1918/HakeQuick/master/docs/sample.gif)
 

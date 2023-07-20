@@ -1,4 +1,7 @@
-﻿using HakeQuick.Abstraction.Action;
+﻿// 索引
+// WindowsThumbnailProvider
+
+using HakeQuick.Abstraction.Action;
 using HakeQuick.Abstraction.Base;
 using HakeQuick.Abstraction.Services;
 using System;
@@ -12,28 +15,28 @@ namespace RunnerPlugin
         /// <summary>
         /// 是否以管理员运行
         /// </summary>
-        private bool defaultAsAdmin;
+        private readonly bool defaultAsAdmin;
         /// <summary>
         /// 工作目录
         /// </summary>
-        private string workingDirectory;
+        private readonly string workingDirectory;
         /// <summary>
         /// 运行命令，附加的参数
         /// </summary>
-        private string arguments;
+        private readonly string arguments;
         /// <summary>
         /// 最终的运行命令
         /// </summary>
-        public string RunCommand { get; }
+        public readonly string RunCommand;
         /// <summary>
         /// 运行命令
         /// </summary>
-        private string commandPath;
+        private readonly string commandPath;
 
         /// <summary>
         /// 快捷方式路径
         /// </summary>
-        private string lnkPath;
+        private readonly string lnkPath;
 
         /// <summary>
         /// 对 item 相关参数，稍加处理
@@ -63,6 +66,7 @@ namespace RunnerPlugin
                 Subtitle = run + appendArgs;
             // 往索引字符串，后面添加拼音索引，即：计算器jisuanqi
             RunCommand = PinyinHelper.GetPinyinLongStr(run.ToLower());
+            Debug.WriteLine(RunCommand);
             // 显示的图标
             if (iconPath != null)
             {
@@ -84,7 +88,8 @@ namespace RunnerPlugin
                 try
                 {
                     // 某些情况会闪退
-                    Icon = SystemIcon.ToBitmapImage(WindowsThumbnailProvider.GetThumbnail(tempIconPath, 48, 48, ThumbnailOptions.IconOnly));
+                    //Icon = SystemIcon.ToBitmapImage(WindowsThumbnailProvider.GetThumbnail(tempIconPath, 48, 48, ThumbnailOptions.IconOnly));
+                    Icon = SystemIcon.ToBitmapImage(WindowsThumbnailProvider.GetThumbnail(tempIconPath, 48, 48, ThumbnailOptions.None));
                 }
                 catch (Exception)
                 {

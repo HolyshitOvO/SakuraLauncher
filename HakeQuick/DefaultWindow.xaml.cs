@@ -147,7 +147,7 @@ namespace HakeQuick
             {
                 // 固定屏幕中间
                 Left = (screens[0].Bounds.Width / 2 - Width /2);
-                Top = (screens[0].Bounds.Height * 0.25);
+                Top = (screens[0].Bounds.Height * 0.2);
             }
             else
             {
