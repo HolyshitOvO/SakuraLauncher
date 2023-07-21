@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -71,6 +72,18 @@ namespace HakeQuick.Implementation.Base
         }
 
         /// <summary>
+        /// 模拟键盘输入
+        /// </summary>
+        /// <param name="bVk">要模拟的虚拟键码（Virtual Key Code）</param>
+        /// <param name="bScan">硬件扫描码（Hardware Scan Code）</param>
+        /// <param name="dwFlags">操作的标志位</param>
+        /// <param name="dwExtraInfo">与事件相关的附加信息</param>
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
+        private const byte VK_ALT = 0x12;
+        private const int KEYEVENTF_KEYUP = 0x0002;
+
+        /// <summary>
         /// 全局热键事件
         /// </summary>
         /// <param name="sender"></param>
@@ -82,6 +95,9 @@ namespace HakeQuick.Implementation.Base
                 window.HideWindow();
                 return;
             }
+            // 模拟释放Alt键
+            keybd_event(VK_ALT, 0x45, KEYEVENTF_KEYUP, 0);
+            //SendKeys.SendWait("+j");
             pool.EnterScope();
             IProgramContext context = services.GetService<IProgramContext>();
             window.ClearInput();
