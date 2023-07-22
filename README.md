@@ -29,7 +29,7 @@ Windows 启动类工具
 
 目标：使用便捷、简单美观、轻便小巧、无延迟响应
 
-感谢作者[lzl1918](https://github.com/lzl1918)，基于项目[HakeQuick](https://github.com/lzl1918/HakeQuick)二次开发
+感谢作者[lzl1918](https://github.com/lzl1918)，基于项目[HakeQuick](https://github.com/lzl1918/HakeQuick) 二次开发
 
 ![demo](https://raw.githubusercontent.com/lzl1918/HakeQuick/master/docs/sample.gif)
 
