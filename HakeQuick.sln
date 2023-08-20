@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZTestConsole1", "ZTestConso
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZTestConsole2", "ZTestConsole2\ZTestConsole2.csproj", "{47195A5F-BFD9-4F27-987C-9BDF46154636}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsApp", "SettingsApp\SettingsApp.csproj", "{54CD27C0-091E-43C6-BF0F-91992C5BD89B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -134,6 +136,18 @@ Global
 		{47195A5F-BFD9-4F27-987C-9BDF46154636}.Release|x64.Build.0 = Release|Any CPU
 		{47195A5F-BFD9-4F27-987C-9BDF46154636}.Release|x86.ActiveCfg = Release|x86
 		{47195A5F-BFD9-4F27-987C-9BDF46154636}.Release|x86.Build.0 = Release|x86
+		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Debug|x64.Build.0 = Debug|Any CPU
+		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Debug|x86.Build.0 = Debug|Any CPU
+		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Release|x64.ActiveCfg = Release|Any CPU
+		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Release|x64.Build.0 = Release|Any CPU
+		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Release|x86.ActiveCfg = Release|Any CPU
+		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
