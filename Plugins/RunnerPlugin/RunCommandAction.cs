@@ -6,6 +6,7 @@ using HakeQuick.Abstraction.Base;
 using HakeQuick.Abstraction.Services;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Media.Imaging;
 
 namespace RunnerPlugin
@@ -96,6 +97,52 @@ namespace RunnerPlugin
                     Icon = SystemIcon.ToBitmapImage(SystemIcon.GetIcon(tempIconPath, true).ToBitmap());// 这个也可以，但是某些图标不行
                 }
             }
+        }
+
+
+        /// <summary>
+        /// 窗口 使用快捷键Ctrl + o 时，打开所在文件夹位置
+        /// </summary>
+        /// <param name="progContext"></param>
+        /// <param name="runnerLogger"></param>
+        /// <param name="command"></param>
+        /// <param name="admin">是否以管理员运行</param>
+        /// <param name="a"></param>
+        public void InvokeFolder1(IProgramContext progContext, ILogger runnerLogger, ICommand command, bool admin = false, bool a = false)
+        {
+            // 如果它是快捷方式，那么就直接执行快捷方式，不用后面的方法
+            if (!string.IsNullOrEmpty(lnkPath))
+            {
+                // 获取快捷方式的目标路径
+                string targetPath = GetShortcutTarget(lnkPath);
+
+                // 打开目标路径所在的文件夹
+                if (!string.IsNullOrEmpty(targetPath))
+                {
+                    string folderPath = Path.GetDirectoryName(targetPath);
+                    if (!string.IsNullOrEmpty(folderPath))
+                    {
+                        Process.Start("explorer.exe", "/select, " + targetPath);
+                        //Process.Start("explorer.exe", "/select, " + folderPath);
+                    }
+                }
+                return;
+            }
+            
+        }
+
+        /// <summary>
+        /// 获取快捷方式的目标路径
+        /// </summary>
+        static string GetShortcutTarget(string shortcutPath)
+        {
+            if (File.Exists(shortcutPath))
+            {
+                var shell = new IWshRuntimeLibrary.WshShell();
+                var shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutPath);
+                return shortcut.TargetPath;
+            }
+            return null;
         }
 
         /// <summary>

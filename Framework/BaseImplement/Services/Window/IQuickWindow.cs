@@ -22,7 +22,14 @@ namespace HakeQuick.Implementation.Services.Window
     public interface IQuickWindow
     {
         event EventHandler<TextUpdatedEventArgs> TextChanged;
+        /// <summary>
+        /// 确定按键
+        /// </summary>
         event EventHandler<ExecutionRequestedEventArgs> ExecutionRequested;
+        /// <summary>
+        /// Ctrl + o 打开目标文件夹
+        /// </summary>
+        event EventHandler<ExecutionFolderRequestedEventArgs> ExecutionFolderRequested;
         event EventHandler VisibleChanged;
 
         bool IsVisible { get; }

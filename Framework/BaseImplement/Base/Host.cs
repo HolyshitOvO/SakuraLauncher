@@ -84,7 +84,7 @@ namespace HakeQuick.Implementation.Base
         private const int KEYEVENTF_KEYUP = 0x0002;
 
         /// <summary>
-        /// 全局热键事件
+        /// 全局热键事件（快捷键按下）
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="hotkeyid"></param>
@@ -100,7 +100,7 @@ namespace HakeQuick.Implementation.Base
             //SendKeys.SendWait("+j");
             pool.EnterScope();
             IProgramContext context = services.GetService<IProgramContext>();
-            window.ClearInput();
+            
             window.ShowWindow(context);
         }
 
@@ -119,6 +119,7 @@ namespace HakeQuick.Implementation.Base
             window.VisibleChanged += OnWindowVisibleChanged;
             window.TextChanged += OnWindowTextChanged;
             window.ExecutionRequested += OnWindowExecutionRequested;
+            window.ExecutionFolderRequested += OnWindowExecutionFolderRequested;
             window.SetKeyDown(new System.Windows.Input.KeyEventHandler(MyWindow_KeyDown));
             window.HideWindow();
         }
@@ -146,15 +147,51 @@ namespace HakeQuick.Implementation.Base
             {
                 window.TextChanged += OnWindowTextChanged;
                 window.ExecutionRequested += OnWindowExecutionRequested;
+                window.ExecutionFolderRequested += OnWindowExecutionFolderRequested;
                 window.ClearInput();
             }
             else
             {
                 window.TextChanged -= OnWindowTextChanged;
                 window.ExecutionRequested -= OnWindowExecutionRequested;
+                window.ExecutionFolderRequested -= OnWindowExecutionFolderRequested;
                 pool.LeaveScope();
             }
         }
+        /// <summary>
+        /// 打开item项所在文件夹位置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnWindowExecutionFolderRequested(object sender, ExecutionFolderRequestedEventArgs e)
+        {
+            ActionBase action = e.Action;
+
+            try
+            {
+                if (lastContext == null) {
+                //ObjectFactory.InvokeMethod(action, "Invoke", services);
+                
+                }
+                else
+                {
+                    object[] args = new object[lastContext.Command.UnnamedArguments.Count + 2];
+                    args[0] = lastContext;
+                    args[1] = lastContext.Command;
+                    if (lastContext.Command.UnnamedArguments.Count > 0)
+                        lastContext.Command.UnnamedArguments.CopyTo(args, 2);
+                    if (lastContext.Command.UnnamedArguments.Count > 0)
+                        lastContext.Command.UnnamedArguments.CopyTo(args, 1);
+                    ObjectFactory.InvokeMethod(action, "InvokeFolder1", services, lastContext.Command.NamedArguments, args);
+                }
+                window.HideWindow();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         /// <summary>
         /// 开始执行item项
         /// </summary>

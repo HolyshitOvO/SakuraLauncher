@@ -29,6 +29,9 @@ namespace HakeQuick
         [DllImport("user32.dll")]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
 
+        /// <summary>
+        /// 输入框文本
+        /// </summary>
         public string RawInput
         {
             get { return textbox_input.Text; }
@@ -37,9 +40,21 @@ namespace HakeQuick
                 textbox_input.Text = value;
             }
         }
-
+        /// <summary>
+        /// 订阅事件，当文本内容更改时
+        /// </summary>
         public event EventHandler<TextUpdatedEventArgs> TextChanged;
+        /// <summary>
+        /// 订阅事件，窗口输入 Enter 按键
+        /// </summary>
         public event EventHandler<ExecutionRequestedEventArgs> ExecutionRequested;
+        /// <summary>
+        /// 订阅事件，窗口输入 Ctrl + O 按键
+        /// </summary>
+        public event EventHandler<ExecutionFolderRequestedEventArgs> ExecutionFolderRequested;
+        /// <summary>
+        /// 订阅事件，窗口可见性改变
+        /// </summary>
         public event EventHandler VisibleChanged;
 
 
@@ -61,7 +76,8 @@ namespace HakeQuick
 
             textbox_input.TextChanged += OnTextChanged;
             IsVisibleChanged += OnIsVisibleChanged;
-            list_actions.PreviewMouseLeftButtonDown += OnListPreviewLeftMouseButtonDown;
+            //list_actions.PreviewMouseLeftButtonDown += OnListPreviewLeftMouseButtonDown;
+            list_actions.PreviewMouseRightButtonDown += OnListPreviewRightMouseButtonDown;
             Deactivated += OnDeactived;
             PreviewKeyDown += OnPreviewKeyDown;
             ElementHost.EnableModelessKeyboardInterop(this);
@@ -71,7 +87,16 @@ namespace HakeQuick
         {
             if (e.Handled) return;
             if (m_actions == null || m_actions.Count <= 0 || IsVisible == false) return;
-            if (e.Key == Key.Down)
+
+            // Ctrl+O，打开目标所在文件夹
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.O)
+            {
+                ActionBase action = list_actions.SelectedItem as ActionBase;
+                if (!action.IsExecutable) { e.Handled = true; return; }
+                ExecutionFolderRequested?.Invoke(this, new ExecutionFolderRequestedEventArgs(action));
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Down)
             {
                 MoveToNextAction();
                 e.Handled = true;
@@ -97,6 +122,19 @@ namespace HakeQuick
 
         private void OnListPreviewLeftMouseButtonDown(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
+        }
+        private void OnListPreviewRightMouseButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+            {
+                var item = sender as ListView;
+                if (item != null && item.SelectedItem != null)
+                {
+                    // MessageBox.Show(item.SelectedIndex.ToString());
+                    // todo: 右键弹出菜单
+                }
+            }
             e.Handled = true;
         }
 
