@@ -10,27 +10,28 @@ namespace HakeQuick.Abstraction.Base
     /// 从配置文件中按照key加载属性的值
     /// 如果没有找到key,根据MissingAction采取默认值或创建实例
     /// 这样可以非常方便的从配置中初始化一个对象
+    /// 默认的启动快捷键为：Alt + J
     /// </summary>
     public sealed class HotkeyConfig
     {
-        [MapProperty("key", MissingAction.GivenValue, "Q")]
+        [MapProperty("key", MissingAction.GivenValue, "j")]
         public string KeyString { get; set; }
 
-        [MapProperty("flags", MissingAction.GivenValue, "Control")]
+        [MapProperty("flags", MissingAction.GivenValue, "alt")]
         public string FlagsString { get; set; }
 
-        public Key Key { get { return (Key)Enum.Parse(typeof(Key), KeyString); } }
+        public Key Key { get { return (Key)Enum.Parse(typeof(Key), KeyString.ToUpper()); } }
         public KeyFlags KeyFlags
         {
             get
             {
-                string[] keyflags = FlagsString.Split('+');
-                KeyFlags hotkeyFlags = KeyFlags.None;
+                string[] keyflags = FlagsString.ToUpper().Split('+');
+                KeyFlags hotkeyFlags = KeyFlags.NONE;
                 if (keyflags.Length > 0)
                     foreach (string keyflag in keyflags)
                         hotkeyFlags |= (KeyFlags)Enum.Parse(typeof(KeyFlags), keyflag);
-                if (hotkeyFlags == KeyFlags.None)
-                    hotkeyFlags = KeyFlags.Control;
+                if (hotkeyFlags == KeyFlags.NONE)
+                    hotkeyFlags = KeyFlags.CONTROL;
                 return hotkeyFlags;
             }
         }

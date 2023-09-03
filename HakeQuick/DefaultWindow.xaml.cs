@@ -19,6 +19,7 @@ using System.Windows.Forms.Integration;
 using System.Windows.Interop;
 using HakeQuick.Helpers;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace HakeQuick
 {
@@ -183,9 +184,12 @@ namespace HakeQuick
             
             if (true)
             {
+                screens[0].GetDpi(DpiType.Effective, out uint dpiX, out uint dpiY);
+                float dpiScaleX = dpiX / 96.0f;
+                float dpiScaleY = dpiY / 96.0f;
                 // 固定屏幕中间
-                Left = (screens[0].Bounds.Width / 2 - Width /2);
-                Top = (screens[0].Bounds.Height * 0.2);
+                Left = ((screens[0].Bounds.Width / 2 / dpiScaleX) - Width /2) ;
+                Top = ((screens[0].Bounds.Height / dpiScaleY) * 0.2) ;
             }
             else
             {

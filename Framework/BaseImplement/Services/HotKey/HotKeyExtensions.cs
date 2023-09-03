@@ -12,7 +12,7 @@ namespace HakeQuick.Implementation.Base
 {
     public static class HotKeyBuilderExtensions
     {
-        public static IHostBuilder UseHotKey(this IHostBuilder builder, Key key = Key.Q, KeyFlags flags = KeyFlags.Control)
+        public static IHostBuilder UseHotKey(this IHostBuilder builder, Key key = Key.K, KeyFlags flags = KeyFlags.ALT)
         {
             return builder.ConfigureService(services =>
             {
