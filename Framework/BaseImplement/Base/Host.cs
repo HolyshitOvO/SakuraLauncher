@@ -100,7 +100,7 @@ namespace HakeQuick.Implementation.Base
             //SendKeys.SendWait("+j");
             pool.EnterScope();
             IProgramContext context = services.GetService<IProgramContext>();
-            
+
             window.ShowWindow(context);
         }
 
@@ -169,9 +169,9 @@ namespace HakeQuick.Implementation.Base
 
             try
             {
-                if (lastContext == null) {
-                //ObjectFactory.InvokeMethod(action, "Invoke", services);
-                
+                if (lastContext == null)
+                {
+                    //ObjectFactory.InvokeMethod(action, "Invoke", services);
                 }
                 else
                 {
