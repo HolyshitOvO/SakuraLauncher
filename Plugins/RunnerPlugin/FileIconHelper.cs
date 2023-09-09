@@ -3,6 +3,7 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows.Media.Imaging;
 
 namespace RunnerPlugin
 {
@@ -204,6 +205,31 @@ namespace RunnerPlugin
             if (hr == HResult.Ok) return hBitmap;
 
             throw Marshal.GetExceptionForHR((int)hr);
+        }
+    }
+
+    public class ImageUtil
+    {
+        /// <summary>
+        /// 转 Bitmap 为 BitmapImage
+        /// </summary>
+        /// <param name="bitmap"></param>
+        /// <returns></returns>
+        public static BitmapImage ConvertToBitmapImage(Bitmap bitmap)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                bitmap.Save(memoryStream, ImageFormat.Png); // 保存为PNG格式以保持透明度
+                memoryStream.Seek(0, SeekOrigin.Begin);
+
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = memoryStream;
+                bitmapImage.EndInit();
+
+                return bitmapImage;
+            }
         }
     }
 }

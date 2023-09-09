@@ -12,6 +12,9 @@ using System.Linq;
 using static System.Collections.Specialized.BitVector32;
 using System.Security.Principal;
 using System.Diagnostics;
+using Microsoft.WindowsAPICodePack.Shell;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace RunnerPlugin
 {
@@ -32,7 +35,7 @@ namespace RunnerPlugin
         /// <summary>
         /// 默认条目
         /// </summary>
-        private static readonly string[] PREDEFINED_COMMANDS = { "ProgramData开始菜单", "Users开始菜单", "Default开始菜单"};
+        private static readonly string[] PREDEFINED_COMMANDS = { "ProgramData开始菜单", "Users开始菜单", "Default开始菜单" };
         private static readonly string[] PREDEFINED_FOLDERS = {
             "C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs",
             "C:\\\\Users\\\\Administrator\\\\AppData\\\\Roaming\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs",
@@ -67,12 +70,12 @@ namespace RunnerPlugin
         {
             List<ActionUpdateResult> updateResult = new List<ActionUpdateResult>();
             // 为空则直接跳过
-            if(command.Identity.Length == 0) return updateResult;
+            if (command.Identity.Length == 0) return updateResult;
             int i = 0;
             //Debug.WriteLine(command.Identity);
             string[] wordsArray = command.Identity.Split(CHAR_SPACE, StringSplitOptions.RemoveEmptyEntries);
             // 遍历每个启动条目
-            
+
             foreach (RunCommandAction action in actions)
             {
                 // 遍历 空格分隔的搜索词
@@ -104,7 +107,8 @@ namespace RunnerPlugin
             logger.LogMessageAsync("A");
             string filename = "runner.json";
             string iconPath = "icons";
-            string configPath = Path.Combine(env.ConfigDirectory.FullName, "runner");
+            //string configPath = Path.Combine(env.ConfigDirectory.FullName, "runner");
+            string configPath = env.ConfigDirectory.FullName;
             if (!Directory.Exists(configPath)) Directory.CreateDirectory(configPath);
             iconPath = Path.Combine(configPath, iconPath);
             filename = Path.Combine(configPath, filename);
@@ -123,7 +127,7 @@ namespace RunnerPlugin
                     List<CommandData> data = ObjectMapper.ToObject<List<CommandData>>(record);
                     foreach (CommandData cmd in data)
                     {
-                        
+
                         if (!string.IsNullOrEmpty(cmd.FolderPath) && cmd.FolderPath.Length > 0)
                         {
                             // 文件夹配置
@@ -132,7 +136,7 @@ namespace RunnerPlugin
                                 // 先添加此文件夹到列表
                                 actions.Add(new RunCommandAction(cmd.Command, cmd.FolderPath, null, cmd.Admin, cmd.FolderPath, null));
                                 // 遍历文件夹里的文件，添加到列表
-                                TraverseFiles(cmd.FolderPath,cmd.IsSearchSubFolder,cmd.Exts,cmd.ExcludeNameArr);
+                                TraverseFiles(cmd.FolderPath, cmd.IsSearchSubFolder, cmd.Exts, cmd.ExcludeNameArr);
                             }
                         }
                         else
@@ -144,6 +148,34 @@ namespace RunnerPlugin
                                 actions.Add(new RunCommandAction(cmd.Command, cmd.ExePath, null, cmd.Admin, cmd.WorkingDirectory, cmd.ArgStr));
                         }
                     }
+
+                    // 获取 UWP 应用
+                    List<ShellObject> UwpList = UwpUtil.GetInstalledUWPApps();
+                    UwpList.ForEach(wp =>
+                    {
+                        // 获取应用图片，除了这个，其他大小的图都会有黑背景和锯齿感，不知为啥
+                        //System.Drawing.Bitmap temp = wp.Thumbnail.ExtraLargeBitmap;
+                        ImageSource icon = wp.Thumbnail.ExtraLargeBitmapSource;
+                        BitmapImage bitmapImage = new BitmapImage();
+                        using (MemoryStream memoryStream = new MemoryStream())
+                        {
+                            var bitmapSource = (BitmapSource)icon;
+                            var encoder = new PngBitmapEncoder();
+                            encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                            encoder.Save(memoryStream);
+                            memoryStream.Seek(0, SeekOrigin.Begin);
+
+                            bitmapImage.BeginInit();
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.StreamSource = memoryStream;
+                            bitmapImage.EndInit();
+                        }
+
+                        if (!string.IsNullOrEmpty(wp.Name))
+                            actions.Add(new RunCommandAction(wp.Name, "shell:AppsFolder\\" + wp.ParsingName,
+                                null, true, null, null, null, true, bitmapImage));
+                        //null, true, null, null,null,true, SystemIcon.ToBitmapImage(temp)));
+                    });
                 }
                 catch (Exception ex)
                 {
@@ -197,7 +229,7 @@ namespace RunnerPlugin
         /// </summary>
         /// <param name="folderPath">文件夹全路径</param>
         /// <param name="isSearchSubFolder">是否搜索子文件夹</param>
-        public void TraverseFiles(string folderPath,bool isSearchSubFolder, List<string> exts, List<string> excludes)
+        public void TraverseFiles(string folderPath, bool isSearchSubFolder, List<string> exts, List<string> excludes)
         {
             // 初始化 exts excludes
             if (exts == null || exts.Count == 0) exts = Constants.DEF_EXT_VALUES;
@@ -208,7 +240,7 @@ namespace RunnerPlugin
             foreach (string ext in exts)
             {
                 fileArr = fileArr.Concat(Directory.GetFiles(folderPath, ext,
-                    isSearchSubFolder? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)).ToArray();
+                    isSearchSubFolder ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)).ToArray();
             }
 
             // 遍历数组

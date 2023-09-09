@@ -39,6 +39,8 @@ namespace RunnerPlugin
         /// </summary>
         private readonly string lnkPath;
 
+        private readonly Boolean IsUwpItem = false;
+
         /// <summary>
         /// 对 item 相关参数，稍加处理
         /// </summary>
@@ -48,8 +50,24 @@ namespace RunnerPlugin
         /// <param name="admin"></param>
         /// <param name="workingDirectory"></param>
         /// <param name="args"></param>
-        public RunCommandAction(string run, string path, string iconPath, bool admin, string workingDirectory, string argsStr, string lnkPath = null)
+        public RunCommandAction(string run, string path, string iconPath, bool admin, string workingDirectory, string argsStr, string lnkPath = null,Boolean isUwpItem = false, BitmapImage uwpIcon=null)
         {
+            if (isUwpItem)
+            {
+                defaultAsAdmin = true;
+                arguments = "";
+                IsExecutable = true;
+                Subtitle = "123";
+
+                IsUwpItem = true;
+                RunCommand = PinyinHelper.GetPinyinLongStr(run.ToLower());
+                Title = run;
+                Debug.WriteLine(RunCommand);
+                commandPath = path;
+                Icon = uwpIcon;
+
+                return;
+            }
             // TODO: 简化args 传递，json里不要使用数组
             defaultAsAdmin = admin;
             this.workingDirectory = workingDirectory;
@@ -162,6 +180,28 @@ namespace RunnerPlugin
                 Process.Start(startInfo);
                 return;
             }
+            if (IsUwpItem)
+            {
+                Process.Start("explorer.exe", commandPath);
+
+                return;
+                ProcessStartInfo psi2 = new ProcessStartInfo("explorer.exe");
+                psi2.Verb = "runas";
+                psi2.WorkingDirectory = Helper.CurrentWorkingDirectoryOrDefault(progContext);
+                psi2.Arguments = commandPath;
+                try
+                {
+                    // 启动一个新进程，执行指定命令
+                    Process.Start(psi2);
+                    
+                }
+                catch (Exception ex)
+                {
+                    runnerLogger.LogExceptionAsync(ex);
+                }
+                return;
+            }
+
             admin = admin || a || defaultAsAdmin;
             string procname = RunCommand;
             if (commandPath.Length > 0)
