@@ -23,12 +23,14 @@ namespace HakeQuick.Implementation.Services.CurrentEnvironment
             string current = Directory.GetCurrentDirectory();
             MainDirectory = new DirectoryInfo(current);
             string plugindir = Path.Combine(current, plugin);
-            PluginDirectory = new DirectoryInfo(plugindir);
-            if (!PluginDirectory.Exists)
-            {
-                Directory.CreateDirectory(plugindir);
-                PluginDirectory = new DirectoryInfo(plugindir);
-            }
+            //PluginDirectory = new DirectoryInfo(plugindir);
+            //if (!PluginDirectory.Exists)
+            //{
+            //    Directory.CreateDirectory(plugindir);
+            //    PluginDirectory = new DirectoryInfo(plugindir);
+            //}
+            // 直接使用根目录作为 Plugin的文件夹环境
+            PluginDirectory = new DirectoryInfo(current);
             string configdir = Path.Combine(current, config);
             ConfigDirectory = new DirectoryInfo(configdir);
             if (!ConfigDirectory.Exists)

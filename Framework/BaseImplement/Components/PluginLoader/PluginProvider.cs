@@ -226,8 +226,14 @@ namespace HakeQuick.Implementation.Components.PluginLoader
             ignoreIdentityEntry = new Dictionary<string, List<IgnoreIdentityRecords>>();
             explictEntry = new List<ExplictMethodRecord>();
             instances = new List<object>();
-
-            FileInfo[] files = pluginDirectory.GetFiles("*.dll");
+            // 在这里加载插件
+            // 由于要用到 Microsoft.WindowsAPICodePack.Shell 这依赖。
+            // 不只 runnerplugin库要依赖，主程序也要依赖，程序才不会出错
+            // 分开两个文件夹的话就会生成两个dll，一个在主程序根目录里，一个在plugins文件夹里，比较占用空间
+            // 干脆就都把它们放到同一个目录了
+            // TODO: 肯定有解决办法的，但我不会弄
+            //FileInfo[] files = pluginDirectory.GetFiles("*.dll");
+            FileInfo[] files = pluginDirectory.GetFiles("RunnerPlugin.dll");
             Type pluginBaseType = typeof(QuickPlugin);
             Type actionUpdateResultType = typeof(ActionUpdateResult);
             Type asyncActionUpdateType = typeof(AsyncActionUpdate);
