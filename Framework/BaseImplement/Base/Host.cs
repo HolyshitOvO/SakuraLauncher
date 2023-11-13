@@ -21,17 +21,17 @@ namespace HakeQuick.Implementation.Base
 {
     internal sealed class Host : IHost
     {
-        private IServiceProvider services = null;
-        private IServiceCollection pool = null;
-        private IAppBuilder appBuilder = null;
-        private ITerminationNotifier terminationNotifier = null;
-        private ITray tray = null;
-        private IHotKey hotkey = null;
-        private IQuickWindow window = null;
-        private ObservableCollection<ActionBase> actions;
+        private readonly IServiceProvider services = null;
+        private readonly IServiceCollection pool = null;
+        private readonly IAppBuilder appBuilder = null;
+        private readonly ITerminationNotifier terminationNotifier = null;
+        private readonly ITray tray = null;
+        private readonly IHotKey hotkey = null;
+        private readonly IQuickWindow window = null;
+        private readonly ObservableCollection<ActionBase> actions;
         private Task waitTask;
-        private object locker = new object();
-        private AutoResetEvent mutex = new AutoResetEvent(true);
+        private readonly object locker = new object();
+        private readonly AutoResetEvent mutex = new AutoResetEvent(true);
         private IInternalContext lastContext;
 
         public Host(IServiceProvider services, IServiceCollection pool, IAppBuilder appBuilder, ITerminationNotifier terminationNotifier, ITray tray, IHotKey hotkey, IQuickWindow window)

@@ -73,13 +73,12 @@ namespace HakeQuick.Implementation.Components.PluginLoader
                 {
                     foreach (IgnoreIdentityRecords rec in pair.Value)
                     {
-                        List<MethodInfo> methods;
-                        if (temp_results.TryGetValue(rec.Instance, out methods) == false)
-                        {
-                            methods = new List<MethodInfo>();
-                            temp_results.Add(rec.Instance, methods);
-                        }
-                        foreach (MethodInfo method in rec.Methods)
+						if (temp_results.TryGetValue(rec.Instance, out List<MethodInfo> methods) == false)
+						{
+							methods = new List<MethodInfo>();
+							temp_results.Add(rec.Instance, methods);
+						}
+						foreach (MethodInfo method in rec.Methods)
                         {
                             if (methodMap.Contains(method.GetHashCode()))
                                 continue;
@@ -93,53 +92,49 @@ namespace HakeQuick.Implementation.Components.PluginLoader
             {
                 if (action.Length > 0)
                 {
-                    List<PluginMethodRecord> records;
-                    if (pluginEntry.TryGetValue(command.Identity, out records))
-                    {
-                        foreach (PluginMethodRecord record in records)
-                        {
-                            foreach (var pair in record.ActionEntry)
-                            {
-                                if (pair.Key.Length >= action.Length && pair.Key.StartsWith(action))
-                                {
-                                    List<MethodInfo> methods;
-                                    if (temp_results.TryGetValue(record.Instance, out methods) == false)
-                                    {
-                                        methods = new List<MethodInfo>();
-                                        temp_results.Add(record.Instance, methods);
-                                    }
-                                    foreach (MethodInfo method in pair.Value)
-                                    {
-                                        if (methodMap.Contains(method.GetHashCode()))
-                                            continue;
-                                        methods.Add(method);
-                                        methodMap.Add(method.GetHashCode());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    List<IgnoreIdentityRecords> ignoreIdentityRecords;
-                    if (ignoreIdentityEntry.TryGetValue(command.Identity, out ignoreIdentityRecords))
-                    {
-                        foreach (IgnoreIdentityRecords record in ignoreIdentityRecords)
-                        {
-                            List<MethodInfo> methods;
-                            if (temp_results.TryGetValue(record.Instance, out methods) == false)
-                            {
-                                methods = new List<MethodInfo>();
-                                temp_results.Add(record.Instance, methods);
-                            }
-                            foreach (MethodInfo method in record.Methods)
-                            {
-                                if (methodMap.Contains(method.GetHashCode()))
-                                    continue;
-                                methods.Add(method);
-                                methodMap.Add(method.GetHashCode());
-                            }
-                        }
-                    }
-                }
+					if (pluginEntry.TryGetValue(command.Identity, out List<PluginMethodRecord> records))
+					{
+						foreach (PluginMethodRecord record in records)
+						{
+							foreach (var pair in record.ActionEntry)
+							{
+								if (pair.Key.Length >= action.Length && pair.Key.StartsWith(action))
+								{
+									if (temp_results.TryGetValue(record.Instance, out List<MethodInfo> methods) == false)
+									{
+										methods = new List<MethodInfo>();
+										temp_results.Add(record.Instance, methods);
+									}
+									foreach (MethodInfo method in pair.Value)
+									{
+										if (methodMap.Contains(method.GetHashCode()))
+											continue;
+										methods.Add(method);
+										methodMap.Add(method.GetHashCode());
+									}
+								}
+							}
+						}
+					}
+					if (ignoreIdentityEntry.TryGetValue(command.Identity, out List<IgnoreIdentityRecords> ignoreIdentityRecords))
+					{
+						foreach (IgnoreIdentityRecords record in ignoreIdentityRecords)
+						{
+							if (temp_results.TryGetValue(record.Instance, out List<MethodInfo> methods) == false)
+							{
+								methods = new List<MethodInfo>();
+								temp_results.Add(record.Instance, methods);
+							}
+							foreach (MethodInfo method in record.Methods)
+							{
+								if (methodMap.Contains(method.GetHashCode()))
+									continue;
+								methods.Add(method);
+								methodMap.Add(method.GetHashCode());
+							}
+						}
+					}
+				}
                 else
                 {
                     // 只有identity
@@ -149,13 +144,12 @@ namespace HakeQuick.Implementation.Components.PluginLoader
                         {
                             foreach (PluginMethodRecord rec in pair.Value)
                             {
-                                List<MethodInfo> methods;
-                                if (temp_results.TryGetValue(rec.Instance, out methods) == false)
-                                {
-                                    methods = new List<MethodInfo>();
-                                    temp_results.Add(rec.Instance, methods);
-                                }
-                                foreach (List<MethodInfo> methodswithaction in rec.ActionEntry.Values)
+								if (temp_results.TryGetValue(rec.Instance, out List<MethodInfo> methods) == false)
+								{
+									methods = new List<MethodInfo>();
+									temp_results.Add(rec.Instance, methods);
+								}
+								foreach (List<MethodInfo> methodswithaction in rec.ActionEntry.Values)
                                 {
                                     foreach (MethodInfo method in methodswithaction)
                                     {
@@ -174,13 +168,12 @@ namespace HakeQuick.Implementation.Components.PluginLoader
                         {
                             foreach (IgnoreIdentityRecords rec in pair.Value)
                             {
-                                List<MethodInfo> methods;
-                                if (temp_results.TryGetValue(rec.Instance, out methods) == false)
-                                {
-                                    methods = new List<MethodInfo>();
-                                    temp_results.Add(rec.Instance, methods);
-                                }
-                                foreach (MethodInfo method in rec.Methods)
+								if (temp_results.TryGetValue(rec.Instance, out List<MethodInfo> methods) == false)
+								{
+									methods = new List<MethodInfo>();
+									temp_results.Add(rec.Instance, methods);
+								}
+								foreach (MethodInfo method in rec.Methods)
                                 {
                                     if (methodMap.Contains(method.GetHashCode()))
                                         continue;
@@ -198,13 +191,12 @@ namespace HakeQuick.Implementation.Components.PluginLoader
             {
                 instance = explict.Instance;
                 IReadOnlyList<MethodInfo> methods = explict.Methods;
-                List<MethodInfo> result_methods;
-                if (temp_results.TryGetValue(instance, out result_methods) == false)
-                {
-                    result_methods = new List<MethodInfo>();
-                    temp_results.Add(instance, result_methods);
-                }
-                foreach (MethodInfo method in methods)
+				if (temp_results.TryGetValue(instance, out List<MethodInfo> result_methods) == false)
+				{
+					result_methods = new List<MethodInfo>();
+					temp_results.Add(instance, result_methods);
+				}
+				foreach (MethodInfo method in methods)
                 {
                     if (methodMap.Contains(method.GetHashCode()))
                         continue;
