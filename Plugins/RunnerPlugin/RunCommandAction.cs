@@ -50,9 +50,10 @@ namespace RunnerPlugin
         /// <param name="admin"></param>
         /// <param name="workingDirectory"></param>
         /// <param name="args"></param>
-        public RunCommandAction(string run, string path, string iconPath, bool admin, string workingDirectory, string argsStr, string lnkPath = null,Boolean isUwpItem = false, BitmapImage uwpIcon=null)
+        public RunCommandAction(string run, string path, string iconPath, bool admin, string workingDirectory, string argsStr, string lnkPath = null, Boolean isUwpItem = false, BitmapImage uwpIcon = null)
         {
-            if (isUwpItem)
+			Debug.WriteLine(run);
+			if (isUwpItem)
             {
                 defaultAsAdmin = true;
                 arguments = "";
@@ -62,7 +63,7 @@ namespace RunnerPlugin
                 IsUwpItem = true;
                 RunCommand = PinyinHelper.GetPinyinLongStr(run.ToLower());
                 Title = run;
-                Debug.WriteLine(RunCommand);
+                //Debug.WriteLine(RunCommand);
                 commandPath = path;
                 Icon = uwpIcon;
 
@@ -85,7 +86,7 @@ namespace RunnerPlugin
                 Subtitle = run + appendArgs;
             // 往索引字符串，后面添加拼音索引，即：计算器jisuanqi
             RunCommand = PinyinHelper.GetPinyinLongStr(run.ToLower());
-            Debug.WriteLine(RunCommand);
+            //Debug.WriteLine(RunCommand);
             // 显示的图标
             if (iconPath != null)
             {
@@ -146,7 +147,7 @@ namespace RunnerPlugin
                 }
                 return;
             }
-            
+
         }
 
         /// <summary>
@@ -185,15 +186,17 @@ namespace RunnerPlugin
                 Process.Start("explorer.exe", commandPath);
 
                 return;
-                ProcessStartInfo psi2 = new ProcessStartInfo("explorer.exe");
-                psi2.Verb = "runas";
-                psi2.WorkingDirectory = Helper.CurrentWorkingDirectoryOrDefault(progContext);
-                psi2.Arguments = commandPath;
-                try
+				ProcessStartInfo psi2 = new ProcessStartInfo("explorer.exe")
+				{
+					Verb = "runas",
+					WorkingDirectory = Helper.CurrentWorkingDirectoryOrDefault(progContext),
+					Arguments = commandPath
+				};
+				try
                 {
                     // 启动一个新进程，执行指定命令
                     Process.Start(psi2);
-                    
+
                 }
                 catch (Exception ex)
                 {

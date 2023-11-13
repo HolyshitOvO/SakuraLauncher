@@ -41,6 +41,7 @@ namespace RunnerPlugin
 			"C:\\\\Users\\\\Administrator\\\\AppData\\\\Roaming\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs",
 			"C:\\\\Users\\\\Default\\\\AppData\\\\Roaming\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs"
 		};
+		private static readonly List<string> PREDEFINED_EXCLUDE_WORDS = new List<string>{"uninstall","卸载","帮助","说明","help","Document","Website","更新","使用",};
 
 		public ListedRunnerPlugin(ICurrentEnvironment env, ILoggerFactory loggerFactory)
 		{
@@ -136,7 +137,7 @@ namespace RunnerPlugin
 								// 先添加此文件夹到列表
 								actions.Add(new RunCommandAction(cmd.Command, cmd.FolderPath, null, cmd.Admin, cmd.FolderPath, null));
 								// 遍历文件夹里的文件，添加到列表
-								TraverseFiles(cmd.FolderPath, cmd.IsSearchSubFolder, cmd.Exts,cmd.ExcludeNameWordArr, cmd.ExcludeNameArr);
+								TraverseFiles(cmd.FolderPath, cmd.IsSearchSubFolder, cmd.Exts, cmd.ExcludeNameWordArr, cmd.ExcludeNameArr, cmd.RenameSource, cmd.RenameTarget);
 							}
 						}
 						else
@@ -192,8 +193,7 @@ namespace RunnerPlugin
 					data.Add(new CommandData()
 					{
 						Command = command,
-						ExePath = null,
-						IconPath = null,
+						ExcludeNameWordArr = PREDEFINED_EXCLUDE_WORDS,
 						IsSearchSubFolder = true,
 						FolderPath = PREDEFINED_FOLDERS[i]
 					});
@@ -229,14 +229,18 @@ namespace RunnerPlugin
 		/// </summary>
 		/// <param name="folderPath">文件夹全路径</param>
 		/// <param name="isSearchSubFolder">是否搜索子文件夹</param>
-		public void TraverseFiles(string folderPath, bool isSearchSubFolder, List<string> exts, List<string> excludeWords,List<string> excludes)
+		public void TraverseFiles(string folderPath, bool isSearchSubFolder, List<string> exts, List<string> excludeWords, List<string> excludes, List<string> renameSource, List<string> renameTarget)
 		{
-			// 初始化 exts excludes
+			// 修正null 值的情况
 			if (exts?.Any() != true) exts = Constants.DEF_EXT_VALUES;
-			if (excludeWords == null) excludeWords = new List<string> {};
-			if (excludes == null) excludeWords = new List<string> {};
+			if (excludeWords == null) excludeWords = new List<string> { };
+			if (excludes == null) excludes = new List<string> { };
+			if (renameSource == null) renameSource = new List<string> { };
+			if (renameTarget == null) renameTarget = new List<string> { };
+			// 排除词语，全部转小写
+			excludeWords = excludeWords.ConvertAll(s => s.ToLower());
 
-			// 获取当前文件夹中的所有 给定 exts 的文件数组
+			// 获取当前文件夹中的所有指定文件格式（exts） 的文件数组
 			string[] fileArr = { };
 			foreach (string ext in exts)
 			{
@@ -244,22 +248,29 @@ namespace RunnerPlugin
 					isSearchSubFolder ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)).ToArray();
 			}
 
-			// 遍历数组
+			// 遍历文件数组
 			foreach (string file in fileArr)
 			{
 				string justName = Path.GetFileNameWithoutExtension(file);
-				// 是否需要排除
-				if(excludes.Contains(justName)) continue;
+				// 是否需要排除，完整匹配
+				if (excludes.Contains(justName)) continue;
 				bool isNeedContinue = false;
-				foreach (string exclude in excludeWords)
+				// 是否需要排除，部分匹配
+				foreach (string word in excludeWords)
 				{
-					if (justName.ToLower().Contains(exclude))
+					if (justName.ToLower().Contains(word))
 					{
 						isNeedContinue = true;
 						break;
 					}
 				}
 				if (isNeedContinue) continue;
+				// 是否需要重命名该项
+				int temp = renameSource.IndexOf(justName);
+				if (temp != -1)
+				{
+					justName = renameTarget[temp];
+				};
 				// 添加到启动条目列表
 				actions.Add(new RunCommandAction(
 					justName,

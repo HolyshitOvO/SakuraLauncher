@@ -61,21 +61,33 @@ namespace RunnerPlugin
 		/// <summary>
 		/// 排除名称里包含某单词的文件
 		/// </summary>
-		[MapProperty("exclude_word", MissingAction.CreateInstance, null)]
-		public List<string> ExcludeNameWordArr{ get; set; }
+		[MapProperty("exclude_words", MissingAction.CreateInstance, null)]
+		public List<string> ExcludeNameWordArr { get; set; }
 
 		/// <summary>
 		/// 排除文件名，完整匹配
 		/// </summary>
-		[MapProperty("exclude", MissingAction.CreateInstance, null)]
-		public List<string> ExcludeNameArr{ get; set; }
+		[MapProperty("excludes", MissingAction.CreateInstance, null)]
+		public List<string> ExcludeNameArr { get; set; }
+
+		/// <summary>
+		/// 重命名功能，源名称
+		/// </summary>
+		[MapProperty("rename_sources", MissingAction.CreateInstance, null)]
+		public List<string> RenameSource { get; set; }
+
+		/// <summary>
+		/// 重命名功能，目标名称
+		/// </summary>
+		[MapProperty("rename_targets", MissingAction.CreateInstance, null)]
+		public List<string> RenameTarget { get; set; }
 
 		/// <summary>
 		/// 是否包括子文件夹
 		/// </summary>
-		[MapProperty("subfolder", MissingAction.GivenValue, false)]
+		[MapProperty("is_contain_subfolder", MissingAction.GivenValue, true)]
 		public bool IsSearchSubFolder { get; set; }
 	}
 
-	
+
 }
