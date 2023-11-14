@@ -41,6 +41,7 @@ namespace RunnerPlugin
 
         private readonly Boolean IsUwpItem = false;
 
+
         /// <summary>
         /// 对 item 相关参数，稍加处理
         /// </summary>
@@ -58,7 +59,7 @@ namespace RunnerPlugin
                 defaultAsAdmin = true;
                 arguments = "";
                 IsExecutable = true;
-                Subtitle = "123";
+                Subtitle = "UWP APP";
 
                 IsUwpItem = true;
                 RunCommand = PinyinHelper.GetPinyinLongStr(run.ToLower());
