@@ -24,7 +24,6 @@ using System.Runtime.InteropServices.ComTypes;
 using System.IO;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
-using System.IO.Tools;
 using ContextMenuUtil;
 using System.Threading;
 using System.Reflection.Emit;

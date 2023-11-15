@@ -108,6 +108,10 @@
       <Project>{93dd3060-5f46-45f9-8e55-8ed18153b17a}</Project>
       <Name>HakeQuick</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Plugins\RunnerPlugin\RunnerPlugin.csproj">
+      <Project>{3173c479-ca89-4fed-ab2e-ca9886b99616}</Project>
+      <Name>RunnerPlugin</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

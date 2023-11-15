@@ -102,7 +102,7 @@ namespace UnitTest
         public void YourTestMethod()
         {
             // 打印的方法
-            //Console.WriteLine("23");
+            Console.WriteLine("23");
             //Debug.WriteLine("123");
             //MessageBox.Show("123", "警告");
         }
@@ -131,8 +131,13 @@ namespace UnitTest
 		[TestMethod]
         public void YourTestMethod3()
         {
-
+			Console.WriteLine(PinyinHelper.GetPinyinLongStr("崩坏3"));
+            Console.WriteLine(PinyinHelper.GetPinyinLongStr("网易云音乐"));
+            Console.WriteLine(PinyinHelper.GetPinyinLongStr("Microsoft Visual Studio 2022"));
+            Console.WriteLine(PinyinHelper.GetPinyinLongStr("360安全中心"));
+            Console.WriteLine(PinyinHelper.GetPinyinLongStr("控制面板 control panel"));
+            Console.WriteLine(PinyinHelper.GetPinyinLongStr("Developer Command Prompt for VS 2022"));
 		}
 
-    }
+	}
 }
