@@ -96,15 +96,7 @@ namespace HakeQuick
 			if (e.Handled) return;
 			if (m_actions == null || m_actions.Count <= 0 || IsVisible == false) return;
 
-			// Ctrl+O，打开目标所在文件夹
-			if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.O)
-			{
-				ActionBase action = list_actions.SelectedItem as ActionBase;
-				if (!action.IsExecutable) { e.Handled = true; return; }
-				ExecutionFolderRequested?.Invoke(this, new ExecutionFolderRequestedEventArgs(action));
-				e.Handled = true;
-			}
-			else if (e.Key == Key.Down)
+			if (e.Key == Key.Down)
 			{
 				MoveToNextAction();
 				e.Handled = true;
@@ -121,6 +113,22 @@ namespace HakeQuick
 				ExecutionRequested?.Invoke(this, new ExecutionRequestedEventArgs(action));
 				e.Handled = true;
 			}
+			// Ctrl+O，打开目标所在文件夹
+			else if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.O)
+			{
+				ActionBase action = list_actions.SelectedItem as ActionBase;
+				if (!action.IsExecutable) { e.Handled = true; return; }
+				ExecutionFolderRequested?.Invoke(this, new ExecutionFolderRequestedEventArgs(action, USER_DOSOMETHING.OPEN_FOLDER));
+				e.Handled = true;
+			}
+			else if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.I)
+			{
+				ActionBase action = list_actions.SelectedItem as ActionBase;
+				if (!action.IsExecutable) { e.Handled = true; return; }
+				ExecutionFolderRequested?.Invoke(this, new ExecutionFolderRequestedEventArgs(action, USER_DOSOMETHING.OPEN_GOAL_FOLDER));
+				e.Handled = true;
+			}
+
 		}
 
 		private void OnDeactived(object sender, EventArgs e)
