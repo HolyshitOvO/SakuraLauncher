@@ -21,6 +21,13 @@ using HakeQuick.Helpers;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Runtime.InteropServices.ComTypes;
+using System.IO;
+using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
+using System.IO.Tools;
+using ContextMenuUtil;
+using System.Threading;
+using System.Reflection.Emit;
 
 namespace HakeQuick
 {
@@ -85,7 +92,7 @@ namespace HakeQuick
 			ElementHost.EnableModelessKeyboardInterop(this);
 		}
 
-		private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+		private void OnPreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
 		{
 			if (e.Handled) return;
 			if (m_actions == null || m_actions.Count <= 0 || IsVisible == false) return;
@@ -137,6 +144,9 @@ namespace HakeQuick
 			return source;
 		}
 
+		/// <summary>
+		/// 获取当前鼠标位置，x，y
+		/// </summary>
 		[DllImport("user32.dll")]
 		public static extern bool GetCursorPos(out POINT lpPoint);
 
@@ -147,41 +157,44 @@ namespace HakeQuick
 			public int Y;
 		}
 
-		private void OnListPreviewRightMouseButtonDown(object sender, MouseButtonEventArgs e)
+		private bool isNeedShowContextMenu = false;
+		//private string needShowContextMenuFilePath = @"c:\windows\notepad.exe";
+		private string needShowContextMenuFilePath = @"C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Windows PowerShell\Windows PowerShell.lnk";
+
+		/// <summary>
+		/// 当右键点击 listview item
+		/// </summary>
+		private void OnListRightMouseButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			// 获取右键点击的item相关方法
-			ListViewItem ListViewItem = VisualUpwardSearch<ListViewItem>(e.OriginalSource as DependencyObject) as ListViewItem;
+			// 获取右键点击的item 数据 DataContext，相关方法
+			System.Windows.Controls.ListViewItem ListViewItem = VisualUpwardSearch<System.Windows.Controls.ListViewItem>(e.OriginalSource as DependencyObject) as System.Windows.Controls.ListViewItem;
 			if (ListViewItem != null)
 			{
-				//ListViewItem.Focus();
 				ActionBase action = ListViewItem.DataContext as ActionBase;
-				if(action.Subtitle.Equals("UWP APP")){
-					
-				}else{
-					//FileMenuUtil.ShowFileContentMenu(action.Subtitle);
-					GetCursorPos(out POINT p);
-				}
-				//Debug.WriteLine(ListViewItem.ToString());
 				Debug.WriteLine(action.Subtitle);
+				if (action.Subtitle.Equals("UWP APP"))
+				{
+
+				}
+				else
+				{
+					GetCursorPos(out POINT p);
+					// 弹出该文件的系统右键菜单
+					try
+					{
+						ShellContextMenu scm = new ShellContextMenu();
+						FileInfo[] files2 = new FileInfo[1];
+						files2[0] = new FileInfo(action.Subtitle);
+						scm.ShowContextMenu(files2, new System.Drawing.Point(p.X, p.Y));
+					}
+					catch (Exception ex)
+					{
+						Debug.Print("显示菜单出错: {0}", ex);
+					}
+				}
 				e.Handled = true;
 			}
-			
 			return;
-
-			if (e.RightButton == MouseButtonState.Pressed)
-			{
-				ListView item = sender as ListView;
-				
-				if (item != null && item.SelectedItem != null)
-				{
-					//MessageBox.Show(item.SelectedIndex.ToString());
-					//ActionBase action = list_actions.SelectedItem as ActionBase;
-					//MessageBox.Show(item.View.ToString());
-					
-					// todo: 右键弹出菜单
-				}
-			}
-			e.Handled = true;
 		}
 
 		private void OnTextChanged(object sender, TextChangedEventArgs e)

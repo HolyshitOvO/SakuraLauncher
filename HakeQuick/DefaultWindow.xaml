@@ -33,7 +33,7 @@
                 <ListView Name="list_actions" Grid.Row="2" Background="Transparent" BorderThickness="0" Margin="10" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Focusable="False">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
-                            <EventSetter Event="ListViewItem.PreviewMouseRightButtonDown" Handler="OnListPreviewRightMouseButtonDown"/>
+                            <EventSetter Event="ListViewItem.MouseRightButtonUp" Handler="OnListRightMouseButtonUp"/>
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                             <Setter Property="Template">
                                 <Setter.Value>

@@ -3,11 +3,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HakeQuick.Implementation.Base;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-
+using System.IO;
+using System.Drawing;
+using System.Diagnostics;
 
 namespace UnitTest
 {
-    [TestClass]
+	[TestClass]
     public class CommandTest
     {
         [TestMethod]
@@ -108,9 +110,25 @@ namespace UnitTest
         [TestMethod]
         public void YourTestMethod2()
         {
-        }
+			try
+			{
+                ContextMenuUtil.ShellContextMenu scm = new ContextMenuUtil.ShellContextMenu();
+				FileInfo[] files2 = new FileInfo[1];
+				//files2[0] = new FileInfo(@"c:\windows\notepad.exe");
+				files2[0] = new FileInfo(@"C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Windows PowerShell\Windows PowerShell.lnk");
+				//string filepath2 = ;
+				//files2[0] = new FileInfo(filepath2);
+				scm.ShowContextMenu(files2, new System.Drawing.Point(200, 200));
+			}
+			catch (Exception ex)
+			{
+				Debug.Print("显示菜单出错: {0}", ex);
+			}
+			return;
 
-        [TestMethod]
+		}
+
+		[TestMethod]
         public void YourTestMethod3()
         {
 

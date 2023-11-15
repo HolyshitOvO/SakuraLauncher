@@ -89,6 +89,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +103,10 @@
     <ProjectReference Include="..\Framework\BaseImplement\BaseImplement.csproj">
       <Project>{00835387-4f09-43b9-bfe0-68823a15f29b}</Project>
       <Name>BaseImplement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HakeQuick\HakeQuick.csproj">
+      <Project>{93dd3060-5f46-45f9-8e55-8ed18153b17a}</Project>
+      <Name>HakeQuick</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
