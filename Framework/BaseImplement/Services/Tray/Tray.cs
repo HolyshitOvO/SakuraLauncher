@@ -2,7 +2,9 @@
 using HakeQuick.Implementation.Services.TerminationNotifier;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -42,15 +44,17 @@ namespace HakeQuick.Implementation.Services.Tray
 			iconStream.Dispose();
 			tray.Visible = true;
 			// 右键托盘，菜单项
-			MenuItem openAppExeFolderMenu = new MenuItem("打开本程序路径", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.OPEN_MYAPP_FOLDER));
-			MenuItem openRunPrefFileMenu = new MenuItem("编辑运行配置文件", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.EDIT_RUNITEM_PREFFILE));
-			MenuItem openPrefFileMenu = new MenuItem("编辑配置文件", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.EDIT_PREFFILE));
-			MenuItem goAppGithubMenu = new MenuItem("前往软件项目主页", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.GO_APP_GITHUB_HOME));
-			MenuItem restartAppMenu = new MenuItem("重启软件", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.RESTART_APP));
-			MenuItem closeMenu = new MenuItem("退出", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.EXIT_APP));
-
-			// todo: 添加分隔线
-			MenuItem[] menuitems = new MenuItem[] { openAppExeFolderMenu, openPrefFileMenu, openRunPrefFileMenu, goAppGithubMenu, restartAppMenu, closeMenu };
+			MenuItem[] menuitems = new MenuItem[]
+			{
+			new MenuItem("打开本程序路径", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.OPEN_MYAPP_FOLDER)),
+			new MenuItem("编辑配置文件", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.EDIT_PREFFILE)),
+			new MenuItem("编辑运行配置文件", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.EDIT_RUNITEM_PREFFILE)),
+			new MenuItem("-"),
+			new MenuItem("前往软件项目主页", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.GO_APP_GITHUB_HOME)),
+			new MenuItem("-"),
+			new MenuItem("重启软件", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.RESTART_APP)),
+			new MenuItem("退出", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.EXIT_APP)),
+			};
 			tray.ContextMenu = new ContextMenu(menuitems);
 		}
 
