@@ -6,9 +6,9 @@ namespace HakeQuick.Implementation.Services.TerminationNotifier
     {
         public event EventHandler TerminationNotified;
 
-        public void NotifyTerminate()
+        public void NotifyTerminate(Tray.TRAY_DOSOMETHING wantToDo)
         {
-            TerminationNotified?.Invoke(this, null);
+            TerminationNotified?.Invoke(wantToDo, null);
         }
     }
 }

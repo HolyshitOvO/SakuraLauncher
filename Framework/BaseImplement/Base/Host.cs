@@ -10,8 +10,11 @@ using HakeQuick.Implementation.Services.Window;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -53,7 +56,7 @@ namespace HakeQuick.Implementation.Base
 			{
 				OnRun();
 				// 右下角系统通知
-				tray.SendNotification(2000, "HakeQuick", "HakeQuick正在运行", ToolTipIcon.Info);
+				tray.SendNotification(2000, "糖果启动器", "糖果启动器正在运行", ToolTipIcon.Info);
 				terminationNotifier.TerminationNotified += OnTerminationNotified;
 				hotkey.KeyPressed += OnHotKeyPressed;
 				// 将热键绑定到应用程序
@@ -66,9 +69,53 @@ namespace HakeQuick.Implementation.Base
 			}
 		}
 
+		/// <summary>
+		/// 右键托盘，菜单行为
+		/// </summary>
 		private void OnTerminationNotified(object sender, EventArgs e)
 		{
-			OnExit();
+			TRAY_DOSOMETHING wantToDo = (TRAY_DOSOMETHING)sender;
+			switch (wantToDo)
+			{
+				case TRAY_DOSOMETHING.EXIT_APP:
+					OnExit();
+					break;
+				case TRAY_DOSOMETHING.OPEN_MYAPP_FOLDER:
+					// 打开程序所在的文件夹
+					Process.Start("explorer.exe", "/select, \"" + Helpers.Tools.GetApplicationExePath() + "\"");
+					break;
+				case TRAY_DOSOMETHING.EDIT_PREFFILE:
+					{
+						// 打开配置文件
+						string filePath = Path.Combine(Helpers.Tools.GetApplicationFolderPath(), "settings.json");
+						if (File.Exists(filePath))
+							Process.Start("\"" + filePath + "\"");
+						break;
+					}
+				case TRAY_DOSOMETHING.EDIT_RUNITEM_PREFFILE:
+					{
+						// 打开配置文件
+						string filePath = Path.Combine(Helpers.Tools.GetApplicationFolderPath(), "runner.json");
+						if (File.Exists(filePath))
+							Process.Start("\"" + filePath + "\"");
+						break;
+					}
+				case TRAY_DOSOMETHING.RESTART_APP:
+					{
+						// 重启软件
+						Process.Start("\"" + Helpers.Tools.GetApplicationExePath() + "\"");
+						OnExit();
+						break;
+					}
+				case TRAY_DOSOMETHING.GO_APP_GITHUB_HOME:
+					Process.Start("\"" + "https://github.com/CandyTek/CandyLauncher" + "\"");
+					break;
+				case TRAY_DOSOMETHING.REFRESH_DATA:
+					//ListedRunnerPlugin.Instance?.UpdateConfigurations(env);
+					//OnExit();
+					break;
+
+			}
 		}
 
 		/// <summary>

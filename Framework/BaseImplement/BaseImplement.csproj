@@ -146,5 +146,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\run.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -27,7 +27,7 @@ namespace HakeQuick
                 .TryAddJson("settings.json")
                 .Build();
             // 更改配置文件存放位置，以及log文件存放位置
-            string myExePath = GetApplicationPath();
+            string myExePath = Helpers.Tools.GetApplicationFolderPath();
             configuration.Options.ConfigPath = myExePath;
             configuration.Options.LogPath = myExePath;
             QuickConfig options = configuration.Options;
@@ -42,20 +42,6 @@ namespace HakeQuick
                 .Build();
 
             host.Run();
-        }
-
-        /// <summary>
-        /// 获取运行程序所在文件夹位置
-        /// </summary>
-        public static string GetApplicationPath()
-        {
-            // 获取当前执行的程序集
-            Assembly assembly = Assembly.GetEntryAssembly();
-            // 获取程序集的位置
-            string assemblyLocation = assembly.Location;
-            // 获取程序所在路径
-            string applicationPath = Path.GetDirectoryName(assemblyLocation);
-            return applicationPath;
         }
     }
 }
