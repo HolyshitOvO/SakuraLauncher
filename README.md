@@ -26,6 +26,8 @@
 
 ![demo](https://raw.githubusercontent.com/lzl1918/HakeQuick/master/docs/sample.gif)
 
+<img src="https://profile-counter.glitch.me/candylauncher/count.svg" />
+
 ## How to build
 1. 克隆当前存储库
 
