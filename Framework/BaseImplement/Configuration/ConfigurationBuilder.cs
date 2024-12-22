@@ -1,12 +1,16 @@
 ﻿using Hake.Extension.ValueRecord;
 using Hake.Extension.ValueRecord.Json;
 using HakeQuick.Abstraction.Base;
+using HakeQuick.Abstraction.Services;
 using HakeQuick.Helpers;
+using HakeQuick.Implementation.Services.Logger;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +24,7 @@ namespace HakeQuick.Implementation.Configuration
         {
 
         }
-        
+
         public IConfiguration Build()
         {
             if (values == null)
@@ -68,7 +72,8 @@ namespace HakeQuick.Implementation.Configuration
             }
             else
             {
-                throw new Exception("invalid configuration format");
+                Debug.WriteLine("invalid configuration format");
+                //throw new Exception("invalid configuration format");
             }
             return this;
         }
@@ -77,7 +82,22 @@ namespace HakeQuick.Implementation.Configuration
             if (File.Exists(file))
                 return AddJson(file);
             else
+            {
+                using (FileStream configJsonFile = System.IO.File.Create(file))
+                {
+                    Assembly ass = Assembly.GetEntryAssembly();
+                    Stream defaultJson = ass.LoadStream("HakeQuick.default.json");
+                    using (StreamReader reader = new StreamReader(defaultJson))
+                    using (StreamWriter writer = new StreamWriter(configJsonFile))
+                    {
+                        // 读取 defaultJson 中的内容，并写入 configJsonFile
+                        string content = reader.ReadToEnd();
+                        writer.Write(content);
+                    }
+                    defaultJson.Close();
+                }
                 return this;
+            }
         }
     }
 }
