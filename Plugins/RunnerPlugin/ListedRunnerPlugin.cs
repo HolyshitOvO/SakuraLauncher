@@ -171,7 +171,7 @@ namespace RunnerPlugin
                         if (Directory.Exists(cmd.FolderPath))
                         {
                             // 先添加此文件夹到列表
-                            actions.Add(new RunCommandAction(cmd.Command, cmd.FolderPath, null, cmd.Admin, cmd.FolderPath));
+                            actions.Add(new RunCommandAction(cmd.Command, cmd.FolderPath, admin: cmd.Admin, workingDirectory: cmd.FolderPath, isUwpItem: false));
                             // 遍历文件夹里的文件，添加到列表
                             TraverseFiles(cmd.FolderPath, cmd.IsSearchSubFolder, cmd.Exts, cmd.ExcludeNameWordArr, cmd.ExcludeNameArr, cmd.RenameSource, cmd.RenameTarget);
                         }
@@ -179,22 +179,26 @@ namespace RunnerPlugin
                     else
                     {
                         // 普通的快捷方式配置
-                        actions.Add(new RunCommandAction(cmd.Command, cmd.ExePath, null, cmd.Admin, cmd.WorkingDirectory, cmd.ArgStr));
+                        actions.Add(new RunCommandAction(cmd.Command, cmd.ExePath, admin: cmd.Admin, workingDirectory: cmd.WorkingDirectory, argsStr: cmd.ArgStr, isUwpItem: false));
                     }
                 }
                 Tick.LogSingle("TraverseFiles");
                 // 获取 UWP 应用
-                if (false)
+                if (true)
                 {
                     Tick.TickSingle("UwpList");
-                    List<ShellObject> UwpList = UwpUtil.GetInstalledUWPApps();
-                    UwpList.ForEach(wp =>
-                    //var options = new ParallelOptions { MaxDegreeOfParallelism = 4 }; // 在这里使用并行没有优势，不知道为什么
-                    //Parallel.ForEach(UwpList, options, wp =>
+                    List<ShellObject> UwpList = UwpUtil.SpecificallyForGetCurrentUwpName2();
+                    // 这里使用并行没有优势
+                    UwpList.ForEach(uwp =>
                     {
+                        if (string.IsNullOrEmpty(uwp.Name))
+                        {
+                            Debug.WriteLine("遇到空的了");
+                        }
                         // 获取应用图片，除了这个，其他大小的图都会有黑背景和锯齿感，不知为啥
-                        //System.Drawing.Bitmap temp = wp.Thumbnail.ExtraLargeBitmap;
-                        ImageSource icon = wp.Thumbnail.ExtraLargeBitmapSource;
+                        //System.Drawing.Bitmap temp = uwp.Thumbnail.ExtraLargeBitmap;
+                        //SystemIcon.ToBitmapImage(temp)
+                        ImageSource icon = uwp.Thumbnail.ExtraLargeBitmapSource;
                         BitmapImage bitmapImage = new BitmapImage();
                         using (MemoryStream memoryStream = new MemoryStream())
                         {
@@ -210,10 +214,8 @@ namespace RunnerPlugin
                             bitmapImage.EndInit();
                         }
 
-                        if (!string.IsNullOrEmpty(wp.Name))
-                            actions.Add(new RunCommandAction(wp.Name, "shell:AppsFolder\\" + wp.ParsingName,
-                                null, true, null, null, true, bitmapImage));
-                        //null, true, null, null,null,true, SystemIcon.ToBitmapImage(temp)));
+                        actions.Add(new RunCommandAction(uwp.Name, "shell:AppsFolder\\" + uwp.ParsingName, true, bitmapImage));
+
                     });
                     Tick.LogSingle("UwpList");
                 }
@@ -253,10 +255,10 @@ namespace RunnerPlugin
                     {
                         for (int i = 0; i < actions.Count; i++)
                         {
-                            //if (!actions[i].IsUwpItem) actions[i].Icon = tempIcon[i];
-                            if (!actions[i].IsUwpItem) actions[i].Iconbyte = BitmapImageToByteArray(tempIcon[i]);
-                            tempIcon[i].Freeze();
-                            tempIcon[i]=null;
+                            if (!actions[i].IsUwpItem) actions[i].Icon = tempIcon[i];
+                            //if (!actions[i].IsUwpItem) actions[i].Iconbyte = BitmapImageToByteArray(tempIcon[i]);
+                            //tempIcon[i].Freeze();
+                            //tempIcon[i]=null;
                         }
                     }, null);
                 }
@@ -264,10 +266,10 @@ namespace RunnerPlugin
                 {
                     for (int i = 0; i < actions.Count; i++)
                     {
-                        //if (!actions[i].IsUwpItem) actions[i].Icon = tempIcon[i];
-                        if (!actions[i].IsUwpItem) actions[i].Iconbyte = BitmapImageToByteArray(tempIcon[i]);
-                        tempIcon[i].Freeze();
-                        tempIcon[i] = null;
+                        if (!actions[i].IsUwpItem) actions[i].Icon = tempIcon[i];
+                        //if (!actions[i].IsUwpItem) actions[i].Iconbyte = BitmapImageToByteArray(tempIcon[i]);
+                        //tempIcon[i].Freeze();
+                        //tempIcon[i] = null;
                     }
                 }
             });
@@ -385,13 +387,7 @@ namespace RunnerPlugin
             }
 
             // 添加到启动条目列表
-            return new RunCommandAction(
-                justName,
-                filePath,
-                null,
-                true,
-                null,
-                null);
+            return new RunCommandAction(justName, filePath, false, admin: true);
         }
 
 

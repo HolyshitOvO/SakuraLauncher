@@ -36,7 +36,7 @@ namespace RunnerPlugin
         /// <summary>
         /// 是否为 UWP 项
         /// </summary>
-        public readonly Boolean IsUwpItem = false;
+        public readonly bool IsUwpItem = false;
 
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace RunnerPlugin
         /// <param name="admin"></param>
         /// <param name="workingDirectory"></param>
         /// <param name="args"></param>
-        public RunCommandAction(string justName, string targetFilePath, string iconPath = null, bool admin = false, string workingDirectory = null, string argsStr = null, Boolean isUwpItem = false, BitmapImage uwpIcon = null)
+        public RunCommandAction(string justName, string targetFilePath, bool isUwpItem, BitmapImage iconBitmap = null, bool admin = false, string workingDirectory = null, string argsStr = null)
         {
             //Debug.WriteLine(run);
             if (isUwpItem)
@@ -63,7 +63,7 @@ namespace RunnerPlugin
                 Title = justName;
                 //Debug.WriteLine(RunCommand);
                 this.targetFilePath = targetFilePath;
-                Icon = uwpIcon;
+                Icon = iconBitmap;
 
                 return;
             }
@@ -83,37 +83,6 @@ namespace RunnerPlugin
                 Subtitle = justName + appendArgs;
             // 往索引字符串，后面添加拼音索引，即：计算器jisuanqi
             RunCommand = PinyinHelper.GetPinyinLongStr(justName.ToLower());
-            //Debug.WriteLine(RunCommand);
-            // 显示的图标
-            if (iconPath != null)
-            {
-                try
-                {
-                    Icon = new BitmapImage(new Uri(iconPath));
-                }
-                catch
-                {
-                    Icon = null;
-                }
-            }
-            else
-            {
-                return;
-                // 获取文件图标
-                //Icon = SystemIcon.ToBitmapImage(Image.FromHbitmap(SystemIcon.GetIcon(path, false).ToBitmap().GetHbitmap()));//测试
-                // 判断是否为快捷方式，若是直接就获取lnk文件的图标即可
-                string tempIconPath = targetFilePath;
-                try
-                {
-                    // 某些情况会闪退
-                    //Icon = SystemIcon.ToBitmapImage(WindowsThumbnailProvider.GetThumbnail(tempIconPath, 48, 48, ThumbnailOptions.IconOnly));
-                    Icon = SystemIcon.ToBitmapImage(WindowsThumbnailProvider.GetThumbnail(tempIconPath, 48, 48, ThumbnailOptions.None));
-                }
-                catch (Exception)
-                {
-                    Icon = SystemIcon.ToBitmapImage(SystemIcon.GetIcon(tempIconPath, true).ToBitmap());// 这个也可以，但是某些图标不行
-                }
-            }
         }
 
 

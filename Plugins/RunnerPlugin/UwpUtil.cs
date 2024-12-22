@@ -16,52 +16,50 @@ namespace RunnerPlugin
 {
 	internal static class UwpUtil
 	{
-		/// <summary>
-		/// 完美获取可用 UWP 应用列表
-		/// </summary>
-		public static List<ShellObject> GetInstalledUWPApps()
-		{
-			Dictionary<string, ShellObject> uwpApplicationsList = SpecificallyForGetCurrentUwpName();
-			List<ShellObject> resultList = new List<ShellObject>();
+        /// <summary>
+        /// 完美获取可用 UWP 应用列表
+        /// </summary>
+        public static List<ShellObject> GetInstalledUWPApps()
+        {
+            // 缓存应用列表，如果列表已经缓存，可以避免重复执行 PowerShell 命令
+            List<ShellObject> resultList = new List<ShellObject>();
 
-			// 使用 PS 来获取所有的 UWP 应用，但是名称不正确
-			Process process = new Process();
-			process.StartInfo.FileName = "powershell.exe";
-			process.StartInfo.RedirectStandardOutput = true;
-			process.StartInfo.UseShellExecute = false;
-			process.StartInfo.CreateNoWindow = true;
-			process.StartInfo.Arguments = "Get-AppxPackage -AllUsers | Select-Object IsFramework,PackageFamilyName";
-			//process.StartInfo.Arguments = "Get-AppxPackage | Select-Object IsFramework,PackageFamilyName";
-			process.Start();
+            // 获取 UWP 应用名称的字典
+            Dictionary<string, ShellObject> uwpApplicationsList = SpecificallyForGetCurrentUwpName();
+            Process process = new Process();
+            process.StartInfo.FileName = "powershell.exe";
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            // 如果只需要当前用户的应用，可以减少运行时间
+            //process.StartInfo.Arguments = "Get-AppxPackage | Select-Object IsFramework,PackageFamilyName";
+            //process.StartInfo.Arguments = "Get-AppxPackage | Where-Object { $_.IsFramework -eq $false } | Select-Object PackageFamilyName";
+            process.StartInfo.Arguments = "Get-AppxPackage | Where-Object { $_.IsFramework -eq $false } | Select-Object PackageFamilyName | Format-Table -HideTableHeaders";
+            process.Start();
+            //string output = process.StandardOutput.ReadToEnd();
+            //process.WaitForExit();
 
-			string output = process.StandardOutput.ReadToEnd();
-			process.WaitForExit();
+            // 使用流式读取，逐行处理输出
+            using (StreamReader reader = process.StandardOutput)
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if(uwpApplicationsList.ContainsKey(line)) 
+                    resultList.Add(uwpApplicationsList[line]);
+                }
+            }
+            //process.WaitForExit();
+            // 清理字典
+            //uwpApplicationsList.Clear();
+            return resultList;
+        }
 
-			// 分析输出以获取 UWP 应用信息
-			string[] lines = output.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-			foreach (string line in lines.Skip(3)) // 跳过前三行，标题分隔线
-			{
-				string[] parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-				if (parts.Length >= 2)
-				{
-					string packageFullName = parts[1];
-					//if ("True".Equals(parts[0])) continue; // 筛选掉框架应用
-					if (uwpApplicationsList.ContainsKey(packageFullName))
-					{
-						//Console.WriteLine(tempList[packageFullName].Name);
-						resultList.Add(uwpApplicationsList[packageFullName]);
-					}
-				}
-			}
-			uwpApplicationsList.Clear();
-			return resultList;
-		}
-
-		/// <summary>
-		/// 字典，键为 UWP 的 FamilyName，值包含 Applications 文件夹里的所有项。
-		/// 用途为获取 UWP 正确的应用名称、和判断是否为一般应用
-		/// </summary>
-		private static Dictionary<string, ShellObject> SpecificallyForGetCurrentUwpName()
+        /// <summary>
+        /// 字典，键为 UWP 的 FamilyName，值包含 Applications 文件夹里的所有项。
+        /// 用途为获取 UWP 正确的应用名称、和判断是否为一般应用
+        /// </summary>
+        private static Dictionary<string, ShellObject> SpecificallyForGetCurrentUwpName()
 		{
 			Dictionary<string, ShellObject> specificallyForGetUwpName = new Dictionary<string, ShellObject>();
 			ShellObject appsFolder = GetAppsFolder();
@@ -83,11 +81,41 @@ namespace RunnerPlugin
 			}
 			return specificallyForGetUwpName;
 		}
-
 		/// <summary>
-		/// 获取 Applications 里的所有应用，比较好的方法，能获取到图片
-		/// </summary>
-		/// <returns></returns>
+        /// 字典，键为 UWP 的 FamilyName，值包含 Applications 文件夹里的所有项。
+        /// 用途为获取 UWP 正确的应用名称、和判断是否为一般应用
+        /// </summary>
+        internal static List<ShellObject> SpecificallyForGetCurrentUwpName2()
+		{
+            // 获取电脑 Applications 文件夹里面的项
+            List<ShellObject> shellObjects = new List<ShellObject>();
+			ShellObject appsFolder = GetAppsFolder();
+			foreach (ShellObject app in (IKnownFolder)appsFolder)
+			{
+                shellObjects.Add(app);
+			}
+
+            List<ShellObject> resultList = new List<ShellObject>();
+            // 从最后向前遍历，一般后面都为UWP应用
+            for (int i = shellObjects.Count - 1; i >= 0; i--)
+            {
+                // 剔除叹号后的内容
+                if (shellObjects[i].ParsingName.Contains('!'))
+                {
+                    resultList.Add(shellObjects[i]);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return resultList;
+        }
+
+        /// <summary>
+        /// 获取 Applications 里的所有应用，比较好的方法，能获取到图片
+        /// </summary>
+        /// <returns></returns>
 		public static ShellObject GetAppsFolder()
 		{
 			// GUID taken from https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid
