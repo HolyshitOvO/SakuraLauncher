@@ -1,5 +1,5 @@
-﻿using HakeQuick.Abstraction.Action;
-using HakeQuick.Abstraction.Base;
+﻿using CandyLauncher.Abstraction.Action;
+using CandyLauncher.Abstraction.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Implementation.Base
+namespace CandyLauncher.Implementation.Base
 {
     internal interface IInternalContext : IQuickContext
     {

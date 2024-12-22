@@ -1,4 +1,4 @@
-﻿namespace HakeQuick.Abstraction.Action
+﻿namespace CandyLauncher.Abstraction.Action
 {
     public sealed class ActionUpdateResult
     {

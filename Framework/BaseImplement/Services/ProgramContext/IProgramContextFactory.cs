@@ -1,8 +1,8 @@
 ﻿using System;
-using HakeQuick.Abstraction.Services;
+using CandyLauncher.Abstraction.Services;
 using Hake.Extension.DependencyInjection.Abstraction;
 
-namespace HakeQuick.Implementation.Services.ProgramContext
+namespace CandyLauncher.Implementation.Services.ProgramContext
 {
     public interface IProgramContextFactory
     {

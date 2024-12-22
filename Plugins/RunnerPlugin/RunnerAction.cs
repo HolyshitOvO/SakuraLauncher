@@ -1,6 +1,6 @@
-﻿using HakeQuick.Abstraction.Action;
-using HakeQuick.Abstraction.Services;
-using HakeQuick.Helpers;
+﻿using CandyLauncher.Abstraction.Action;
+using CandyLauncher.Abstraction.Services;
+using CandyLauncher.Helpers;
 using System;
 using System.Diagnostics;
 using System.Reflection;

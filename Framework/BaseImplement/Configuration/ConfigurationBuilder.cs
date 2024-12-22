@@ -1,9 +1,9 @@
 ﻿using Hake.Extension.ValueRecord;
 using Hake.Extension.ValueRecord.Json;
-using HakeQuick.Abstraction.Base;
-using HakeQuick.Abstraction.Services;
-using HakeQuick.Helpers;
-using HakeQuick.Implementation.Services.Logger;
+using CandyLauncher.Abstraction.Base;
+using CandyLauncher.Abstraction.Services;
+using CandyLauncher.Helpers;
+using CandyLauncher.Implementation.Services.Logger;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +14,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Implementation.Configuration
+namespace CandyLauncher.Implementation.Configuration
 {
     public sealed class ConfigurationBuilder : IConfigurationBuilder
     {
@@ -40,7 +40,7 @@ namespace HakeQuick.Implementation.Configuration
         public ConfigurationBuilder AddDefault()
         {
             Assembly ass = Assembly.GetEntryAssembly();
-            Stream stream = ass.LoadStream("HakeQuick.default.json");
+            Stream stream = ass.LoadStream("CandyLauncher.default.json");
             RecordBase record = Converter.ReadJson(stream);
             stream.Dispose();
 
@@ -86,7 +86,7 @@ namespace HakeQuick.Implementation.Configuration
                 using (FileStream configJsonFile = System.IO.File.Create(file))
                 {
                     Assembly ass = Assembly.GetEntryAssembly();
-                    Stream defaultJson = ass.LoadStream("HakeQuick.default.json");
+                    Stream defaultJson = ass.LoadStream("CandyLauncher.default.json");
                     using (StreamReader reader = new StreamReader(defaultJson))
                     using (StreamWriter writer = new StreamWriter(configJsonFile))
                     {

@@ -1,6 +1,6 @@
-﻿using HakeQuick.Abstraction.Action;
-using HakeQuick.Abstraction.Base;
-using HakeQuick.Helpers;
+﻿using CandyLauncher.Abstraction.Action;
+using CandyLauncher.Abstraction.Base;
+using CandyLauncher.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace HakeQuick.Implementation.Components.ErrorBlocker
+namespace CandyLauncher.Implementation.Components.ErrorBlocker
 {
     internal sealed class UpdatableErrorAction : ErrorAction
     {

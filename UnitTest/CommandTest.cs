@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HakeQuick.Implementation.Base;
+using CandyLauncher.Implementation.Base;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.IO;

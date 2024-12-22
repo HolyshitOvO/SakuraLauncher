@@ -1,6 +1,6 @@
 ﻿using Hake.Extension.ValueRecord;
 
-namespace HakeQuick.Abstraction.Base
+namespace CandyLauncher.Abstraction.Base
 {
     public interface IConfiguration
     {

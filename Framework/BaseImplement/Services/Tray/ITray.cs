@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HakeQuick.Implementation.Services.Tray
+namespace CandyLauncher.Implementation.Services.Tray
 {
     public interface ITray
     {

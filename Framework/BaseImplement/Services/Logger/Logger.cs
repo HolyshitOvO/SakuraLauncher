@@ -1,11 +1,11 @@
 ﻿using Hake.Extension.DependencyInjection.Abstraction;
-using HakeQuick.Abstraction.Services;
+using CandyLauncher.Abstraction.Services;
 using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Implementation.Services.Logger
+namespace CandyLauncher.Implementation.Services.Logger
 {
     internal sealed class Logger : ILogger
     {

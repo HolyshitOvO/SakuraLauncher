@@ -1,17 +1,17 @@
 ﻿using Hake.Extension.DependencyInjection.Abstraction;
-using HakeQuick.Abstraction.Action;
-using HakeQuick.Abstraction.Base;
-using HakeQuick.Implementation.Components.PluginLoader;
-using HakeQuick.Implementation.Components.ErrorBlocker;
+using CandyLauncher.Abstraction.Action;
+using CandyLauncher.Abstraction.Base;
+using CandyLauncher.Implementation.Components.PluginLoader;
+using CandyLauncher.Implementation.Components.ErrorBlocker;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HakeQuick.Implementation.Services.Tray;
+using CandyLauncher.Implementation.Services.Tray;
 //using Chrome.BookmarkSearch;
 
-namespace HakeQuick
+namespace CandyLauncher
 {
     public sealed class Startup
     {

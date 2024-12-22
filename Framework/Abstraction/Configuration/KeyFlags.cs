@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HakeQuick.Abstraction.Base
+namespace CandyLauncher.Abstraction.Base
 {
     /// <summary>
     /// https://learn.microsoft.com/en-us/windows/win32/inputdev/wm-hotkey

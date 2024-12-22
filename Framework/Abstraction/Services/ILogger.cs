@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Abstraction.Services
+namespace CandyLauncher.Abstraction.Services
 {
     public enum MessageType
     {

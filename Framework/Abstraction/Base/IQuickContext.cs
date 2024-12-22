@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 
 using Hake.Extension.Pipeline.Abstraction;
-using HakeQuick.Abstraction.Action;
+using CandyLauncher.Abstraction.Action;
 using System.Threading;
-using HakeQuick.Abstraction.Services;
+using CandyLauncher.Abstraction.Services;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System;
 
-namespace HakeQuick.Abstraction.Base
+namespace CandyLauncher.Abstraction.Base
 {
     public interface IQuickContext : IContext, IDisposable
     {

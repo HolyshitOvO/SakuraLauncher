@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Windows.Input;
 
-namespace HakeQuick.Abstraction.Base
+namespace CandyLauncher.Abstraction.Base
 {
     /// <summary>
     /// 加载快捷键配置

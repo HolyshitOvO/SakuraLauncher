@@ -1,8 +1,8 @@
 ﻿using Hake.Extension.DependencyInjection.Abstraction;
-using HakeQuick.Abstraction.Base;
-using HakeQuick.Implementation.Services.Window;
+using CandyLauncher.Abstraction.Base;
+using CandyLauncher.Implementation.Services.Window;
 
-namespace HakeQuick.Implementation.Base
+namespace CandyLauncher.Implementation.Base
 {
     public static class QuickWindowExtensions
     {

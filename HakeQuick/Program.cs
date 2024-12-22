@@ -1,10 +1,10 @@
 ﻿using Hake.Extension.ValueRecord;
 using Hake.Extension.ValueRecord.Mapper;
-using HakeQuick.Abstraction.Base;
-using HakeQuick.Implementation.Base;
-using HakeQuick.Implementation.Configuration;
-using HakeQuick.Implementation.Services.HotKey;
-using HakeQuick.Implementation.Services.Logger;
+using CandyLauncher.Abstraction.Base;
+using CandyLauncher.Implementation.Base;
+using CandyLauncher.Implementation.Configuration;
+using CandyLauncher.Implementation.Services.HotKey;
+using CandyLauncher.Implementation.Services.Logger;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace HakeQuick
+namespace CandyLauncher
 {
     public static class Program
     {

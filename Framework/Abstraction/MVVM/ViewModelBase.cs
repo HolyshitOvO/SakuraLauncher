@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Abstraction.MVVM
+namespace CandyLauncher.Abstraction.MVVM
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using HakeQuick.Abstraction.Base;
-using HakeQuick.Abstraction.Services;
+using CandyLauncher.Abstraction.Base;
+using CandyLauncher.Abstraction.Services;
 using System.IO;
 using System.Reflection;
-using HakeQuick.Abstraction.Plugin;
+using CandyLauncher.Abstraction.Plugin;
 using Hake.Extension.DependencyInjection.Abstraction;
-using HakeQuick.Abstraction.Action;
+using CandyLauncher.Abstraction.Action;
 using System.Linq;
+using System.Diagnostics;
 
-namespace HakeQuick.Implementation.Components.PluginLoader
+namespace CandyLauncher.Implementation.Components.PluginLoader
 {
     internal sealed class PluginProvider : IPluginProvider
     {
@@ -363,6 +364,7 @@ namespace HakeQuick.Implementation.Components.PluginLoader
                 }
                 catch (Exception ex)
                 {
+                    Debug.WriteLine(ex.ToString());
                 }
             }
         }

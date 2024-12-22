@@ -1,4 +1,4 @@
-﻿using HakeQuick.Abstraction.Services;
+﻿using CandyLauncher.Abstraction.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace HakeQuick.Implementation.Services.ProgramContext
+namespace CandyLauncher.Implementation.Services.ProgramContext
 {
     internal sealed class ProgramContext : IProgramContext
     {

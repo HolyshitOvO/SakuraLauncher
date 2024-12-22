@@ -1,7 +1,4 @@
 ﻿{
-  // path to config directory
-  //"config": "D:\\Program Files\\HakeQuick\\configs",
-  //"log": "D:\\Program Files\\HakeQuick\\logs",
   "hotkey": {
     "key": "J",
 

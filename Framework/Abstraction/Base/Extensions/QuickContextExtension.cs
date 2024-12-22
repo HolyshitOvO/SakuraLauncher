@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using HakeQuick.Abstraction.Action;
+using CandyLauncher.Abstraction.Action;
 
-namespace HakeQuick.Abstraction.Base
+namespace CandyLauncher.Abstraction.Base
 {
     public static class QuickContextExtension
     {

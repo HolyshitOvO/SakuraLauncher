@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace HakeQuick.Helpers
+namespace CandyLauncher.Helpers
 {
     public static class AssemblyResourceHelper
     {

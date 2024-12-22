@@ -1,4 +1,4 @@
-﻿using HakeQuick.Abstraction.Action;
+﻿using CandyLauncher.Abstraction.Action;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace HakeQuick.Converters
+namespace CandyLauncher.Converters
 {
     public sealed class ActionOpacityConverter : IValueConverter
     {

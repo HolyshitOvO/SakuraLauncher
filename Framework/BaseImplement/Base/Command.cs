@@ -1,13 +1,13 @@
 ﻿#define TEST
 
-using HakeQuick.Abstraction.Base;
+using CandyLauncher.Abstraction.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Implementation.Base
+namespace CandyLauncher.Implementation.Base
 {
     internal static class CharCateHelper
     {

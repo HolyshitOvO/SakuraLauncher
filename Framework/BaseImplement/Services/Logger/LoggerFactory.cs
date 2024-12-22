@@ -1,11 +1,11 @@
 ﻿using Hake.Extension.DependencyInjection.Abstraction;
-using HakeQuick.Abstraction.Base;
-using HakeQuick.Abstraction.Services;
-using HakeQuick.Implementation.Base;
+using CandyLauncher.Abstraction.Base;
+using CandyLauncher.Abstraction.Services;
+using CandyLauncher.Implementation.Base;
 using System;
 using System.Collections.Generic;
 
-namespace HakeQuick.Implementation.Services.Logger
+namespace CandyLauncher.Implementation.Services.Logger
 {
     public static class LoggerFactoryExtensions
     {

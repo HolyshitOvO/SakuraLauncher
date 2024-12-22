@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace HakeQuick.Implementation.Services.HotKey
+namespace CandyLauncher.Implementation.Services.HotKey
 {
     public delegate void HotKeyEventHandler(IHotKey sender, int hotkeyid);
 

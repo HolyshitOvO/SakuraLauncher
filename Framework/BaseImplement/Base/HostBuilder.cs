@@ -1,17 +1,17 @@
 ﻿using System;
 
 using Hake.Extension.DependencyInjection.Abstraction;
-using HakeQuick.Abstraction.Base;
-using HakeQuick.Implementation.Services.Tray;
-using HakeQuick.Implementation.Services.ProgramContext;
-using HakeQuick.Abstraction.Services;
-using HakeQuick.Implementation.Services.TerminationNotifier;
+using CandyLauncher.Abstraction.Base;
+using CandyLauncher.Implementation.Services.Tray;
+using CandyLauncher.Implementation.Services.ProgramContext;
+using CandyLauncher.Abstraction.Services;
+using CandyLauncher.Implementation.Services.TerminationNotifier;
 using System.Windows.Forms;
-using HakeQuick.Implementation.Services.HotKey;
-using HakeQuick.Implementation.Services.Logger;
+using CandyLauncher.Implementation.Services.HotKey;
+using CandyLauncher.Implementation.Services.Logger;
 using Hake.Extension.DependencyInjection;
 
-namespace HakeQuick.Implementation.Base
+namespace CandyLauncher.Implementation.Base
 {
     public class HostBuilder : IHostBuilder
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Abstraction.Services
+namespace CandyLauncher.Abstraction.Services
 {
     public interface ICancellationProvider
     {

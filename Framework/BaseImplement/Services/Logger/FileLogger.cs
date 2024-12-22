@@ -1,8 +1,8 @@
-﻿using HakeQuick.Abstraction.Services;
+﻿using CandyLauncher.Abstraction.Services;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Implementation.Services.Logger
+namespace CandyLauncher.Implementation.Services.Logger
 {
     internal static class FileLogger
     {
@@ -12,6 +12,8 @@ namespace HakeQuick.Implementation.Services.Logger
         public static FileInfo LogFile { get; private set; }
         private static StreamWriter writer;
         private static Stream stream;
+        private static readonly object lockObj = new object();  // 添加锁对象用于同步
+
         public static void Initialize(ICurrentEnvironment env)
         {
             if (Initialized)
@@ -30,30 +32,63 @@ namespace HakeQuick.Implementation.Services.Logger
             writer = new StreamWriter(stream);
             Initialized = true;
         }
+
         public static void Dispose()
         {
             if (Disposed)
                 return;
 
-            writer.Flush();
-            writer.Close();
-            writer.Dispose();
-            stream.Close();
-            stream.Dispose();
-            Disposed = true;
+            // 确保在Dispose时只操作一次
+            lock (lockObj)
+            {
+                if (writer != null)
+                {
+                    writer.Flush();
+                    writer.Close();
+                    writer.Dispose();
+                }
+                if (stream != null)
+                {
+                    stream.Close();
+                    stream.Dispose();
+                }
+                Disposed = true;
+            }
         }
 
         private static int flushCountdown = 1;
+
         public static Task LogAsync(string message)
         {
+            // 如果流被处置了，就不要继续写入
+            if (Disposed)
+                return Task.FromResult(0);
+
             flushCountdown--;
             if (flushCountdown <= 0)
             {
                 flushCountdown = 1;
-                return writer.WriteLineAsync(message).ContinueWith(tsk => writer.Flush());
+                return WriteAsync(message);
             }
             else
-                return writer.WriteLineAsync(message);
+            {
+                return WriteAsync(message);
+            }
+        }
+
+        private static Task WriteAsync(string message)
+        {
+            lock (lockObj) // 使用锁定机制避免并发问题
+            {
+                if (writer != null && !Disposed)
+                {
+                    return writer.WriteLineAsync(message).ContinueWith(tsk => writer.Flush());
+                }
+                else
+                {
+                    return Task.FromResult(0);
+                }
+            }
         }
     }
 }

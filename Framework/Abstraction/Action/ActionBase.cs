@@ -1,4 +1,4 @@
-﻿using HakeQuick.Abstraction.MVVM;
+﻿using CandyLauncher.Abstraction.MVVM;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Media.Imaging;
 
-namespace HakeQuick.Abstraction.Action
+namespace CandyLauncher.Abstraction.Action
 {
     public enum ActionPriority
     {

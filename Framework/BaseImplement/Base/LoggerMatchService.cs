@@ -1,9 +1,9 @@
 ﻿using System;
 
 using Hake.Extension.DependencyInjection.Abstraction;
-using HakeQuick.Abstraction.Services;
+using CandyLauncher.Abstraction.Services;
 
-namespace HakeQuick.Implementation.Base
+namespace CandyLauncher.Implementation.Base
 {
     internal static class LoggerMatchService
     {

@@ -1,5 +1,5 @@
-﻿using HakeQuick.Abstraction.Services;
-using HakeQuick.Implementation.Base;
+﻿using CandyLauncher.Abstraction.Services;
+using CandyLauncher.Implementation.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Implementation.Services.CancellationProvider
+namespace CandyLauncher.Implementation.Services.CancellationProvider
 {
     internal sealed class CancellationProvider : IInternalCancellationProvider
     {

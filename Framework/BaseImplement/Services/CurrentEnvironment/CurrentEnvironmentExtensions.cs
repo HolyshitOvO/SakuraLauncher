@@ -1,9 +1,9 @@
-﻿using HakeQuick.Abstraction.Services;
-using HakeQuick.Abstraction.Base;
+﻿using CandyLauncher.Abstraction.Services;
+using CandyLauncher.Abstraction.Base;
 using Hake.Extension.DependencyInjection.Abstraction;
-using HakeQuick.Implementation.Services.CurrentEnvironment;
+using CandyLauncher.Implementation.Services.CurrentEnvironment;
 
-namespace HakeQuick.Implementation.Base
+namespace CandyLauncher.Implementation.Base
 {
     public static class CurrentEnvironmentExtensions
     {

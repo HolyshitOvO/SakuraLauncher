@@ -1,4 +1,4 @@
-﻿using HakeQuick.Abstraction.Services;
+﻿using CandyLauncher.Abstraction.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 
-namespace HakeQuick.Implementation.Services.CurrentEnvironment
+namespace CandyLauncher.Implementation.Services.CurrentEnvironment
 {
     internal sealed class CurrentEnvironment : ICurrentEnvironment
     {

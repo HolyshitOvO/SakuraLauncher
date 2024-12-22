@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HakeQuick.Implementation.Services.TerminationNotifier
+namespace CandyLauncher.Implementation.Services.TerminationNotifier
 {
     public interface ITerminationNotifier
     {

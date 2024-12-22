@@ -1,6 +1,6 @@
 ﻿using Hake.Extension.DependencyInjection.Abstraction;
-using HakeQuick.Abstraction.Base;
-using HakeQuick.Implementation.Services.HotKey;
+using CandyLauncher.Abstraction.Base;
+using CandyLauncher.Implementation.Services.HotKey;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace HakeQuick.Implementation.Base
+namespace CandyLauncher.Implementation.Base
 {
     public static class HotKeyBuilderExtensions
     {

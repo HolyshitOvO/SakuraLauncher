@@ -1,5 +1,5 @@
-﻿using HakeQuick.Abstraction.Action;
-using HakeQuick.Abstraction.Services;
+﻿using CandyLauncher.Abstraction.Action;
+using CandyLauncher.Abstraction.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace HakeQuick.Implementation.Services.Window
+namespace CandyLauncher.Implementation.Services.Window
 {
     public class TextUpdatedEventArgs : EventArgs
     {

@@ -1,7 +1,7 @@
 ﻿using Hake.Extension.DependencyInjection.Abstraction;
-using HakeQuick.Abstraction.Action;
-using HakeQuick.Abstraction.Base;
-using HakeQuick.Abstraction.Services;
+using CandyLauncher.Abstraction.Action;
+using CandyLauncher.Abstraction.Base;
+using CandyLauncher.Abstraction.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Implementation.Components.PluginLoader
+namespace CandyLauncher.Implementation.Components.PluginLoader
 {
     internal sealed class PluginLoader
     {

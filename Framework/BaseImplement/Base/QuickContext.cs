@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using HakeQuick.Abstraction.Action;
-using HakeQuick.Abstraction.Services;
-using HakeQuick.Implementation.Services.CancellationProvider;
-using HakeQuick.Implementation.Base;
+using CandyLauncher.Abstraction.Action;
+using CandyLauncher.Abstraction.Services;
+using CandyLauncher.Implementation.Services.CancellationProvider;
+using CandyLauncher.Implementation.Base;
 
-namespace HakeQuick.Abstraction.Base
+namespace CandyLauncher.Abstraction.Base
 {
     internal sealed class ActionWithPriorityWrapper
     {

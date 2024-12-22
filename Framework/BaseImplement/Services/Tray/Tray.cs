@@ -1,5 +1,5 @@
-﻿using HakeQuick.Helpers;
-using HakeQuick.Implementation.Services.TerminationNotifier;
+﻿using CandyLauncher.Helpers;
+using CandyLauncher.Implementation.Services.TerminationNotifier;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace HakeQuick.Implementation.Services.Tray
+namespace CandyLauncher.Implementation.Services.Tray
 {
 	public enum TRAY_DOSOMETHING
 	{
@@ -39,7 +39,7 @@ namespace HakeQuick.Implementation.Services.Tray
 
 			tray = new NotifyIcon();
 			Assembly assembly = Assembly.GetEntryAssembly();
-			Stream iconStream = assembly.LoadStream("HakeQuick.tray.ico");
+			Stream iconStream = assembly.LoadStream("CandyLauncher.candy.ico");
 			tray.Icon = new Icon(iconStream);
 			iconStream.Close();
 			iconStream.Dispose();

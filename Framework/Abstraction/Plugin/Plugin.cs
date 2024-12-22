@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Abstraction.Plugin
+namespace CandyLauncher.Abstraction.Plugin
 {
 
     public abstract class QuickPlugin

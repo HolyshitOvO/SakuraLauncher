@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HakeQuick.Abstraction.Plugin
+namespace CandyLauncher.Abstraction.Plugin
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public sealed class IdentityAttribute : Attribute

@@ -1,7 +1,7 @@
-﻿using HakeQuick.Abstraction.Action;
-using HakeQuick.Abstraction.Base;
-using HakeQuick.Abstraction.Plugin;
-using HakeQuick.Abstraction.Services;
+﻿using CandyLauncher.Abstraction.Action;
+using CandyLauncher.Abstraction.Base;
+using CandyLauncher.Abstraction.Plugin;
+using CandyLauncher.Abstraction.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

@@ -1,4 +1,4 @@
-﻿namespace HakeQuick.Abstraction.Services
+﻿namespace CandyLauncher.Abstraction.Services
 {
     public interface ILoggerFactory
     {

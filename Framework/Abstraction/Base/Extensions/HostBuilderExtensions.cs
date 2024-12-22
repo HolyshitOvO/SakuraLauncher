@@ -3,7 +3,7 @@
 using Hake.Extension.DependencyInjection.Abstraction;
 using System;
 
-namespace HakeQuick.Abstraction.Base
+namespace CandyLauncher.Abstraction.Base
 {
     public static class HostBuilderExtensions
     {

@@ -1,6 +1,6 @@
-﻿using HakeQuick.Abstraction.Base;
+﻿using CandyLauncher.Abstraction.Base;
 
-namespace HakeQuick.Implementation.Components.ErrorBlocker
+namespace CandyLauncher.Implementation.Components.ErrorBlocker
 {
     public static class ErrorBlockerExtensions
     {

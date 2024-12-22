@@ -1,10 +1,10 @@
-﻿using HakeQuick.Abstraction.Base;
+﻿using CandyLauncher.Abstraction.Base;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace HakeQuick.Implementation.Components.PluginLoader
+namespace CandyLauncher.Implementation.Components.PluginLoader
 {
     internal sealed class PluginMatchedMethodRecord
     {

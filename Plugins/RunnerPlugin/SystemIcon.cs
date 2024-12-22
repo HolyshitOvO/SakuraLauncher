@@ -340,7 +340,7 @@ namespace RunnerPlugin
                 IShellItemImageFactory shellItemImageFactory = (IShellItemImageFactory)Marshal.GetObjectForIUnknown(shellItemImageFactoryPtr);
 
                 uint iconSize = 256;
-                System.Runtime.InteropServices.ComTypes.FILETIME ft = new System.Runtime.InteropServices.ComTypes.FILETIME();
+                //System.Runtime.InteropServices.ComTypes.FILETIME ft = new System.Runtime.InteropServices.ComTypes.FILETIME();
                 IntPtr hBitmap = IntPtr.Zero;
 
                 shellItemImageFactory.GetImage(new SIZE()

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HakeQuick.Abstraction.Base;
+using CandyLauncher.Abstraction.Base;
 using Hake.Extension.Pipeline.Abstraction;
 
-namespace HakeQuick.Implementation.Base
+namespace CandyLauncher.Implementation.Base
 {
     public sealed class AppBuilder : PipelineBase<AppDelegate, IAppBuilder, IQuickContext>, IAppBuilder
     {

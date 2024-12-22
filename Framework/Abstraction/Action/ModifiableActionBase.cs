@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media.Imaging;
 
-namespace HakeQuick.Abstraction.Action
+namespace CandyLauncher.Abstraction.Action
 {
     public abstract class ModifiableActionBase : ActionBase
     {

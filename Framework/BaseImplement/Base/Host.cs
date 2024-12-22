@@ -1,12 +1,12 @@
 ﻿using Hake.Extension.DependencyInjection.Abstraction;
-using HakeQuick.Abstraction.Action;
-using HakeQuick.Abstraction.Base;
-using HakeQuick.Abstraction.Services;
-using HakeQuick.Implementation.Services.HotKey;
-using HakeQuick.Implementation.Services.ProgramContext;
-using HakeQuick.Implementation.Services.TerminationNotifier;
-using HakeQuick.Implementation.Services.Tray;
-using HakeQuick.Implementation.Services.Window;
+using CandyLauncher.Abstraction.Action;
+using CandyLauncher.Abstraction.Base;
+using CandyLauncher.Abstraction.Services;
+using CandyLauncher.Implementation.Services.HotKey;
+using CandyLauncher.Implementation.Services.ProgramContext;
+using CandyLauncher.Implementation.Services.TerminationNotifier;
+using CandyLauncher.Implementation.Services.Tray;
+using CandyLauncher.Implementation.Services.Window;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
-namespace HakeQuick.Implementation.Base
+namespace CandyLauncher.Implementation.Base
 {
     internal sealed class Host : IHost
     {

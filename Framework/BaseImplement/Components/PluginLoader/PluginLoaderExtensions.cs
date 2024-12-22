@@ -1,8 +1,8 @@
 ﻿using Hake.Extension.DependencyInjection.Abstraction;
-using HakeQuick.Abstraction.Base;
+using CandyLauncher.Abstraction.Base;
 using System;
 
-namespace HakeQuick.Implementation.Components.PluginLoader
+namespace CandyLauncher.Implementation.Components.PluginLoader
 {
     public static class PluginLoaderExtensions
     {

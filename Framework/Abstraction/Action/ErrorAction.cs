@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media.Imaging;
 
-namespace HakeQuick.Abstraction.Action
+namespace CandyLauncher.Abstraction.Action
 {
     public class ErrorAction : ModifiableActionBase
     {

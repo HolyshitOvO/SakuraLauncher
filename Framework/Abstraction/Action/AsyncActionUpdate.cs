@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Abstraction.Action
+namespace CandyLauncher.Abstraction.Action
 {
     public sealed class AsyncActionUpdate
     {

@@ -1,4 +1,4 @@
-﻿using HakeQuick.Implementation.Services.Window;
+﻿using CandyLauncher.Implementation.Services.Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +12,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using HakeQuick.Abstraction.Action;
-using HakeQuick.Abstraction.Services;
+using CandyLauncher.Abstraction.Action;
+using CandyLauncher.Abstraction.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Forms.Integration;
 using System.Windows.Interop;
-using HakeQuick.Helpers;
+using CandyLauncher.Helpers;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Runtime.InteropServices.ComTypes;
@@ -28,7 +28,7 @@ using ContextMenuUtil;
 using System.Threading;
 using System.Reflection.Emit;
 
-namespace HakeQuick
+namespace CandyLauncher
 {
 	public partial class DefaultWindow : Window, IQuickWindow
 	{
@@ -164,9 +164,9 @@ namespace HakeQuick
 			public int Y;
 		}
 
-		private bool isNeedShowContextMenu = false;
+		//private bool isNeedShowContextMenu = false;
 		//private string needShowContextMenuFilePath = @"c:\windows\notepad.exe";
-		private string needShowContextMenuFilePath = @"C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Windows PowerShell\Windows PowerShell.lnk";
+		//private string needShowContextMenuFilePath = @"C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Windows PowerShell\Windows PowerShell.lnk";
 
 		/// <summary>
 		/// 当右键点击 listview item

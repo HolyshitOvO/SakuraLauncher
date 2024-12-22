@@ -1,4 +1,4 @@
-﻿using HakeQuick.Abstraction.Base;
+﻿using CandyLauncher.Abstraction.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
-namespace HakeQuick.Implementation.Services.HotKey
+namespace CandyLauncher.Implementation.Services.HotKey
 {
     internal sealed class HotKey : IHotKey, IMessageFilter
     {

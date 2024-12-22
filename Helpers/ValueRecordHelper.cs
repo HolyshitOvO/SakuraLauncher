@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HakeQuick.Helpers
+namespace CandyLauncher.Helpers
 {
     public static class ValueRecordHelper
     {

@@ -1,4 +1,4 @@
-﻿using HakeQuick.Abstraction.Services;
+﻿using CandyLauncher.Abstraction.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

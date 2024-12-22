@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HakeQuick.Abstraction.Action
+namespace CandyLauncher.Abstraction.Action
 {
     /// <summary>
     /// 订阅事件，窗口输入 Enter 按键
