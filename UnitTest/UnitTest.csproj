@@ -105,7 +105,7 @@
       <Project>{00835387-4f09-43b9-bfe0-68823a15f29b}</Project>
       <Name>BaseImplement</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HakeQuick\CandyLauncher.csproj">
+    <ProjectReference Include="..\CandyLauncher\CandyLauncher.csproj">
       <Project>{93dd3060-5f46-45f9-8e55-8ed18153b17a}</Project>
       <Name>CandyLauncher</Name>
     </ProjectReference>
