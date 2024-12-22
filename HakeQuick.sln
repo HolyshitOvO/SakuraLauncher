@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HakeQuick", "HakeQuick\HakeQuick.csproj", "{93DD3060-5F46-45F9-8E55-8ED18153B17A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyLauncher", "HakeQuick\CandyLauncher.csproj", "{93DD3060-5F46-45F9-8E55-8ED18153B17A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3173C479-CA89-4FED-AB2E-CA9886B99616} = {3173C479-CA89-4FED-AB2E-CA9886B99616}
 	EndProjectSection
