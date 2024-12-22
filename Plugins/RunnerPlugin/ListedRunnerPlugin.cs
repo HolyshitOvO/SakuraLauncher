@@ -183,37 +183,40 @@ namespace RunnerPlugin
                     }
                 }
                 Tick.LogSingle("TraverseFiles");
-                Tick.TickSingle("UwpList");
                 // 获取 UWP 应用
-                List<ShellObject> UwpList = UwpUtil.GetInstalledUWPApps();
-                UwpList.ForEach(wp =>
-                //var options = new ParallelOptions { MaxDegreeOfParallelism = 4 }; // 在这里使用并行没有优势，不知道为什么
-                //Parallel.ForEach(UwpList, options, wp =>
+                if (false)
                 {
-                    // 获取应用图片，除了这个，其他大小的图都会有黑背景和锯齿感，不知为啥
-                    //System.Drawing.Bitmap temp = wp.Thumbnail.ExtraLargeBitmap;
-                    ImageSource icon = wp.Thumbnail.ExtraLargeBitmapSource;
-                    BitmapImage bitmapImage = new BitmapImage();
-                    using (MemoryStream memoryStream = new MemoryStream())
+                    Tick.TickSingle("UwpList");
+                    List<ShellObject> UwpList = UwpUtil.GetInstalledUWPApps();
+                    UwpList.ForEach(wp =>
+                    //var options = new ParallelOptions { MaxDegreeOfParallelism = 4 }; // 在这里使用并行没有优势，不知道为什么
+                    //Parallel.ForEach(UwpList, options, wp =>
                     {
-                        var bitmapSource = (BitmapSource)icon;
-                        var encoder = new PngBitmapEncoder();
-                        encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-                        encoder.Save(memoryStream);
-                        memoryStream.Seek(0, SeekOrigin.Begin);
+                        // 获取应用图片，除了这个，其他大小的图都会有黑背景和锯齿感，不知为啥
+                        //System.Drawing.Bitmap temp = wp.Thumbnail.ExtraLargeBitmap;
+                        ImageSource icon = wp.Thumbnail.ExtraLargeBitmapSource;
+                        BitmapImage bitmapImage = new BitmapImage();
+                        using (MemoryStream memoryStream = new MemoryStream())
+                        {
+                            var bitmapSource = (BitmapSource)icon;
+                            var encoder = new PngBitmapEncoder();
+                            encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                            encoder.Save(memoryStream);
+                            memoryStream.Seek(0, SeekOrigin.Begin);
 
-                        bitmapImage.BeginInit();
-                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmapImage.StreamSource = memoryStream;
-                        bitmapImage.EndInit();
-                    }
+                            bitmapImage.BeginInit();
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.StreamSource = memoryStream;
+                            bitmapImage.EndInit();
+                        }
 
-                    if (!string.IsNullOrEmpty(wp.Name))
-                        actions.Add(new RunCommandAction(wp.Name, "shell:AppsFolder\\" + wp.ParsingName,
-                            null, true, null, null, true, bitmapImage));
-                    //null, true, null, null,null,true, SystemIcon.ToBitmapImage(temp)));
-                });
-                Tick.LogSingle("UwpList");
+                        if (!string.IsNullOrEmpty(wp.Name))
+                            actions.Add(new RunCommandAction(wp.Name, "shell:AppsFolder\\" + wp.ParsingName,
+                                null, true, null, null, true, bitmapImage));
+                        //null, true, null, null,null,true, SystemIcon.ToBitmapImage(temp)));
+                    });
+                    Tick.LogSingle("UwpList");
+                }
             }
             catch (Exception ex)
             {
@@ -250,7 +253,10 @@ namespace RunnerPlugin
                     {
                         for (int i = 0; i < actions.Count; i++)
                         {
-                            if (!actions[i].IsUwpItem) actions[i].Icon = tempIcon[i];
+                            //if (!actions[i].IsUwpItem) actions[i].Icon = tempIcon[i];
+                            if (!actions[i].IsUwpItem) actions[i].Iconbyte = BitmapImageToByteArray(tempIcon[i]);
+                            tempIcon[i].Freeze();
+                            tempIcon[i]=null;
                         }
                     }, null);
                 }
@@ -258,12 +264,41 @@ namespace RunnerPlugin
                 {
                     for (int i = 0; i < actions.Count; i++)
                     {
-                        if (!actions[i].IsUwpItem) actions[i].Icon = tempIcon[i];
+                        //if (!actions[i].IsUwpItem) actions[i].Icon = tempIcon[i];
+                        if (!actions[i].IsUwpItem) actions[i].Iconbyte = BitmapImageToByteArray(tempIcon[i]);
+                        tempIcon[i].Freeze();
+                        tempIcon[i] = null;
                     }
                 }
             });
             // todo: 在这里更新图标，不要在主索引进行的时候更新
         }
+
+        public BitmapImage ByteArrayToBitmapImage(byte[] byteArray)
+        {
+            BitmapImage bitmapImage = new BitmapImage();
+            using (MemoryStream ms = new MemoryStream(byteArray))
+            {
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = ms;
+                bitmapImage.EndInit();
+            }
+            return bitmapImage;
+        }
+
+        public byte[] BitmapImageToByteArray(BitmapImage bitmapImage)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                // 创建一个PngEncoder或者JpegEncoder，视需要选择格式
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                encoder.Save(ms);
+                return ms.ToArray();
+            }
+        }
+
 
         /// <summary>
         /// 将CommandData对象列表转成ListRecord,用于序列化成json

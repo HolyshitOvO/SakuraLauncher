@@ -1,5 +1,7 @@
 ﻿using HakeQuick.Abstraction.MVVM;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Media.Imaging;
@@ -24,8 +26,48 @@ namespace HakeQuick.Abstraction.Action
         private BitmapImage _icon;
         public BitmapImage Icon
         {
-            get { return _icon; }
+            get
+            {
+                if (_icon == null)
+                {
+                    if (_iconbyte != null)
+                    {
+                        return ByteArrayToBitmapImage(_iconbyte);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return _icon;
+                }
+            }
             set { _icon = value; NotifyPropertyChanged(nameof(Icon)); }
+        }
+
+        private BitmapImage ByteArrayToBitmapImage(byte[] byteArray)
+        {
+            BitmapImage bitmapImage = new BitmapImage();
+            using (MemoryStream ms = new MemoryStream(byteArray))
+            {
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = ms;
+                bitmapImage.EndInit();
+            }
+            return bitmapImage;
+        }
+
+        /// <summary>
+        /// 图标
+        /// </summary>
+        private byte[] _iconbyte;
+        public byte[] Iconbyte
+        {
+            get { return _iconbyte; }
+            set { _iconbyte = value;}
         }
         /// <summary>
         /// 标题

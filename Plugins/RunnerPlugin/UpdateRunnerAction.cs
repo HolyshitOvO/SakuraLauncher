@@ -6,6 +6,9 @@ using System.Reflection;
 
 namespace RunnerPlugin
 {
+    /// <summary>
+    /// 内置的更新配置的列表 item 项
+    /// </summary>
     internal sealed class UpdateRunnerAction : ActionBase
     {
         public UpdateRunnerAction()

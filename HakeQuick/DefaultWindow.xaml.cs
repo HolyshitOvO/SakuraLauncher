@@ -181,7 +181,7 @@ namespace HakeQuick
 				Debug.WriteLine(action.Subtitle);
 				if (action.Subtitle.Equals("UWP APP"))
 				{
-
+					// TODO UWP的右键菜单
 				}
 				else
 				{
