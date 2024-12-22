@@ -25,7 +25,7 @@ namespace HakeQuick.Abstraction.Action
         public BitmapImage Icon
         {
             get { return _icon; }
-            protected set { _icon = value; NotifyPropertyChanged(nameof(Icon)); }
+            set { _icon = value; NotifyPropertyChanged(nameof(Icon)); }
         }
         /// <summary>
         /// 标题

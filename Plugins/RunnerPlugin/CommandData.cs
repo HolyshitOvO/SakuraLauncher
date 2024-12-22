@@ -23,8 +23,8 @@ namespace RunnerPlugin
 		/// <summary>
 		/// 图标路径
 		/// </summary>
-		[MapProperty("icon", MissingAction.GivenValue, null)]
-		public string IconPath { get; set; }
+		//[MapProperty("icon", MissingAction.GivenValue, null)]
+		//public string IconPath { get; set; }
 
 		/// <summary>
 		/// 是否以管理员启动

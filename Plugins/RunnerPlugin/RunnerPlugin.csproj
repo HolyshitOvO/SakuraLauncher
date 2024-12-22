@@ -102,6 +102,7 @@
   <ItemGroup>
     <Compile Include="CommandData.cs" />
     <Compile Include="FileIconHelper.cs" />
+    <Compile Include="Tick.cs" />
     <Compile Include="UwpUtil.cs" />
     <Compile Include="SystemIcon.cs" />
     <Compile Include="PinyinHelper.cs" />

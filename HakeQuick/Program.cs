@@ -40,7 +40,6 @@ namespace HakeQuick
                 .UseWindow<DefaultWindow>()
                 .UseConfiguration<Startup>()
                 .Build();
-
             host.Run();
         }
     }

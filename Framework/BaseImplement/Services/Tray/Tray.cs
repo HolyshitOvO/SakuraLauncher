@@ -24,6 +24,7 @@ namespace HakeQuick.Implementation.Services.Tray
 		EDIT_PREFFILE,
 		RESTART_APP,
 		GO_APP_GITHUB_HOME,
+        OPEN_MAIN_PANEL,
 	}
 
 	internal sealed class Tray : ITray, IDisposable
@@ -46,6 +47,7 @@ namespace HakeQuick.Implementation.Services.Tray
 			// 右键托盘，菜单项
 			MenuItem[] menuitems = new MenuItem[]
 			{
+			new MenuItem("打开主面板", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.OPEN_MAIN_PANEL)),
 			new MenuItem("打开本程序路径", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.OPEN_MYAPP_FOLDER)),
 			new MenuItem("编辑配置文件", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.EDIT_PREFFILE)),
 			new MenuItem("编辑运行配置文件", (sender, e) => this.terminationNotifier.NotifyTerminate(TRAY_DOSOMETHING.EDIT_RUNITEM_PREFFILE)),

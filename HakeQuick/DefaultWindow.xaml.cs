@@ -89,12 +89,12 @@ namespace HakeQuick
 			Deactivated += OnDeactived;
 			PreviewKeyDown += OnPreviewKeyDown;
 			ElementHost.EnableModelessKeyboardInterop(this);
-		}
+        }
 
-		private void OnPreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void OnPreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
 		{
 			if (e.Handled) return;
-			if (m_actions == null || m_actions.Count <= 0 || IsVisible == false) return;
+            if (m_actions == null || m_actions.Count <= 0 || IsVisible == false) return;
 
 			if (e.Key == Key.Down)
 			{

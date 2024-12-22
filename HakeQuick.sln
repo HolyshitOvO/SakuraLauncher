@@ -13,6 +13,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseImplement", "Framework\BaseImplement\BaseImplement.csproj", "{00835387-4F09-43B9-BFE0-68823A15F29B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{94029E4F-460E-473E-8361-BB01A24DD0B2}"
+	ProjectSection(SolutionItems) = preProject
+		Tick.cs = Tick.cs
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{A763570A-C121-4B9E-B240-490300A03244}"
 EndProject
