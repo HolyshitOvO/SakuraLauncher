@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyLauncher", "HakeQuick\CandyLauncher.csproj", "{93DD3060-5F46-45F9-8E55-8ED18153B17A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3173C479-CA89-4FED-AB2E-CA9886B99616} = {3173C479-CA89-4FED-AB2E-CA9886B99616}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abstraction", "Framework\Abstraction\Abstraction.csproj", "{74F1B85E-0D29-4642-999E-187930F177DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseImplement", "Framework\BaseImplement\BaseImplement.csproj", "{00835387-4F09-43B9-BFE0-68823A15F29B}"
@@ -33,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZTestConsole2", "ZTestConso
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsApp", "SettingsApp\SettingsApp.csproj", "{54CD27C0-091E-43C6-BF0F-91992C5BD89B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyLauncher", "CandyLauncher\CandyLauncher.csproj", "{93DD3060-5F46-45F9-8E55-8ED18153B17A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,18 +40,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Debug|x64.ActiveCfg = Debug|x64
-		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Debug|x64.Build.0 = Debug|x64
-		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Debug|x86.ActiveCfg = Debug|x86
-		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Debug|x86.Build.0 = Debug|x86
-		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|x64.ActiveCfg = Release|x64
-		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|x64.Build.0 = Release|x64
-		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|x86.ActiveCfg = Release|x86
-		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|x86.Build.0 = Release|x86
 		{74F1B85E-0D29-4642-999E-187930F177DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{74F1B85E-0D29-4642-999E-187930F177DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74F1B85E-0D29-4642-999E-187930F177DE}.Debug|x64.ActiveCfg = Debug|x64
@@ -151,6 +136,18 @@ Global
 		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Release|x64.Build.0 = Release|Any CPU
 		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Release|x86.ActiveCfg = Release|Any CPU
 		{54CD27C0-091E-43C6-BF0F-91992C5BD89B}.Release|x86.Build.0 = Release|Any CPU
+		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Debug|x64.ActiveCfg = Debug|x64
+		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Debug|x64.Build.0 = Debug|x64
+		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Debug|x86.ActiveCfg = Debug|x86
+		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Debug|x86.Build.0 = Debug|x86
+		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|x64.ActiveCfg = Release|x64
+		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|x64.Build.0 = Release|x64
+		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|x86.ActiveCfg = Release|x86
+		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
