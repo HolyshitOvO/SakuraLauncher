@@ -160,7 +160,7 @@ namespace RunnerPlugin
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo { FileName = targetFilePath, UseShellExecute = true };
                 Process.Start(startInfo);
-
+                return;
             }
             else
             {
