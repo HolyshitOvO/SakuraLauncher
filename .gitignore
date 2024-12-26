@@ -22,3 +22,5 @@ TestResults/
 ; build result
 \build
 
+SettingsApp/Properties/Resources.Designer.cs
+SettingsApp/Properties/Settings.Designer.cs

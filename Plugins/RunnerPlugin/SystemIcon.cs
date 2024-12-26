@@ -120,7 +120,9 @@ namespace RunnerPlugin
         /// <returns></returns>
         public static BitmapImage ToBitmapImage(Bitmap ImageOriginal)
         {
-
+            if(ImageOriginal==null){
+                return null;
+            }
             Bitmap ImageOriginalBase = new System.Drawing.Bitmap(ImageOriginal);
             BitmapImage bitmapImage = new BitmapImage();
             using (System.IO.MemoryStream ms = new System.IO.MemoryStream())

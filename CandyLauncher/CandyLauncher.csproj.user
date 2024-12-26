@@ -4,7 +4,7 @@
     <StartWorkingDirectory>
     </StartWorkingDirectory>
     <StartAction>Project</StartAction>
-    <StartProgram>D:\GitHub\HakeQuick\build\x64\debug\HakeQuick.exe</StartProgram>
+    <StartProgram>E:\Github\SakuraLauncher\CandyLauncher\obj\x64\Debug\CandyLauncher.exe</StartProgram>
   </PropertyGroup>
   <PropertyGroup>
     <ProjectView>ShowAllFiles</ProjectView>

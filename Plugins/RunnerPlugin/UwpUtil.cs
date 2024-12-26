@@ -103,6 +103,7 @@ namespace RunnerPlugin
                 if (shellObjects[i].ParsingName.Contains('!'))
                 {
                     resultList.Add(shellObjects[i]);
+                    //Debug.WriteLine(shellObjects[i].ParsingName);
                 }
                 else
                 {
