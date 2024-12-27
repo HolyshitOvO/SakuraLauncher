@@ -284,13 +284,12 @@ namespace CandyLauncher
 			}
 			// 显示窗口
 			Show();
-			// 激活窗口
-			Activate();
 			// 使聚焦输入框
 			textbox_input.Focus();
+			// 激活窗口
+			Activate();
 			// 置顶显示
 			SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, 3);
-			Activate();
 		}
 
 		private void MoveToNextAction()

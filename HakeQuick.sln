@@ -29,6 +29,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsApp", "SettingsApp\SettingsApp.csproj", "{54CD27C0-091E-43C6-BF0F-91992C5BD89B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyLauncher", "CandyLauncher\CandyLauncher.csproj", "{93DD3060-5F46-45F9-8E55-8ED18153B17A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3173C479-CA89-4FED-AB2E-CA9886B99616} = {3173C479-CA89-4FED-AB2E-CA9886B99616}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
