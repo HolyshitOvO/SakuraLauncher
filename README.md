@@ -32,11 +32,8 @@
 1. 克隆当前存储库
 
 2. 在 Visual Studio 中打开解决方案，然后选择 Build
-> 仅支持 Windows10 x64
 
-> 需要 .net framework 4.8
-
-> Visual Studio 2022
+> 需要 .net framework 4.5.2 及以上
 
 3. 构建结果位于目录 build 中
 
