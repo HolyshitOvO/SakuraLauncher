@@ -1,0 +1,531 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:FrontendDemo"
+                    xmlns:editableConfigs="clr-namespace:ReflectSettings.EditableConfigs;assembly=ReflectSettings"
+                    xmlns:local1="clr-namespace:ReflectSettings;assembly=ReflectSettings"
+                    x:Class="FrontendDemo.YourResourceDictionary">
+
+
+    
+    
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="Margin" Value="8" />
+    </Style>
+
+    <!--输入编辑框-->
+    <Style TargetType="TextBox">
+        <Setter Property="Foreground" Value="#222" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="#bbb" />
+        <Setter Property="Padding" Value="10,10,10,10" />
+        <Setter Property="Margin" Value="8" />
+        <Setter Property="MinWidth" Value="240" />
+        <Setter Property="FontSize" Value="15" />
+        <!-- 设置圆角 -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Grid>
+                        <!-- 圆角边框 -->
+                        <Border 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        SnapsToDevicePixels="True" />
+
+                        <!-- 底边的蓝色线 -->
+                        <Rectangle 
+                        Fill="#0E5F9C"
+                        Height="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Bottom"
+                            Margin="2,0,2,0"
+                             RadiusY="2"
+                            RadiusX="5"
+                         />
+
+                        <!-- 文本内容 -->
+                        <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+
+    <!--下拉框-->
+    <Style TargetType="{x:Type ComboBox}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#222"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="10,20,10,20" />
+        <Setter Property="Margin" Value="8" />
+        <Setter Property="FontSize" Value="15" />
+        <EventSetter Event="PreviewMouseWheel" Handler="ComboBox_PreviewMouseWheel"/>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <!--下拉项Item-->
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="MinHeight" Value="40"></Setter>
+                    <Setter Property="Width" Value="auto"></Setter>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ComboBoxItem">
+                                <Grid>
+                                    <!-- 主内容 -->
+                                    <Border Name="Back" Background="Transparent" BorderThickness="4" BorderBrush="Transparent">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" />
+                                    </Border>
+
+                                    <!-- 竖线 -->
+                                    <Rectangle Name="SelectionIndicator"
+                                               Width="3"
+                                               Height="16"
+                                               Margin="5,0,0,0"
+                                               Fill="#0E5F9C"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Stretch"
+                                               RadiusX="10"
+                                               RadiusY="2"
+                                               Visibility="Collapsed" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Back" Property="Background" Value="#e8e8e8"></Setter>
+                                        <Setter TargetName="Back" Property="CornerRadius" Value="10"></Setter>
+                                        <Setter TargetName="Back" Property="BorderBrush" Value="White"></Setter>
+                                        <Setter TargetName="Back" Property="BorderThickness" Value="4"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="SelectionIndicator" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="Back" Property="Background" Value="#e8e8e8"></Setter>
+                                        <Setter TargetName="Back" Property="CornerRadius" Value="10"></Setter>
+                                        <Setter TargetName="Back" Property="BorderBrush" Value="White"></Setter>
+                                        <Setter TargetName="Back" Property="BorderThickness" Value="4"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="#bbb" CornerRadius="4" Height="40" Background="{TemplateBinding Background}" >
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- left area-->
+                            <Grid Grid.Column="0" x:Name="grid" >
+                                <ToggleButton
+                                    MinWidth="198"
+                                    
+                                    Height="{Binding ElementName=grid, Path=ActualHeight}"
+                                    Content="{TemplateBinding Text}" VerticalAlignment="Center"
+                                    HorizontalAlignment="Left" Margin="10,0,0,0"
+                                    BorderThickness="0"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Background="{TemplateBinding Background}"
+                                    IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Release"
+                                    >
+                                    <ToggleButton.Style >
+                                        <Style TargetType="ToggleButton">
+                                            <Setter Property="Background" Value="White"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ToggleButton">
+                                                        <Border   Background="{TemplateBinding Background}" BorderThickness="0"  >
+                                                            <TextBlock Foreground="{TemplateBinding Foreground}" Text="{TemplateBinding Content}" Margin="4 0 0 0"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#000"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="False">
+                                                    <Setter Property="Background" Value="White"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ToggleButton.Style>
+                                </ToggleButton>
+                            </Grid>
+
+                            <!-- right Arrow area-->
+                            <Grid Grid.Column="1" >
+                                <ToggleButton IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                  Foreground="{TemplateBinding Foreground}"
+                                  ClickMode="Press">
+                                    <ToggleButton.Style>
+                                        <Style TargetType="ToggleButton">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ToggleButton">
+                                                        <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                            <Grid>
+                                                                <Path x:Name="Arrow" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z">
+                                                                    <Path.RenderTransform>
+                                                                        <RotateTransform Angle="0" CenterX="4" CenterY="2"/>
+                                                                    </Path.RenderTransform>
+                                                                </Path>
+                                                            </Grid>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsChecked" Value="True">
+                                                                <Setter TargetName="Arrow" Property="RenderTransform">
+                                                                    <Setter.Value>
+                                                                        <RotateTransform Angle="180" CenterX="4" CenterY="2"/>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </Trigger>
+                                                            <Trigger Property="IsChecked" Value="False">
+                                                                <Setter TargetName="Arrow" Property="RenderTransform">
+                                                                    <Setter.Value>
+                                                                        <RotateTransform Angle="0" CenterX="4" CenterY="2"/>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ToggleButton.Style>
+                                </ToggleButton>
+                            </Grid>
+                            <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Center" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Fade">
+                                <Border CornerRadius="0" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True"
+                                        >
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="Black" BlurRadius="15"  ShadowDepth="0" Opacity="0.7"/>
+                                    </Border.Effect>
+                                    <ScrollViewer
+                                        Margin="2,16,2,16"
+                                        Style="{DynamicResource ScrollViewerStyle}"
+                                        MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                        SnapsToDevicePixels="True"
+                                        HorizontalScrollBarVisibility="Auto"
+                                        VerticalScrollBarVisibility="Auto"
+                                        
+                                        CanContentScroll="True">
+                                        <!-- StackPanel 用于显示子级，方法是将 IsItemsHost 设置为 True -->
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" Background="White" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                        <!--<Border.Effect>
+                            <DropShadowEffect ShadowDepth="-1" Opacity="0.3" Color="#FF969696" BlurRadius="5"/>
+                        </Border.Effect>-->
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+
+    </Style>
+
+
+    <!--Switch-->
+    <Style TargetType="CheckBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid Width="50" Height="25">
+                        <!-- Background false -->
+                        <Border x:Name="SwitchBackground"
+                            Width="50" Height="25"
+                            CornerRadius="12.5"
+                            BorderThickness="1"
+                            BorderBrush="#5E5E5E"
+                            Background="#005A9E" />
+                        <!-- Toggle false -->
+                        <Ellipse x:Name="SwitchToggle"
+                             Width="16" Height="16"
+                             Fill="White"
+                             HorizontalAlignment="Left"
+                             Margin="5,0,5,0" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!-- Checked State -->
+                        <Trigger Property="IsChecked" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Animate the position of the toggle -->
+                                        <ThicknessAnimation Storyboard.TargetName="SwitchToggle"
+                                                        Storyboard.TargetProperty="Margin"
+                                                        From="5,0,29,0"
+                                                        To="29,0,5,0"
+                                                        Duration="0:0:0.2" />
+                                        <!-- Change background color smoothly -->
+                                        <ColorAnimation Storyboard.TargetName="SwitchBackground"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="#005A9E"
+                                                    Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Setter TargetName="SwitchBackground" Property="Background" Value="#005A9E" />
+                            <Setter TargetName="SwitchBackground" Property="BorderThickness" Value="0" />
+                            <!--<Setter TargetName="SwitchToggle" Property="Fill" Value="White" />-->
+                            <Setter TargetName="SwitchToggle" Property="Margin" Value="5,0,5,0" />
+                            <Setter TargetName="SwitchToggle" Property="HorizontalAlignment" Value="Right" />
+                        </Trigger>
+                        <!-- Unchecked State -->
+                        <Trigger Property="IsChecked" Value="False">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Animate the position of the toggle -->
+                                        <ThicknessAnimation Storyboard.TargetName="SwitchToggle"
+                                                        Storyboard.TargetProperty="Margin"
+                                                        From="25,0,5,0"
+                                                        To="4,0,5,0"
+                                                        Duration="0:0:0.10" />
+                                        <!-- Change background color smoothly -->
+                                        <ColorAnimation Storyboard.TargetName="SwitchBackground"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="#F6F6F6"
+                                                    Duration="0:0:0.10" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Setter TargetName="SwitchToggle" Property="Fill" Value="#5E5E5E" />
+                        </Trigger>
+                        <!-- Disabled State -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="SwitchBackground" Property="Background" Value="Gray" />
+                            <Setter TargetName="SwitchToggle" Property="Fill" Value="DarkGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <DataTemplate x:Key="EditableBoolTemplate" DataType="{x:Type editableConfigs:EditableInt}">
+        <Border
+                Background="White"
+                Padding="20"
+                Margin="10,2,10,2"
+                CornerRadius="6"
+                x:Name="DropDown"
+                SnapsToDevicePixels="True"
+                BorderBrush="#e2e2e2"
+                BorderThickness="1"
+                >
+            <DockPanel >
+                
+                <TextBlock DockPanel.Dock="Left" Text="{Binding DisplayName, StringFormat={}{0}:}" 
+                               Width="Auto" Foreground="Black" FontSize="16" FontWeight="Normal" 
+                               VerticalAlignment="Center" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+
+                    <TextBlock Text="{Binding Value, Converter={x:Static local:BoolToChineseConverter.Instance}}" 
+                              HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,12,0" FontSize="15"/>
+                    <CheckBox IsChecked="{Binding Value, Mode=TwoWay}"
+                              HorizontalAlignment="Right" Content="Option 1" VerticalAlignment="Center" Margin="0,0,10,0" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+
+
+    <DataTemplate DataType="{x:Type local:Curreny}">
+        <TextBlock Text="{Binding DisplayName}" Foreground="#000" FontWeight="Bold" />
+    </DataTemplate>
+
+
+    <DataTemplate x:Key="EditableKeyValuePairTemplate" DataType="{x:Type editableConfigs:IEditableKeyValuePair}">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Left" Text="Key" Foreground="Black" />
+            <TextBox Text="{Binding Key, Mode=TwoWay}" MinWidth="50" />
+            <TextBlock DockPanel.Dock="Left" Text="Value" Foreground="Black" />
+            <TextBox Text="{Binding PairValue, Mode=TwoWay}" MinWidth="50" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EditableIntTemplate" DataType="{x:Type editableConfigs:EditableInt}">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Left" Text="{Binding DisplayName, StringFormat=- {0}:}" Width="150"
+                       Foreground="Black" />
+            <TextBox Text="{Binding Value, Mode=TwoWay}" />
+        </DockPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="EditableDoubleTemplate" DataType="{x:Type editableConfigs:EditableDouble}">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Left" Text="{Binding DisplayName, StringFormat=- {0}:}" Width="150"
+                       Foreground="#222" />
+            <TextBox Text="{Binding Value, Mode=TwoWay}" />
+        </DockPanel>
+    </DataTemplate>
+
+    <!--编辑框条目-->
+    <DataTemplate x:Key="EditableStringTemplate" DataType="{x:Type editableConfigs:EditableString}">
+        <Border
+                Background="White"
+                Padding="20,10,20,10"
+                Margin="10,2,10,2"
+                CornerRadius="6"
+                x:Name="DropDown"
+                SnapsToDevicePixels="True"
+                BorderBrush="#e2e2e2"
+                BorderThickness="1"
+                >
+
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Left" Text="{Binding DisplayName, StringFormat={}{0}:}" 
+                               Width="Auto" Foreground="Black" FontSize="16" FontWeight="Normal" 
+                               VerticalAlignment="Center" />
+                <TextBox Text="{Binding Value, Mode=TwoWay}" HorizontalAlignment="Right" />
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+
+    <!--下拉框条目-->
+    <DataTemplate x:Key="EditableEnumTemplate" DataType="{x:Type editableConfigs:IEditableEnum}">
+        <Border
+                Background="White"
+                Padding="20,10,20,10"
+                Margin="10,2,10,2"
+                CornerRadius="6"
+                x:Name="DropDown"
+                SnapsToDevicePixels="True"
+                BorderBrush="#e2e2e2"
+                BorderThickness="1"
+                >
+            <DockPanel >
+                <TextBlock DockPanel.Dock="Left" Text="{Binding DisplayName, StringFormat={}{0}:}" 
+                               Width="Auto" Foreground="Black" FontSize="16" FontWeight="Normal" 
+                           
+                               VerticalAlignment="Center" />
+                <ComboBox SelectedItem="{Binding Value, Mode=TwoWay}" HorizontalAlignment="Right" ItemsSource="{Binding EnumValues}" />
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EditableStringComboboxTemplate" DataType="{x:Type editableConfigs:EditableString}">
+        <Border
+                Background="White"
+                Padding="20,10,20,10"
+                Margin="10,2,10,2"
+                CornerRadius="6"
+                x:Name="DropDown"
+                SnapsToDevicePixels="True"
+                BorderBrush="#e2e2e2"
+                BorderThickness="1"
+                >
+            <DockPanel >
+                <TextBlock DockPanel.Dock="Left" Text="{Binding DisplayName, StringFormat={}{0}:}" 
+                               Width="Auto" Foreground="Black" FontSize="16" FontWeight="Normal" 
+                               VerticalAlignment="Center" />
+
+                <ComboBox ItemsSource="{Binding PredefinedValues}"
+                          HorizontalAlignment="Right"
+                      SelectedItem="{Binding Value, Mode=TwoWay}"
+                      IsEnabled="{Binding IsBusy, Converter={x:Static local:InvertedBoolConverter.Instance}}" />
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EditableComplexComboboxTemplate" DataType="{x:Type editableConfigs:IEditableComplex}">
+        <Border
+                Background="White"
+                Padding="20,10,20,10"
+                Margin="10,2,10,2"
+                CornerRadius="6"
+                x:Name="DropDown"
+                SnapsToDevicePixels="True"
+                BorderBrush="#e2e2e2"
+                BorderThickness="1"
+                >
+            <DockPanel >
+                <TextBlock DockPanel.Dock="Left" Text="{Binding DisplayName, StringFormat={}{0}:}" 
+                               Width="Auto" Foreground="Black" FontSize="16" FontWeight="Normal" 
+                               VerticalAlignment="Center" />
+                <TextBlock DockPanel.Dock="Left" Text="{Binding DisplayName, StringFormat=- {0}:}" Width="150"
+                       Foreground="#222" />
+                <ComboBox HorizontalAlignment="Right" SelectedItem="{Binding Value, Mode=TwoWay}" ItemsSource="{Binding PredefinedValues}" />
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+    <DataTemplate x:Key="EditableComplexTemplate" DataType="{x:Type editableConfigs:IEditableComplex}">
+        <DockPanel>
+            <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Top" FontSize="15" Foreground="#222"
+                       Opacity="0.5" />
+            <GroupBox BorderBrush="#55FFFFFF" Margin="5" Padding="5" BorderThickness="0.1">
+                <ItemsControl ItemsSource="{Binding SubEditables}"
+                              ItemTemplateSelector="{x:Static local:EditableConfigTemplateSelector.Instance}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </GroupBox>
+        </DockPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="EditableCollectionTemplate" DataType="{x:Type editableConfigs:IEditableCollection}">
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" FontSize="15"
+                           Foreground="#222" Opacity="0.5" />
+                <Button Content="+" Background="Transparent" BorderBrush="Transparent"
+                        Command="{Binding AddNewItemCommand}" Foreground="#222" DockPanel.Dock="Right" />
+                <ContentPresenter Content="{Binding ItemToAddEditable}"
+                                  ContentTemplateSelector="{x:Static local:EditableConfigTemplateSelector.Instance}"
+                                  DockPanel.Dock="Right" />
+            </DockPanel>
+            <GroupBox BorderBrush="#55FFFFFF" Margin="5" Padding="5" BorderThickness="0.1">
+                <ItemsControl ItemsSource="{Binding SubEditables}"
+                              ItemTemplateSelector="{x:Static local:EditableConfigTemplateSelector.Instance}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </GroupBox>
+        </DockPanel>
+
+    </DataTemplate>
+
+    <!--只允许读取的项-->
+    <DataTemplate x:Key="ReadOnlyEditableCollectionTemplate" DataType="{x:Type editableConfigs:IEditableCollection}">
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" FontSize="15"
+                           Foreground="#222" Opacity="0.5" />
+            </DockPanel>
+            <GroupBox BorderBrush="#55000000" Margin="5" Padding="5" BorderThickness="0.1">
+                <ItemsControl ItemsSource="{Binding SubEditables}" IsEnabled="False"
+                              ItemTemplateSelector="{x:Static local:EditableConfigTemplateSelector.Instance}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </GroupBox>
+        </DockPanel>
+
+    </DataTemplate>
+    
+    
+    <!--密码文本-->
+    <DataTemplate x:Key="EditableSecureStringTemplate" DataType="{x:Type editableConfigs:EditableSecureString}">
+        <local:PasswordBoxForEditableView EditableSecureString="{Binding}"/>
+    </DataTemplate>
+
+</ResourceDictionary>

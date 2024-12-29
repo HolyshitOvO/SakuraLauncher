@@ -16,11 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{A3DE39D2-2DA1-420F-B8FF-BF7D788E6D16}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{A9D9C0D7-AB43-4B78-AEF9-CFEE44782DD1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunnerPlugin", "Plugins\RunnerPlugin\RunnerPlugin.csproj", "{3173C479-CA89-4FED-AB2E-CA9886B99616}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{0C384FEC-A3AB-412D-8EDE-8A9A90A5A72E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZTestConsole1", "ZTestConsole1\ZTestConsole1.csproj", "{074A2E8E-DA27-4F8C-BF10-8AFDFA5FBAC5}"
 EndProject
@@ -32,6 +28,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyLauncher", "CandyLaunc
 	ProjectSection(ProjectDependencies) = postProject
 		{3173C479-CA89-4FED-AB2E-CA9886B99616} = {3173C479-CA89-4FED-AB2E-CA9886B99616}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Settings", "Settings\Settings.csproj", "{B990F48D-4834-4BD3-B262-A1029EB449AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsUi", "SettingsUI\SettingsUi.csproj", "{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -151,13 +151,35 @@ Global
 		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|x64.Build.0 = Release|x64
 		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|x86.ActiveCfg = Release|x86
 		{93DD3060-5F46-45F9-8E55-8ED18153B17A}.Release|x86.Build.0 = Release|x86
+		{B990F48D-4834-4BD3-B262-A1029EB449AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B990F48D-4834-4BD3-B262-A1029EB449AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B990F48D-4834-4BD3-B262-A1029EB449AB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B990F48D-4834-4BD3-B262-A1029EB449AB}.Debug|x64.Build.0 = Debug|Any CPU
+		{B990F48D-4834-4BD3-B262-A1029EB449AB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B990F48D-4834-4BD3-B262-A1029EB449AB}.Debug|x86.Build.0 = Debug|Any CPU
+		{B990F48D-4834-4BD3-B262-A1029EB449AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B990F48D-4834-4BD3-B262-A1029EB449AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B990F48D-4834-4BD3-B262-A1029EB449AB}.Release|x64.ActiveCfg = Release|Any CPU
+		{B990F48D-4834-4BD3-B262-A1029EB449AB}.Release|x64.Build.0 = Release|Any CPU
+		{B990F48D-4834-4BD3-B262-A1029EB449AB}.Release|x86.ActiveCfg = Release|Any CPU
+		{B990F48D-4834-4BD3-B262-A1029EB449AB}.Release|x86.Build.0 = Release|Any CPU
+		{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}.Debug|x64.ActiveCfg = Debug|x64
+		{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}.Debug|x64.Build.0 = Debug|x64
+		{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}.Debug|x86.Build.0 = Debug|Any CPU
+		{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}.Release|x64.ActiveCfg = Release|x64
+		{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}.Release|x64.Build.0 = Release|x64
+		{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}.Release|x86.ActiveCfg = Release|Any CPU
+		{DFED6690-3E03-45B0-B6BA-ECCEA9E72CFC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{74F1B85E-0D29-4642-999E-187930F177DE} = {A9D9C0D7-AB43-4B78-AEF9-CFEE44782DD1}
-		{00835387-4F09-43B9-BFE0-68823A15F29B} = {A9D9C0D7-AB43-4B78-AEF9-CFEE44782DD1}
 		{3173C479-CA89-4FED-AB2E-CA9886B99616} = {94029E4F-460E-473E-8361-BB01A24DD0B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

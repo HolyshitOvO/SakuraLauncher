@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B990F48D-4834-4BD3-B262-A1029EB449AB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReflectSettings</RootNamespace>
+    <AssemblyName>ReflectSettings</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Annotations.cs" />
+    <Compile Include="AsyncSynchronizer.cs" />
+    <Compile Include="Attributes\BaseKeyValueAttribute.cs" />
+    <Compile Include="Attributes\CalculatedTypeAttribute.cs" />
+    <Compile Include="Attributes\CalculatedValuesAsyncAttribute.cs" />
+    <Compile Include="Attributes\CalculatedValuesAttribute.cs" />
+    <Compile Include="Attributes\CalculatedVisibilityAttribute.cs" />
+    <Compile Include="Attributes\ForbiddenValuesAttribute.cs" />
+    <Compile Include="Attributes\IgnoredForConfigAttribute.cs" />
+    <Compile Include="Attributes\INeedsInstance.cs" />
+    <Compile Include="Attributes\IsDisplayName.cs" />
+    <Compile Include="Attributes\IsHiddenAttribute.cs" />
+    <Compile Include="Attributes\MinMaxAttribute.cs" />
+    <Compile Include="Attributes\NameAttribute.cs" />
+    <Compile Include="Attributes\PredefinedValuesAttribute.cs" />
+    <Compile Include="Attributes\TypesForInstantiationAttribute.cs" />
+    <Compile Include="BoolToChineseConverter.cs" />
+    <Compile Include="ChangeTrackingManager.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="EditableConfigs\DelegateCommand.cs" />
+    <Compile Include="EditableConfigs\EditableBool.cs" />
+    <Compile Include="EditableConfigs\EditableCollection.cs" />
+    <Compile Include="EditableConfigs\EditableComplex.cs" />
+    <Compile Include="EditableConfigs\EditableConfigBase.cs" />
+    <Compile Include="EditableConfigs\EditableConfigValueChangedEventArgs.cs" />
+    <Compile Include="EditableConfigs\EditableDouble.cs" />
+    <Compile Include="EditableConfigs\EditableDummy.cs" />
+    <Compile Include="EditableConfigs\EditableEnum.cs" />
+    <Compile Include="EditableConfigs\EditableInt.cs" />
+    <Compile Include="EditableConfigs\EditableKeyValuePair.cs" />
+    <Compile Include="EditableConfigs\EditableSecureString.cs" />
+    <Compile Include="EditableConfigs\EditableString.cs" />
+    <Compile Include="EditableConfigs\IEditableCollection.cs" />
+    <Compile Include="EditableConfigs\IEditableComplex.cs" />
+    <Compile Include="EditableConfigs\IEditableConfig.cs" />
+    <Compile Include="EditableConfigs\IEditableEnum.cs" />
+    <Compile Include="EditableConfigs\IEditableKeyValuePair.cs" />
+    <Compile Include="EditableConfigs\InheritingAttribute\InheritedAttributes.cs" />
+    <Compile Include="EditableConfigs\IReadOnlyEditableCollection.cs" />
+    <Compile Include="EditableConfigs\ReadonlyEditableCollection.cs" />
+    <Compile Include="IRemoveTracking.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsFactory.cs" />
+    <Compile Include="Utils\IRemoveTracking.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

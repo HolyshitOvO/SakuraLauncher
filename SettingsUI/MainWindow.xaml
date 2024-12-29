@@ -1,0 +1,30 @@
+﻿<Window x:Class="FrontendDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FrontendDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="755" Background="#F3F3F3">
+    <Window.Resources>
+        <ResourceDictionary Source="EditableConfigResources.xaml"/>
+    </Window.Resources>
+    <DockPanel>
+        <Button Width="80" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top" Content="保存" Click="ButtonBase_OnClick" DockPanel.Dock="Top"/>
+        
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" CanContentScroll="False" 
+             
+             >
+            <!--local:SmoothScrollingBehavior.EnableSmoothScrolling="True"-->
+            <ItemsControl ItemsSource="{Binding Editables}"
+                  ItemTemplateSelector="{x:Static local:EditableConfigTemplateSelector.Instance}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </DockPanel>
+</Window>
