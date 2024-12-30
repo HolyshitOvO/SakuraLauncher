@@ -4,10 +4,7 @@
                     xmlns:editableConfigs="clr-namespace:ReflectSettings.EditableConfigs;assembly=ReflectSettings"
                     xmlns:local1="clr-namespace:ReflectSettings;assembly=ReflectSettings"
                     x:Class="FrontendDemo.YourResourceDictionary">
-
-
-    
-    
+    <!--普通文本-->
     <Style TargetType="{x:Type TextBlock}">
         <Setter Property="Margin" Value="8" />
     </Style>
@@ -314,6 +311,7 @@
         </Setter>
     </Style>
     
+    <!--复选框条目-->
     <DataTemplate x:Key="EditableBoolTemplate" DataType="{x:Type editableConfigs:EditableInt}">
         <Border
                 Background="White"
@@ -341,12 +339,10 @@
         </Border>
     </DataTemplate>
 
-
+    <!--未知-->
     <DataTemplate DataType="{x:Type local:Curreny}">
         <TextBlock Text="{Binding DisplayName}" Foreground="#000" FontWeight="Bold" />
     </DataTemplate>
-
-
     <DataTemplate x:Key="EditableKeyValuePairTemplate" DataType="{x:Type editableConfigs:IEditableKeyValuePair}">
         <DockPanel>
             <TextBlock DockPanel.Dock="Left" Text="Key" Foreground="Black" />
@@ -356,20 +352,6 @@
         </DockPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="EditableIntTemplate" DataType="{x:Type editableConfigs:EditableInt}">
-        <DockPanel>
-            <TextBlock DockPanel.Dock="Left" Text="{Binding DisplayName, StringFormat=- {0}:}" Width="150"
-                       Foreground="Black" />
-            <TextBox Text="{Binding Value, Mode=TwoWay}" />
-        </DockPanel>
-    </DataTemplate>
-    <DataTemplate x:Key="EditableDoubleTemplate" DataType="{x:Type editableConfigs:EditableDouble}">
-        <DockPanel>
-            <TextBlock DockPanel.Dock="Left" Text="{Binding DisplayName, StringFormat=- {0}:}" Width="150"
-                       Foreground="#222" />
-            <TextBox Text="{Binding Value, Mode=TwoWay}" />
-        </DockPanel>
-    </DataTemplate>
 
     <!--编辑框条目-->
     <DataTemplate x:Key="EditableStringTemplate" DataType="{x:Type editableConfigs:EditableString}">
@@ -383,15 +365,68 @@
                 BorderBrush="#e2e2e2"
                 BorderThickness="1"
                 >
-
             <DockPanel>
-                <TextBlock DockPanel.Dock="Left" Text="{Binding DisplayName, StringFormat={}{0}:}" 
-                               Width="Auto" Foreground="Black" FontSize="16" FontWeight="Normal" 
-                               VerticalAlignment="Center" />
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Text="{Binding DisplayName, StringFormat={}{0}:}" 
+                    Width="Auto"
+                    Foreground="Black"
+                    FontSize="16"
+                    FontWeight="Normal" 
+                    VerticalAlignment="Center" />
                 <TextBox Text="{Binding Value, Mode=TwoWay}" HorizontalAlignment="Right" />
             </DockPanel>
         </Border>
     </DataTemplate>
+    <DataTemplate x:Key="EditableIntTemplate" DataType="{x:Type editableConfigs:EditableInt}">
+        <Border
+                Background="White"
+                Padding="20,10,20,10"
+                Margin="10,2,10,2"
+                CornerRadius="6"
+                x:Name="DropDown"
+                SnapsToDevicePixels="True"
+                BorderBrush="#e2e2e2"
+                BorderThickness="1"
+                >
+            <DockPanel>
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Text="{Binding DisplayName, StringFormat={}{0}:}" 
+                    Width="Auto"
+                    Foreground="Black"
+                    FontSize="16"
+                    FontWeight="Normal" 
+                    VerticalAlignment="Center" />
+                <TextBox Text="{Binding Value, Mode=TwoWay}" HorizontalAlignment="Right" PreviewTextInput="TextBox_PreviewTextInput_IntType"/>
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+    <DataTemplate x:Key="EditableDoubleTemplate" DataType="{x:Type editableConfigs:EditableDouble}">
+        <Border
+                Background="White"
+                Padding="20,10,20,10"
+                Margin="10,2,10,2"
+                CornerRadius="6"
+                x:Name="DropDown"
+                SnapsToDevicePixels="True"
+                BorderBrush="#e2e2e2"
+                BorderThickness="1"
+                >
+            <DockPanel>
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Text="{Binding DisplayName, StringFormat={}{0}:}" 
+                    Width="Auto"
+                    Foreground="Black"
+                    FontSize="16"
+                    FontWeight="Normal" 
+                    VerticalAlignment="Center" />
+                <TextBox Text="{Binding Value, Mode=TwoWay}" HorizontalAlignment="Right" PreviewTextInput="TextBox_PreviewTextInput_DoubleType"/>
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+
 
     <!--下拉框条目-->
     <DataTemplate x:Key="EditableEnumTemplate" DataType="{x:Type editableConfigs:IEditableEnum}">
@@ -476,23 +511,37 @@
             </GroupBox>
         </DockPanel>
     </DataTemplate>
+
+    <!--列表条目-->
     <DataTemplate x:Key="EditableCollectionTemplate" DataType="{x:Type editableConfigs:IEditableCollection}">
         <DockPanel>
             <DockPanel DockPanel.Dock="Top" LastChildFill="False">
-                <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" FontSize="15"
-                           Foreground="#222" Opacity="0.5" />
-                <Button Content="+" Background="Transparent" BorderBrush="Transparent"
-                        Command="{Binding AddNewItemCommand}" Foreground="#222" DockPanel.Dock="Right" />
-                <ContentPresenter Content="{Binding ItemToAddEditable}"
-                                  ContentTemplateSelector="{x:Static local:EditableConfigTemplateSelector.Instance}"
-                                  DockPanel.Dock="Right" />
+                <TextBlock Text="{Binding DisplayName}" DockPanel.Dock="Left" FontSize="16" Padding="30,20,0,10"
+                           Foreground="#222" Opacity="1" />
+                <Button
+                    Content="+"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Margin="0,0,16,0"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    MinWidth="40"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding AddNewItemCommand}"
+                    Foreground="#555"
+                    DockPanel.Dock="Right" />
             </DockPanel>
-            <GroupBox BorderBrush="#55FFFFFF" Margin="5" Padding="5" BorderThickness="0.1">
+            <!--<ContentPresenter Content="{Binding ItemToAddEditable}" Margin="38,0,6,0"
+                  ContentTemplateSelector="{x:Static local:EditableConfigTemplateSelector.Instance}"
+                  DockPanel.Dock="Top" />-->
+
+            <GroupBox BorderBrush="#FFFFFF" Margin="40,0,0,0" Padding="0" BorderThickness="0">
                 <ItemsControl ItemsSource="{Binding SubEditables}"
                               ItemTemplateSelector="{x:Static local:EditableConfigTemplateSelector.Instance}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" />
+                            <StackPanel Orientation="Vertical"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>

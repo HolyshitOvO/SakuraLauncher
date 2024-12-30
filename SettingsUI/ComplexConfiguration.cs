@@ -22,7 +22,15 @@ namespace FrontendDemo
         //public long Username6 { get; set; }
         public List<string> Username7 { get; set; }
 
+        public Button_Config Username8 { get; set; }
+        public Seekbar_Config Username9 { get; set; }
 
+        public class Button_Config {
+            public string Username2 { get; set; }
+            public string Username3 { get; set; }
+
+        }
+        public class Seekbar_Config { }
 
         [PredefinedValues("Attack helicopter", "I rather not say", "Why is this even important?")]
         [UsedImplicitly]

@@ -25,9 +25,9 @@ using System.Threading;
 namespace RunnerPlugin
 {
 	/// <summary>
-	/// 维护一个actions列表,里面是所有可运行的命令。
-	/// 启动时从配置文件读取,运行时根据输入命令去匹配actions来返回suggestion
-	/// 通过update来更新actions
+	/// 维护一个 actions 列表,里面是所有可运行的命令。
+	/// 启动时从配置文件读取,运行时根据输入命令去匹配 actions 来返回 suggestion
+	/// 通过 update 来更新 actions
 	/// </summary>
 	[Identity("runner")]
 	public sealed class ListedRunnerPlugin : QuickPlugin
@@ -109,8 +109,8 @@ namespace RunnerPlugin
 		}
 
 		/// <summary>
-		/// 读取配置文件runner.json,如果不存在则创建默认配置。
-		/// 解析成CommandData对象列表,然后转成RunCommandAction添加到actions列表中
+		/// 读取配置文件 runner.json,如果不存在则创建默认配置。
+		/// 解析成CommandData对象列表,然后转成RunCommandAction添加到 actions 列表中
 		/// </summary>
 		/// <param name="env"></param>
 		internal void UpdateConfigurations(ICurrentEnvironment env)
@@ -163,7 +163,7 @@ namespace RunnerPlugin
 			}
 
 
-			// 读取json
+			// 读取 json
 			FileStream stream = System.IO.File.Open(filename, FileMode.Open);
 			ListRecord record = Hake.Extension.ValueRecord.Json.Converter.ReadJson(stream) as ListRecord;
 			stream.Close();
@@ -356,7 +356,7 @@ namespace RunnerPlugin
 		/// <param name="isSearchSubFolder">是否搜索子文件夹</param>
 		public void TraverseFiles(string folderPath, bool isSearchSubFolder, List<string> exts, List<string> excludeWords, List<string> excludes, List<string> renameSource, List<string> renameTarget)
 		{
-			// 修正null 值的情况
+			// 修正 null 值的情况
 			if (exts == null || exts.Count == 0) exts = Constants.DEF_EXT_VALUES;
 			if (excludes == null) excludes = new List<string>();
 			if (excludeWords == null) excludeWords = new List<string>();

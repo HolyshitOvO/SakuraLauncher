@@ -43,5 +43,32 @@ namespace FrontendDemo
             }
         }
 
+        private void TextBox_PreviewTextInput_IntType(object sender, TextCompositionEventArgs e)
+        {
+            // 检查输入是否为数字
+            e.Handled = !IsTextNumeric(e.Text);
+        }
+
+        private bool IsTextNumeric(string text)
+        {
+            return int.TryParse(text, out _); // 允许整数输入
+        }
+
+        private void TextBox_PreviewTextInput_DoubleType(object sender, TextCompositionEventArgs e)
+        {
+            // 检查输入是否为有效的浮点数
+            e.Handled = !IsValidDoubleInput((sender as TextBox)?.Text, e.Text);
+        }
+
+        private bool IsValidDoubleInput(string currentText, string newText)
+        {
+            // 合并当前文本和新的输入
+            string combinedText = currentText + newText;
+
+            // 检查是否为有效的浮点数
+            return double.TryParse(combinedText, out _);
+        }
+
+
     }
 }
