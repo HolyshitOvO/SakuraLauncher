@@ -179,15 +179,23 @@ namespace RunnerPlugin
 
 					if (!string.IsNullOrEmpty(cmd.FolderPath) && cmd.FolderPath.Length > 0)
 					{
-						// 标准化文件夹路径，转换相对路径为绝对路径
-						if (cmd.FolderPath.StartsWith("\\") || cmd.FolderPath.StartsWith("."))
+						try
 						{
-							cmd.FolderPath = Path.Combine(configPath, cmd.FolderPath);
+							// 标准化文件夹路径，转换相对路径为绝对路径
+							if (cmd.FolderPath.StartsWith("\\") || cmd.FolderPath.StartsWith("."))
+							{
+								cmd.FolderPath = Path.Combine(configPath, cmd.FolderPath);
+							}
+							// 转换路径里的变量，和长路径转换
+							cmd.FolderPath = PathHelper.GetLongPathName(cmd.FolderPath);
 						}
-						// 转换路径里的变量，和长路径转换
-						cmd.FolderPath  = PathHelper.GetLongPathName(cmd.FolderPath);
-						// 文件夹配置
-						if (Directory.Exists(cmd.FolderPath))
+						catch(Exception ex)
+						{
+                            Console.WriteLine($"An error occurred: {ex.Message}");
+							continue;
+                        }
+                        // 文件夹配置
+                        if (Directory.Exists(cmd.FolderPath))
 						{
 							// 先添加此文件夹到列表
 							actions.Add(new RunCommandAction(cmd.Command, cmd.FolderPath, admin: cmd.Admin, workingDirectory: cmd.FolderPath, isUwpItem: false));

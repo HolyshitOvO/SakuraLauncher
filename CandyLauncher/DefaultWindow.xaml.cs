@@ -244,10 +244,16 @@ namespace CandyLauncher
 		{
 			if (IsVisible == true)
 				return;
-			// 获取所有屏幕信息
-			//System.Windows.Forms.Screen[] screens = System.Windows.Forms.Screen.AllScreens;
-			//screens[0].GetDpi(DpiType.Effective, out uint dpiX, out uint dpiY);
-			System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.PrimaryScreen;
+            FullscreenMode fullscreenMode = context.WindowScreenMode;
+			if(fullscreenMode != FullscreenMode.Windowed)
+			{
+				return;
+			}
+
+            // 获取所有屏幕信息
+            //System.Windows.Forms.Screen[] screens = System.Windows.Forms.Screen.AllScreens;
+            //screens[0].GetDpi(DpiType.Effective, out uint dpiX, out uint dpiY);
+            System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.PrimaryScreen;
 			screen.GetDpi(DpiType.Effective, out uint dpiX, out uint dpiY);
 			float dpiScaleX = dpiX / 96.0f;
 			float dpiScaleY = dpiY / 96.0f;
