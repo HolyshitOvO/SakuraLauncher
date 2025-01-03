@@ -57,6 +57,7 @@ namespace CandyLauncher.Implementation.Services.ProgramContext
 		public FullscreenMode GetCurrentWindowMode()
 		{
 			// 获取目标窗口所在的屏幕
+			var WindowHandle = Win32.GetForegroundWindow();
 			Screen currentScreen = Screen.FromHandle(WindowHandle);
 			//int screenWidth = currentScreen.Bounds.Width;
 			//int screenHeight = currentScreen.Bounds.Height;
