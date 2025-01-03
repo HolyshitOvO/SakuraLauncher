@@ -77,6 +77,7 @@
     <Compile Include="EditableConfigs\EditableDummy.cs" />
     <Compile Include="EditableConfigs\EditableEnum.cs" />
     <Compile Include="EditableConfigs\EditableInt.cs" />
+    <Compile Include="EditableConfigs\EditableJustButton.cs" />
     <Compile Include="EditableConfigs\EditableKeyValuePair.cs" />
     <Compile Include="EditableConfigs\EditableSecureString.cs" />
     <Compile Include="EditableConfigs\EditableString.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="EditableConfigs\IEditableKeyValuePair.cs" />
     <Compile Include="EditableConfigs\InheritingAttribute\InheritedAttributes.cs" />
     <Compile Include="EditableConfigs\IReadOnlyEditableCollection.cs" />
+    <Compile Include="EditableConfigs\MoreConfigItem.cs" />
     <Compile Include="EditableConfigs\ReadonlyEditableCollection.cs" />
     <Compile Include="IRemoveTracking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

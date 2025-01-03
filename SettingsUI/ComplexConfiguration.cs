@@ -8,30 +8,33 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using ReflectSettings.Attributes;
+using ReflectSettings.EditableConfigs;
 
 namespace FrontendDemo
 {
+    /// <summary>
+    ///  not allow float long
+    /// </summary>
     internal class ComplexConfiguration
     {
+        [ConfigTitle("用户名")]
         [UsedImplicitly]
         public string Username { get; set; }
         public string Username2 { get; set; }
         public int Username3 { get; set; }
         public double Username4 { get; set; }
-        //public float Username5 { get; set; }
-        //public long Username6 { get; set; }
+
         public List<string> Username7 { get; set; }
 
-        public Button_Config Username8 { get; set; }
-        public Seekbar_Config Username9 { get; set; }
+		public ButtonClick ButtonGoto { get; set; }
 
-        public class Button_Config {
-            public string Username2 { get; set; }
-            public string Username3 { get; set; }
-
-        }
-        public class Seekbar_Config { }
-
+		public ButtonClick ButtonGoto2 { get; set; }
+        
+        public ButtonClick ButtonGoto3 { get; set; }
+        
+        // TODO: 或者使用 int型，注解的方式
+        // public SliderBarInt NumberRange { get; set; }
+        
         [PredefinedValues("Attack helicopter", "I rather not say", "Why is this even important?")]
         [UsedImplicitly]
         public string Gender { get; set; }

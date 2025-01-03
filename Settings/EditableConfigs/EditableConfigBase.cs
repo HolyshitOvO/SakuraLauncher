@@ -441,9 +441,13 @@ namespace ReflectSettings.EditableConfigs
             }
         }
 
+        /// <summary>
+        ///  获取设置项显示的标题名称 todo 写一个summary
+        /// </summary>
+        /// <returns></returns>
         protected virtual string ResolveDisplayName()
         {
-            return _attributes.OfType<NameAttribute>().FirstOrDefault()?.Name ?? PropertyInfo.Name;
+            return Attribute<ConfigTitle>().ConfigTitleName ?? _attributes.OfType<NameAttribute>().FirstOrDefault()?.Name ?? PropertyInfo.Name;
         }
 
         [NotifyPropertyChangedInvocator]
@@ -453,5 +457,7 @@ namespace ReflectSettings.EditableConfigs
         }
 
         public bool IsRemoving { get; set; }
-    }
+        
+
+	}
 }

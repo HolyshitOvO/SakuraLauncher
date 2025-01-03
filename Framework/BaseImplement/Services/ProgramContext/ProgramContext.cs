@@ -43,7 +43,7 @@ namespace CandyLauncher.Implementation.Services.ProgramContext
 		public int ProcessId { get; }
 		public bool IsDesktop { get { return WindowHandle == DesktopHandle; } }
 		public RECT WindowPosition { get; }
-		public FullscreenMode WindowScreenMode { get { return GetCurrentWindowMode(); } }
+		public FullscreenMode WindowScreenMode { get { return GetCurrentWindowMode(Win32.GetForegroundWindow()); } }
 
 		public ProgramContext()
 		{
@@ -54,10 +54,15 @@ namespace CandyLauncher.Implementation.Services.ProgramContext
 			CurrentProcess = Process.GetProcessById(pid);
 			DesktopHandle = Win32.GetDesktopWindow();
 		}
-		public FullscreenMode GetCurrentWindowMode()
+
+		/// <summary>
+		/// 获取目标窗口的全屏窗口模式
+		/// </summary>
+		/// <param name="WindowHandle">目标窗口</param>
+		/// <returns></returns>
+		public static FullscreenMode GetCurrentWindowMode(IntPtr WindowHandle)
 		{
 			// 获取目标窗口所在的屏幕
-			var WindowHandle = Win32.GetForegroundWindow();
 			Screen currentScreen = Screen.FromHandle(WindowHandle);
 			//int screenWidth = currentScreen.Bounds.Width;
 			//int screenHeight = currentScreen.Bounds.Height;

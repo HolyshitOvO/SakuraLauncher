@@ -16,12 +16,21 @@ namespace FrontendDemo
             InitializeComponent();
 
         }
-        /// <summary>
-        /// 取消掉下拉框的滚动事件，并返回给父布局
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ComboBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+
+		private void OnButtonClick(object sender, RoutedEventArgs e)
+		{
+			if (sender is Button button && button.Tag is string displayName)
+			{
+				MessageBox.Show($"Button clicked! DisplayName: {displayName}");
+			}
+		}
+
+		/// <summary>
+		/// 取消掉下拉框的滚动事件，并返回给父布局
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ComboBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (sender is ComboBox comboBox)
             {

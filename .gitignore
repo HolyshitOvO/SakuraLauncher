@@ -1,5 +1,6 @@
 ; visual studio configuration files
 \.vs
+\.idea
 ZTestConsole1/
 ZTestConsole2/
 QuickZip.IO.PIDL/
