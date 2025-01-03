@@ -19,9 +19,9 @@ namespace FrontendDemo
 
 		private void OnButtonClick(object sender, RoutedEventArgs e)
 		{
-			if (sender is Button button && button.Tag is string displayName)
+			if (sender is Button button && button.Tag is string keyName)
 			{
-				MessageBox.Show($"Button clicked! DisplayName: {displayName}");
+				MessageBox.Show($"Button clicked! KeyName: {keyName}");
 			}
 		}
 

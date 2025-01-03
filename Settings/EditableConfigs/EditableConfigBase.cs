@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -101,7 +102,7 @@ namespace ReflectSettings.EditableConfigs
                                            CalculatedValues.ForThis.Any() ||
                                            CalculatedValuesAsync.ForThis.Any() ||
                                            PropertyInfo.PropertyType.IsEnum;
-
+        
         public bool HasCalculatedType => CalculatedTypes.ForThis.Any();
 
         public ChangeTrackingManager ChangeTrackingManager
@@ -447,7 +448,17 @@ namespace ReflectSettings.EditableConfigs
         /// <returns></returns>
         protected virtual string ResolveDisplayName()
         {
-            return Attribute<ConfigTitle>().ConfigTitleName ?? _attributes.OfType<NameAttribute>().FirstOrDefault()?.Name ?? PropertyInfo.Name;
+            string displayName = Attribute<ConfigTitle>().ConfigTitleName ??
+                                 _attributes.OfType<NameAttribute>().FirstOrDefault()?.Name ?? PropertyInfo.Name;
+            Debug.WriteLine(displayName);
+            return displayName;
+        }
+
+        public string KeyName => GetKeyName();
+
+        protected virtual string GetKeyName()
+        {
+            return _attributes.OfType<NameAttribute>().FirstOrDefault()?.Name ?? PropertyInfo.Name;
         }
 
         [NotifyPropertyChangedInvocator]

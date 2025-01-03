@@ -25,7 +25,8 @@ namespace FrontendDemo
         public double Username4 { get; set; }
 
         public List<string> Username7 { get; set; }
-
+        
+        [ConfigTitle("第一个按钮")]
 		public ButtonClick ButtonGoto { get; set; }
 
 		public ButtonClick ButtonGoto2 { get; set; }
