@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 using ReflectSettings.Attributes;
 using ReflectSettings.EditableConfigs;
 
@@ -26,14 +27,20 @@ namespace FrontendDemo
 
         public List<string> Username7 { get; set; }
         
+        [JsonIgnore]
         [ConfigTitle("第一个按钮")]
 		public ButtonClick ButtonGoto { get; set; }
 
+        [JsonIgnore]
 		public ButtonClick ButtonGoto2 { get; set; }
         
+        [JsonIgnore]
         public ButtonClick ButtonGoto3 { get; set; }
         
-        // TODO: 或者使用 int型，注解的方式
+        // TODO: 添加分隔的tag，添加slider，下拉框的值和显示名需要分离，添加文件选择器级承编辑框
+        // TODO: 添加专门显示文本的（可以延迟加载,参考LoadHtml），快捷键编辑，颜色选择器，更高更大的文本框，
+        // TODO: 有更多按钮的项（可以通过注解来设置多个key，然后在样式里进行一一binding）
+        // TODO: 或者slider使用 int型，注解的方式
         // public SliderBarInt NumberRange { get; set; }
         
         [PredefinedValues("Attack helicopter", "I rather not say", "Why is this even important?")]
