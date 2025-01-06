@@ -285,7 +285,7 @@ namespace ReflectSettings.EditableConfigs
         /// 获取文件选择的筛选扩展的值
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<T> GetFilePathSelectorFilterValues()
+        public string GetFilePathSelectorFilterValues()
         {
             var staticValues = Attribute<FilePathString>();
             // methods with a key are only used when the specific key is used as the resolution name of the attribute
@@ -302,7 +302,18 @@ namespace ReflectSettings.EditableConfigs
                 toReturn.Add(default);
             }
 
-            return toReturn;
+            if (toReturn.Count == 0)
+            {
+                return "";
+            }
+            else if (toReturn[0] is string)
+            {
+                return toReturn[0] as string;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         protected Type GetPredefinedType()

@@ -4,10 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
-using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using ReflectSettings.EditableConfigs;
+using Button = System.Windows.Controls.Button;
+using ComboBox = System.Windows.Controls.ComboBox;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace FrontendDemo
 {
@@ -114,13 +120,44 @@ namespace FrontendDemo
         {
             if (sender is Button button && button.DataContext is EditableString editableString)
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "All Files|*.*"; // 调整文件过滤器
-                if (openFileDialog.ShowDialog() == true)
+                // *.exe
+                // 获取文件筛选器内容
+                string filterValues =editableString.GetFilePathSelectorFilterValues();
+
+                if (filterValues != null && filterValues == "Folder")
                 {
-                    // 更新绑定的数据对象的 Value 属性
-                    editableString.Value = openFileDialog.FileName;
+                    // 使用 FolderBrowserDialog 来选择文件夹
+                    // 使用 CommonOpenFileDialog 来选择文件夹
+                    
+                    // 使用 CommonOpenFileDialog 来选择文件夹
+                    var dialog = new CommonOpenFileDialog
+                    {
+                        IsFolderPicker = true, // 启用文件夹选择模式
+                        Title = "请选择一个文件夹"
+                    };
+
+                    if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                    {
+                        // 更新绑定的数据对象的 Value 属性
+                        editableString.Value = dialog.FileName;
+                    }
+                    
                 }
+                else
+                {
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
+                    // openFileDialog.Filter = "All Files|*.*"; // 调整文件过滤器
+                    // 将筛选内容设置为文件对话框的 Filter
+                    openFileDialog.Filter = string.IsNullOrWhiteSpace(filterValues) ? "All Files|*.*" : filterValues;
+
+                    if (openFileDialog.ShowDialog() == true)
+                    {
+                        // 更新绑定的数据对象的 Value 属性
+                        editableString.Value = openFileDialog.FileName;
+                    }
+
+                }
+                
             }
         }
 
