@@ -103,6 +103,16 @@ namespace ReflectSettings.EditableConfigs
                                            CalculatedValuesAsync.ForThis.Any() ||
                                            PropertyInfo.PropertyType.IsEnum;
         
+        public bool IsShortcutKeyString => _attributes.OfType<ShortcutKeyString>().Any() ||
+                                           CalculatedValues.ForThis.Any() ||
+                                           CalculatedValuesAsync.ForThis.Any() ||
+                                           PropertyInfo.PropertyType.IsEnum;
+        
+        public bool IsFileSelectorString => _attributes.OfType<FilePathString>().Any() ||
+                                           CalculatedValues.ForThis.Any() ||
+                                           CalculatedValuesAsync.ForThis.Any() ||
+                                           PropertyInfo.PropertyType.IsEnum;
+        
         public bool HasCalculatedType => CalculatedTypes.ForThis.Any();
 
         public ChangeTrackingManager ChangeTrackingManager
@@ -254,6 +264,30 @@ namespace ReflectSettings.EditableConfigs
         private IEnumerable<T> GetPredefinedValues()
         {
             var staticValues = Attribute<PredefinedValuesAttribute>();
+            // methods with a key are only used when the specific key is used as the resolution name of the attribute
+            var calculatedValuesAttributes = CalculatedValues.ForThis;
+
+            var calculatedValues =
+                calculatedValuesAttributes.SelectMany(x => x.ResolveValues(CalculatedValues.Inherited));
+
+            var concat = staticValues.Values.Concat(calculatedValues).ToList();
+            var toReturn = concat.OfType<T>().Except(ForbiddenValues()).ToList();
+
+            if (concat.Any(x => x == null))
+            {
+                toReturn.Add(default);
+            }
+
+            return toReturn;
+        }
+
+        /// <summary>
+        /// 获取文件选择的筛选扩展的值
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<T> GetFilePathSelectorFilterValues()
+        {
+            var staticValues = Attribute<FilePathString>();
             // methods with a key are only used when the specific key is used as the resolution name of the attribute
             var calculatedValuesAttributes = CalculatedValues.ForThis;
 

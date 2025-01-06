@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Win32;
+using ReflectSettings.EditableConfigs;
 
 namespace FrontendDemo
 {
@@ -76,6 +78,50 @@ namespace FrontendDemo
 
             // 检查是否为有效的浮点数
             return double.TryParse(combinedText, out _);
+        }
+
+        
+        protected void OnShortcutKeyEdit(object sender, KeyEventArgs e)
+        {
+            if (sender is TextBox textBox) // 确保 sender 是一个 TextBox
+            {
+                ModifierKeys modifiers = Keyboard.Modifiers;
+                Key key = e.Key == Key.System ? e.SystemKey : e.Key;
+
+                // 忽略修饰键单独按下的情况
+                if (key != Key.None && key != Key.LeftCtrl && key != Key.RightCtrl &&
+                    key != Key.LeftAlt && key != Key.RightAlt &&
+                    key != Key.LeftShift && key != Key.RightShift)
+                {
+                    try
+                    {
+                        // 创建 KeyGesture 对象并转换为字符串
+                        var shortcut = new KeyGesture(key, modifiers);
+                        string shortcutText = shortcut.GetDisplayStringForCulture(System.Globalization.CultureInfo.CurrentCulture);
+                        textBox.Text = shortcutText; // 显示友好的快捷键描述
+                    }
+                    catch (NotSupportedException)
+                    {
+                        textBox.Text = "Unsupported Shortcut"; // 如果仍然无效，提示用户
+                    }
+                    // textBox.Text = shortcut.ToString(); // 将快捷键显示在 TextBox 中
+                    e.Handled = true; // 阻止事件进一步传播
+                }
+            }
+        }
+        
+        private void BrowseButtonClick(object sender, RoutedEventArgs routedEventArgs)
+        {
+            if (sender is Button button && button.DataContext is EditableString editableString)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "All Files|*.*"; // 调整文件过滤器
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    // 更新绑定的数据对象的 Value 属性
+                    editableString.Value = openFileDialog.FileName;
+                }
+            }
         }
 
 

@@ -9,5 +9,11 @@ namespace ReflectSettings.EditableConfigs
 		{
 		}
 	}
+	public class GroupTag : NameAttribute
+	{
+		public GroupTag(string name) : base(name)
+		{
+		}
+	}
 
 }

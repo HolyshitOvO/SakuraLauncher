@@ -21,6 +21,10 @@ namespace FrontendDemo
 				case EditableString editableString:
 					if (editableString.HasPredefinedValues)
 						return element?.TryFindResource("EditableStringComboboxTemplate") as DataTemplate;
+					else if (editableString.IsShortcutKeyString)
+						return element?.TryFindResource("EditableShortcutKeyStringTemplate") as DataTemplate;
+					else if (editableString.IsFileSelectorString)
+						return element?.TryFindResource("EditableFileSelectorStringTemplate") as DataTemplate;
 					else
 						return DataTemplateByName(editableString, element);
 				case IEditableKeyValuePair _:
@@ -30,8 +34,10 @@ namespace FrontendDemo
 				case IEditableCollection _:
 					return element?.TryFindResource("EditableCollectionTemplate") as DataTemplate;
 				// 新增的自定义的类型，需要这么去判断
+				case EditableComplex<GroupTag> _:
+					return element?.TryFindResource("GroupTabTemplate") as DataTemplate;
 				case EditableComplex<ButtonClick> _:
-					return element?.TryFindResource("EditableJustButtonTemplate") as DataTemplate;
+					return element?.TryFindResource("JustButtonTemplate") as DataTemplate;
 				case IEditableComplex editableComplex:
 					if (editableComplex.HasPredefinedValues)
 						return element?.TryFindResource("EditableComplexComboboxTemplate") as DataTemplate;

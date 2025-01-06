@@ -18,6 +18,8 @@ namespace ReflectSettings.EditableConfigs
         ObservableCollection<object> PredefinedValues { get; }
 
         bool HasPredefinedValues { get; }
+        bool IsShortcutKeyString { get; }
+        bool IsFileSelectorString { get; }
 
         ChangeTrackingManager ChangeTrackingManager { get; }
 

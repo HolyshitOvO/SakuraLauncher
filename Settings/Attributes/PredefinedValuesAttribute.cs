@@ -25,6 +25,26 @@ namespace ReflectSettings.Attributes
 		}
 	}
 
+	[AttributeUsage(AttributeTargets.Property)]
+	public class FilePathString : Attribute
+	{
+		public IList<object> Values { get; }
+
+		public FilePathString(params object[] predefinedValues)
+		{
+			if (predefinedValues == null)
+				Values = new List<object> {null};
+			else
+				Values = predefinedValues.ToList();
+		}
+
+
+		public FilePathString()
+		{
+			Values = new List<object>();
+		}
+	}
+
 	
 	[AttributeUsage(AttributeTargets.Property)]
 	public class ConfigTitle : Attribute
@@ -39,6 +59,24 @@ namespace ReflectSettings.Attributes
 				ConfigTitleName = title[0] as string;
 		}
 		public ConfigTitle()
+		{
+			ConfigTitleName = null;
+		}
+	}
+
+	[AttributeUsage(AttributeTargets.Property)]
+	public class ShortcutKeyString : Attribute
+	{
+		public string ConfigTitleName { get; }
+
+		public ShortcutKeyString(params object[] title)
+		{
+			if (title == null || title.Length == 0)
+				ConfigTitleName = null;
+			else
+				ConfigTitleName = title[0] as string;
+		}
+		public ShortcutKeyString()
 		{
 			ConfigTitleName = null;
 		}
