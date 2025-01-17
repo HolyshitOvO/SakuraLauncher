@@ -23,8 +23,10 @@ namespace FrontendDemo
 						return element?.TryFindResource("EditableStringComboboxTemplate") as DataTemplate;
 					else if (editableString.IsShortcutKeyString)
 						return element?.TryFindResource("EditableShortcutKeyStringTemplate") as DataTemplate;
-					else if (editableString.IsFileSelectorString)
+					else if (editableString.IsFilePathString)
 						return element?.TryFindResource("EditableFileSelectorStringTemplate") as DataTemplate;
+					else if (editableString.IsColorString)
+						return element?.TryFindResource("EditableColorSelectorRgbaTemplate") as DataTemplate;
 					else
 						return DataTemplateByName(editableString, element);
 				case IEditableKeyValuePair _:

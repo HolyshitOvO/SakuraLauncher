@@ -18,6 +18,14 @@ namespace FrontendDemo
     /// </summary>
     internal class ComplexConfiguration
     {
+        [ConfigTitle("颜色选择器1")]
+        [ColorString("HEX","IsAlpha")]
+        public string ColorSelect1 { get; set; }
+        
+        [ConfigTitle("颜色选择器2")]
+        [ColorString("RGBA","NotAlpha")]
+        public string ColorSelect2 { get; set; }
+        
         [ConfigTitle("选择文件夹")]
         [FilePathString("Folder")]
         public string FolderPathSelect1 { get; set; }
@@ -59,6 +67,7 @@ namespace FrontendDemo
         // TODO: 或者slider使用 int型，注解的方式
         // public SliderBarInt NumberRange { get; set; }
         
+        [PredefinedNames("攻击直升机", "我宁愿不说", "为什么这很重要?")]
         [PredefinedValues("Attack helicopter", "I rather not say", "Why is this even important?")]
         [UsedImplicitly]
         public string Gender { get; set; }

@@ -65,6 +65,12 @@
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PropertyTools, Version=3.1.0.0, Culture=neutral, PublicKeyToken=ea0c9f2b460934d0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyTools.3.1.0\lib\net45\PropertyTools.dll</HintPath>
+    </Reference>
+    <Reference Include="PropertyTools.Wpf, Version=3.1.0.0, Culture=neutral, PublicKeyToken=ea0c9f2b460934d0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyTools.Wpf.3.1.0\lib\net45\PropertyTools.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />

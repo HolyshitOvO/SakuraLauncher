@@ -16,10 +16,12 @@ namespace ReflectSettings.EditableConfigs
         object Value { get; set; }
 
         ObservableCollection<object> PredefinedValues { get; }
+        ObservableCollection<object> PredefinedNames { get; }
 
         bool HasPredefinedValues { get; }
         bool IsShortcutKeyString { get; }
-        bool IsFileSelectorString { get; }
+        bool IsFilePathString { get; }
+        bool IsColorString { get; }
 
         ChangeTrackingManager ChangeTrackingManager { get; }
 

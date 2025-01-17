@@ -468,6 +468,38 @@
         </Border>
     </DataTemplate>
     
+    <DataTemplate x:Key="EditableColorSelectorRgbaTemplate" DataType="{x:Type editableConfigs:EditableString}">
+        <Border
+				Background="White"
+				Padding="20,10,20,10"
+				Margin="10,2,10,2"
+				CornerRadius="6"
+				x:Name="DropDown"
+				SnapsToDevicePixels="True"
+				BorderBrush="#e2e2e2"
+				BorderThickness="1"
+				>
+            <DockPanel>
+                <TextBlock
+					DockPanel.Dock="Left"
+					Text="{Binding DisplayName, StringFormat={}{0}:}" 
+					Width="Auto"
+					Foreground="Black"
+					FontSize="16"
+					FontWeight="Normal" 
+					VerticalAlignment="Center" />
+                <TextBox x:Name="FilePathTextBox" Text="{Binding Value}" HorizontalAlignment="Stretch" Width="Auto" Margin="5,0,10,0"/>
+                <Button Tag="{Binding Value}"
+                        Content="Browse"
+                        HorizontalAlignment="Right"
+                        Width="75"
+                        Click="BrowseButtonClick"
+                        />
+
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+    
     <!--下拉框条目-->
     <DataTemplate x:Key="EditableEnumTemplate" DataType="{x:Type editableConfigs:IEditableEnum}">
         <Border

@@ -97,8 +97,15 @@ namespace ReflectSettings.EditableConfigs
         protected MinMaxAttribute MinMax() => Attribute<MinMaxAttribute>();
 
         public ObservableCollection<object> PredefinedValues { get; } = new ObservableCollection<object>();
+        // todo: 完善key名 和显示名分离
+        public ObservableCollection<object> PredefinedNames { get; } = new ObservableCollection<object>();
 
         public bool HasPredefinedValues => _attributes.OfType<PredefinedValuesAttribute>().Any() ||
+                                           CalculatedValues.ForThis.Any() ||
+                                           CalculatedValuesAsync.ForThis.Any() ||
+                                           PropertyInfo.PropertyType.IsEnum;
+        
+        public bool IsColorString => _attributes.OfType<ColorString>().Any() ||
                                            CalculatedValues.ForThis.Any() ||
                                            CalculatedValuesAsync.ForThis.Any() ||
                                            PropertyInfo.PropertyType.IsEnum;
@@ -108,7 +115,7 @@ namespace ReflectSettings.EditableConfigs
                                            CalculatedValuesAsync.ForThis.Any() ||
                                            PropertyInfo.PropertyType.IsEnum;
         
-        public bool IsFileSelectorString => _attributes.OfType<FilePathString>().Any() ||
+        public bool IsFilePathString => _attributes.OfType<FilePathString>().Any() ||
                                            CalculatedValues.ForThis.Any() ||
                                            CalculatedValuesAsync.ForThis.Any() ||
                                            PropertyInfo.PropertyType.IsEnum;

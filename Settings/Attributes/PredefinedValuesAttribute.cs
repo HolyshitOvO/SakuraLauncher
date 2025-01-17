@@ -26,6 +26,26 @@ namespace ReflectSettings.Attributes
 	}
 
 	[AttributeUsage(AttributeTargets.Property)]
+	public class PredefinedNames : Attribute
+	{
+		public IList<object> Values { get; }
+
+		public PredefinedNames(params object[] predefinedValues)
+		{
+			if (predefinedValues == null)
+				Values = new List<object> {null};
+			else
+				Values = predefinedValues.ToList();
+		}
+
+
+		public PredefinedNames()
+		{
+			Values = new List<object>();
+		}
+	}
+
+	[AttributeUsage(AttributeTargets.Property)]
 	public class FilePathString : Attribute
 	{
 		public IList<object> Values { get; }
@@ -40,6 +60,26 @@ namespace ReflectSettings.Attributes
 
 
 		public FilePathString()
+		{
+			Values = new List<object>();
+		}
+	}
+
+	[AttributeUsage(AttributeTargets.Property)]
+	public class ColorString : Attribute
+	{
+		public IList<object> Values { get; }
+
+		public ColorString(params object[] predefinedValues)
+		{
+			if (predefinedValues == null)
+				Values = new List<object> {null};
+			else
+				Values = predefinedValues.ToList();
+		}
+
+
+		public ColorString()
 		{
 			Values = new List<object>();
 		}
