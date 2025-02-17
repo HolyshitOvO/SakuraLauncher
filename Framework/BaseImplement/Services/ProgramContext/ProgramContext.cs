@@ -26,7 +26,10 @@ namespace CandyLauncher.Implementation.Services.ProgramContext
 			public static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);
 			[DllImport("user32.dll")]
 			public static extern IntPtr GetDesktopWindow();
-			public const int GWL_STYLE = -16;
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
+            public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+
+            public const int GWL_STYLE = -16;
 			public const uint WS_BORDER = 0x00800000;
 			public const uint WS_CAPTION = 0x00C00000;
 
@@ -77,7 +80,15 @@ namespace CandyLauncher.Implementation.Services.ProgramContext
 				rect.Right == currentScreen.Bounds.Right &&
 				rect.Bottom == currentScreen.Bounds.Bottom)
 			{
-				return FullscreenMode.Borderless;
+                // 检查窗口是否为桌面进程 "ahk_class Progman"
+                const string DesktopClassName = "Progman";
+                StringBuilder className = new StringBuilder(256);
+                Win32.GetClassName(WindowHandle, className, className.Capacity);
+                if (className.ToString() == DesktopClassName)
+                {
+                    return FullscreenMode.Windowed;
+                }
+                return FullscreenMode.Borderless;
 			}
 
 			// 检查窗口是否占满整个屏幕并隐藏任务栏
@@ -94,5 +105,5 @@ namespace CandyLauncher.Implementation.Services.ProgramContext
 			return FullscreenMode.Windowed;
 		}
 
-	}
+    }
 }
